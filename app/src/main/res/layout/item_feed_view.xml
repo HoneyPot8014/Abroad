@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/feed_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="14dp"
+        android:layout_marginTop="14dp"
+        android:layout_marginEnd="14dp"
+        android:textColor="#303030"
+        android:textSize="20dp"
+        android:textStyle="bold"
+        tools:text="인센 언제나와?" />
+
+    <TextView
+        android:id="@+id/feed_content"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="14dp"
+        android:layout_marginTop="14dp"
+        android:layout_marginEnd="14dp"
+        android:layout_marginBottom="8dp"
+        android:ellipsize="end"
+        android:maxLines="2"
+        android:textSize="16dp"
+        tools:text="정확한 날짜 안알려줌? 제발 10km 미만 속도 유지 좀 해주세요. 제발요. 아까 한 손에 폰 들고 어쩌구 가나다라마바사아자차카파타하" />
+
+    <TextView
+        android:id="@+id/feed_writer"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="14dp"
+        android:layout_marginTop="14dp"
+        android:layout_marginEnd="14dp"
+        android:layout_marginBottom="8dp"
+        android:textColor="#86ab9f"
+        android:textSize="14dp"
+        tools:text="이혜주" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginTop="4dp"
+        android:background="@color/divider" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="end"
+        tools:text="2019.12.28.Sat"
+        android:textColor="#AAAAAA"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="14dp"
+        android:layout_marginBottom="8dp"
+        android:textSize="12dp" />
+
+</LinearLayout>
