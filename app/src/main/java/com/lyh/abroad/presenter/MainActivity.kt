@@ -1,7 +1,8 @@
-package com.lyh.abroad
+package com.lyh.abroad.presenter
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import com.lyh.abroad.R
 
 class MainActivity : AppCompatActivity() {
 
