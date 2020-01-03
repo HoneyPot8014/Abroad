@@ -1,4 +1,4 @@
-package com.lyh.dailydialog.presenter.base
+package com.lyh.abroad.presenter.base
 
 import androidx.lifecycle.ViewModel
 import kotlinx.coroutines.CoroutineScope

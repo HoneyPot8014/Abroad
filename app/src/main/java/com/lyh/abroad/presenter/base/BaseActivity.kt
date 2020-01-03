@@ -1,4 +1,4 @@
-package com.lyh.dailydialog.presenter.base
+package com.lyh.abroad.presenter.base
 
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModel
