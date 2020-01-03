@@ -4,7 +4,7 @@ import com.lyh.abroad.domain.entity.FeedEntity
 
 interface FeedRepository {
 
-    suspend fun fetchFeed(): FeedEntity
+    suspend fun fetchFeedList(countryCode: String, country: String): List<FeedEntity>
 
     suspend fun setFeed(feedEntity: FeedEntity)
 
