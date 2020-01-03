@@ -1,11 +1,11 @@
 package com.lyh.abroad.domain.interactor
 
-abstract class BaseUsecase<T> {
+abstract class BaseUsecase<T, P: BaseUsecase.Param> {
 
-    class Param
+    open class Param
 
-    protected abstract suspend fun bindUsecase(param: Param? = null): T
+    protected abstract suspend fun bindUsecase(param: P? = null): T?
 
-    suspend fun execute(param: Param? = null): T = bindUsecase(param)
+    open suspend fun execute(param: P? = null): T? = bindUsecase(param)
 
 }
