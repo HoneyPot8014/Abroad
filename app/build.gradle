@@ -54,6 +54,8 @@ dependencies {
     implementation "com.squareup.okhttp3:logging-interceptor:$retrofit_logging_version"
     // aac
     implementation "androidx.lifecycle:lifecycle-extensions:$aac_version"
+    // firebase database
+    implementation "com.google.firebase:firebase-database:$firebase_database_version"
     // databinding
     kapt "com.android.databinding:compiler:$databinding_version"
 }
