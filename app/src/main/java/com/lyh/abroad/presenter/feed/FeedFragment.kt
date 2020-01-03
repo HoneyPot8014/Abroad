@@ -2,21 +2,17 @@ package com.lyh.abroad.presenter.feed
 
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
-
+import androidx.fragment.app.activityViewModels
 import com.lyh.abroad.R
+import com.lyh.abroad.presenter.base.ViewModelFactory
+import com.lyh.abroad.presenter.base.BaseFragment
 
-class FeedFragment : Fragment() {
+class FeedFragment : BaseFragment(R.layout.fragment_feed) {
 
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_feed, container, false)
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        activityViewModels<FeedViewModel>(ViewModelFactory::get).value
     }
 
 
