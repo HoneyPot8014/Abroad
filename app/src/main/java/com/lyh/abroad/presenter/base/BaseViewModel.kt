@@ -1,5 +1,6 @@
 package com.lyh.abroad.presenter.base
 
+import androidx.annotation.StringRes
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import kotlinx.coroutines.CoroutineScope
@@ -18,7 +19,7 @@ open class BaseViewModel : ViewModel() {
         super.onCleared()
     }
 
-    open class Reason
+    open class Reason(@StringRes val message: Int)
 
     sealed class Status {
         object Success : Status()

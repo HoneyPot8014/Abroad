@@ -14,6 +14,7 @@ android {
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        multiDexEnabled true
     }
     buildTypes {
         release {
@@ -25,7 +26,7 @@ android {
         enabled = true
     }
     kotlinOptions {
-        jvmTarget= "1.8"
+        jvmTarget = "1.8"
     }
 }
 
@@ -59,5 +60,6 @@ dependencies {
     // firebase auth
     implementation "com.google.firebase:firebase-auth:$firebase_auth_version"
     // databinding
+    implementation 'androidx.legacy:legacy-support-v4:1.0.0'
     kapt "com.android.databinding:compiler:$databinding_version"
 }

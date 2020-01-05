@@ -40,7 +40,7 @@ class SignViewModel(
         }
     }
 
-    sealed class FailReason(val reason: Int) : Reason() {
+    sealed class FailReason(message: Int) : Reason(message) {
         object WrongEmail: FailReason(R.string.wrong_email)
         object WrongPassword: FailReason(R.string.wrong_password)
         object EmptyEmail: FailReason(R.string.empty_email)

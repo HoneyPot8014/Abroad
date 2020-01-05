@@ -1,6 +1,8 @@
 package com.lyh.abroad.presenter
 
 import android.os.Bundle
+import android.view.View.GONE
+import android.view.View.VISIBLE
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.observe
 import com.lyh.abroad.R
@@ -16,7 +18,6 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
 
         bottom_nav.seletedLiveData.observe(this) {
-            // FEED, CHATTING, POST, ALARM, MY_PAGE
             val fragment = when (it) {
                 FEED -> FeedFragment()
                 CHATTING -> TODO()
@@ -30,6 +31,18 @@ class MainActivity : AppCompatActivity() {
                 .beginTransaction()
                 .replace(R.id.fragment_container, fragment)
                 .commit()
+        }
+    }
+
+    fun hideBottomNav() {
+        if (bottom_nav.visibility == VISIBLE) {
+            bottom_nav.visibility = GONE
+        }
+    }
+
+    fun showBottomNav() {
+        if (bottom_nav.visibility == GONE) {
+            bottom_nav.visibility = VISIBLE
         }
     }
 }

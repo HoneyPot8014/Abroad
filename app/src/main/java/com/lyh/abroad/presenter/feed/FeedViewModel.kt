@@ -1,6 +1,7 @@
 package com.lyh.abroad.presenter.feed
 
 import androidx.lifecycle.MutableLiveData
+import com.lyh.abroad.R
 import com.lyh.abroad.domain.interactor.feed.GetFeedUsecase
 import com.lyh.abroad.domain.model.ResultModel
 import com.lyh.abroad.presenter.base.BaseViewModel
@@ -31,7 +32,7 @@ class FeedViewModel(
         }
     }
 
-    sealed class FailReason: Reason() {
-        object NetworkFailed : FailReason()
+    sealed class FailReason(message: Int): Reason(message) {
+        object NetworkFailed : FailReason(R.string.no_auth)
     }
 }

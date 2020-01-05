@@ -25,10 +25,17 @@ class SignInFragment : BaseFragment(R.layout.fragment_sign_in) {
         setUpBinding()
         showCardAnim()
         observeLoginStatus()
+        sign_in_sign_up.setOnClickListener {
+            activity?.supportFragmentManager
+                ?.beginTransaction()
+                ?.replace(R.id.fragment_container, SignUpFragment())
+                ?.addToBackStack(null)
+                ?.commit()
+        }
     }
 
     private fun setUpBinding() {
-        binding = FragmentSignInBinding.bind(view ?:return).apply {
+        binding = FragmentSignInBinding.bind(view ?: return).apply {
             lifecycleOwner = viewLifecycleOwner
             signViewModel =
                 viewModels<SignViewModel>({ this@SignInFragment }, ViewModelFactory::get).value
@@ -38,7 +45,7 @@ class SignInFragment : BaseFragment(R.layout.fragment_sign_in) {
     private fun showCardAnim() {
         ValueAnimator.ofFloat(500f, 0f).apply {
             addUpdateListener {
-                sign_in_card.translationY = animatedValue as Float
+                sign_in_card?.translationY = animatedValue as Float
             }
             duration = 600
             interpolator = AccelerateInterpolator()
@@ -53,7 +60,7 @@ class SignInFragment : BaseFragment(R.layout.fragment_sign_in) {
                 Loading -> TODO()
                 is Failed -> {
                     if (it.reason is FailReason) {
-                        showSnackMessage(context?.getString(it.reason.reason) ?: return@observe)
+                        showSnackMessage(context?.getString(it.reason.message) ?: return@observe)
                     }
                 }
             }
