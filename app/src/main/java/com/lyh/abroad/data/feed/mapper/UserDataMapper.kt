@@ -5,8 +5,8 @@ import com.lyh.abroad.domain.entity.UserEntity
 
 object UserDataMapper {
 
-    fun toEntity(userDataModel: UserDataModel): UserEntity? {
-        return if (userDataModel.isEmpty()) {
+    fun toEntity(userDataModel: UserDataModel?): UserEntity? {
+        return if (userDataModel == null || userDataModel.isEmpty()) {
             null
         } else {
             UserEntity(

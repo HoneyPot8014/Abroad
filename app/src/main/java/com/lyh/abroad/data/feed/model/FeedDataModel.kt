@@ -19,12 +19,12 @@ data class FeedDataModel(
     val userName: String? = null
 ) {
     fun isEmpty(): Boolean =
-        chattingRoomId == null &&
-                contents == null &&
-                createDate == null &&
-                endDate == null &&
-                startDate == null &&
-                title == null &&
-                uid == null &&
+        chattingRoomId == null ||
+                contents == null ||
+                createDate == null ||
+                endDate == null ||
+                startDate == null ||
+                title == null ||
+                uid == null ||
                 userName == null
 }

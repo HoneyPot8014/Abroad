@@ -19,12 +19,12 @@ data class UserDataModel(
     val userName: String? = null
 ) {
     fun isEmpty(): Boolean =
-        countryCode == null &&
-                currentCountry == null &&
-                planContent == null &&
-                pushToken == null &&
-                uid == null &&
-                userId == null &&
-                userImageUrl == null &&
+        countryCode == null ||
+                currentCountry == null ||
+                planContent == null ||
+                pushToken == null ||
+                uid == null ||
+                userId == null ||
+                userImageUrl == null ||
                 userName == null
 }
