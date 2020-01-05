@@ -17,6 +17,7 @@ object FeedRemoteSource : FeedSource {
         suspendCancellableCoroutine {
             db.child(countryCode)
                 .child(country)
+                .orderByChild("createDate")
                 .addListenerForSingleValueEvent(object : ValueEventListener {
                     override fun onCancelled(p0: DatabaseError) {
                         it.cancel(p0.toException())

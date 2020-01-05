@@ -3,7 +3,7 @@ package com.lyh.abroad.data.feed.mapper
 import com.lyh.abroad.data.feed.model.FeedDataModel
 import com.lyh.abroad.domain.entity.FeedEntity
 
-object FeedEntityMapper {
+object FeedDataMapper {
 
     fun toEntity(feedDataModel: FeedDataModel): FeedEntity? {
         return if (feedDataModel.isEmpty()) {
