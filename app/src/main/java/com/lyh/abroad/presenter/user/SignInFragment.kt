@@ -5,7 +5,7 @@ import android.animation.ValueAnimator
 import android.os.Bundle
 import android.view.View
 import android.view.animation.AccelerateInterpolator
-import androidx.fragment.app.viewModels
+import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.observe
 import com.lyh.abroad.R
 import com.lyh.abroad.databinding.FragmentSignInBinding
@@ -39,7 +39,7 @@ class SignInFragment : BaseFragment(R.layout.fragment_sign_in) {
         binding = FragmentSignInBinding.bind(view ?: return).apply {
             lifecycleOwner = viewLifecycleOwner
             signViewModel =
-                viewModels<SignViewModel>({ this@SignInFragment }, ViewModelFactory::get).value
+                activityViewModels<SignViewModel>(ViewModelFactory::get).value
         }
     }
 
@@ -70,5 +70,4 @@ class SignInFragment : BaseFragment(R.layout.fragment_sign_in) {
             }
         }
     }
-
 }
