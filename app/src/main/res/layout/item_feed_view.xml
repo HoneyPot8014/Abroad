@@ -27,11 +27,12 @@
         android:layout_marginBottom="8dp"
         android:ellipsize="end"
         android:maxLines="2"
+        android:textColor="#979797"
         android:textSize="16dp"
         tools:text="정확한 날짜 안알려줌? 제발 10km 미만 속도 유지 좀 해주세요. 제발요. 아까 한 손에 폰 들고 어쩌구 가나다라마바사아자차카파타하" />
 
     <TextView
-        android:id="@+id/feed_writer"
+        android:id="@+id/feed_writer_id"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="14dp"
@@ -49,14 +50,15 @@
         android:background="@color/divider" />
 
     <TextView
+        android:id="@+id/feed_create_date"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="end"
-        tools:text="2019.12.28.Sat"
-        android:textColor="#AAAAAA"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="14dp"
         android:layout_marginBottom="8dp"
-        android:textSize="12dp" />
+        android:textColor="#AAAAAA"
+        android:textSize="12dp"
+        tools:text="2019.12.28.Sat" />
 
 </LinearLayout>
