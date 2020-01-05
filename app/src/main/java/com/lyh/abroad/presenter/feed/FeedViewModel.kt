@@ -2,6 +2,7 @@ package com.lyh.abroad.presenter.feed
 
 import androidx.lifecycle.MutableLiveData
 import com.lyh.abroad.domain.interactor.feed.GetFeedUsecase
+import com.lyh.abroad.domain.model.ResultModel
 import com.lyh.abroad.presenter.base.BaseViewModel
 import com.lyh.abroad.presenter.mapper.FeedMapper
 import com.lyh.abroad.presenter.model.Feed
@@ -9,7 +10,7 @@ import kotlinx.coroutines.launch
 
 class FeedViewModel(
     private val getFeedUsecase: GetFeedUsecase
-): BaseViewModel() {
+) : BaseViewModel() {
 
     private val _feedListLiveData = MutableLiveData<List<Feed>>()
     val feedListLiveData
@@ -17,9 +18,20 @@ class FeedViewModel(
 
     init {
         viewModelScope.launch {
-            val result = getFeedUsecase.execute(GetFeedUsecase.FeedParam("KR", "temp"))
-                .map { FeedMapper.toModel(it) }
-            _feedListLiveData.value = result
+            getFeedUsecase.execute(GetFeedUsecase.FeedParam("KR", "temp")).run {
+                if (status == ResultModel.Status.SUCCESS) {
+                    data?.map { FeedMapper.toModel(it) }
+                        .also {
+                            _feedListLiveData.value = it
+                        }
+                } else {
+                    _statusLiveData.value = Status.Failed(FailReason.NetworkFailed)
+                }
+            }
         }
+    }
+
+    sealed class FailReason: Reason() {
+        object NetworkFailed : FailReason()
     }
 }

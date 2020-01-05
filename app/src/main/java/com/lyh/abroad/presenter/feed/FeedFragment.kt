@@ -43,9 +43,7 @@ class FeedFragment : BaseFragment(R.layout.fragment_feed) {
                 }
             }
             layoutManager = LinearLayoutManager(context, RecyclerView.VERTICAL, false)
-            addItemDecoration(
-                FeedListDivider(4f)
-            )
+            addItemDecoration(FeedListDivider(4f))
         }
     }
 }

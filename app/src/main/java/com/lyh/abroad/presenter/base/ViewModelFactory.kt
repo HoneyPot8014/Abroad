@@ -3,9 +3,14 @@ package com.lyh.abroad.presenter.base
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.lyh.abroad.data.feed.repository.FeedRepositoryImpl
+import com.lyh.abroad.data.feed.repository.UserRepositoryImpl
 import com.lyh.abroad.data.feed.source.feed.FeedRemoteSource
+import com.lyh.abroad.data.feed.source.user.UserAuth
+import com.lyh.abroad.data.feed.source.user.UserRemoteSource
 import com.lyh.abroad.domain.interactor.feed.GetFeedUsecase
+import com.lyh.abroad.domain.interactor.user.LogInUsecase
 import com.lyh.abroad.presenter.feed.FeedViewModel
+import com.lyh.abroad.presenter.user.SignViewModel
 
 object ViewModelFactory {
 
@@ -17,7 +22,14 @@ object ViewModelFactory {
                         modelClass
                             .getConstructor(GetFeedUsecase::class.java)
                             .newInstance(
-                                GetFeedUsecase(FeedRepositoryImpl(FeedRemoteSource))
+                                GetFeedUsecase(FeedRepositoryImpl.getInstance(FeedRemoteSource))
+                            )
+                    }
+                    modelClass.isAssignableFrom(SignViewModel::class.java) -> {
+                        modelClass
+                            .getConstructor(LogInUsecase::class.java)
+                            .newInstance(
+                                LogInUsecase(UserRepositoryImpl.getInstance(UserAuth, UserRemoteSource))
                             )
                     }
                     else -> throw Exception("can not create ViewModel : ${modelClass.name}")
