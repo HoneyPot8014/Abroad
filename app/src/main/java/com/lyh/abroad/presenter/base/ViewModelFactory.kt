@@ -3,7 +3,7 @@ package com.lyh.abroad.presenter.base
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.lyh.abroad.data.feed.repository.FeedRepositoryImpl
-import com.lyh.abroad.data.feed.source.FeedRemoteSource
+import com.lyh.abroad.data.feed.source.feed.FeedRemoteSource
 import com.lyh.abroad.domain.interactor.feed.GetFeedUsecase
 import com.lyh.abroad.presenter.feed.FeedViewModel
 

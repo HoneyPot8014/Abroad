@@ -2,7 +2,7 @@ package com.lyh.abroad.data.feed.repository
 
 import androidx.annotation.UiThread
 import com.lyh.abroad.data.feed.mapper.FeedDataMapper
-import com.lyh.abroad.data.feed.source.FeedSource
+import com.lyh.abroad.data.feed.source.feed.FeedSource
 import com.lyh.abroad.domain.entity.FeedEntity
 import com.lyh.abroad.domain.repository.FeedRepository
 

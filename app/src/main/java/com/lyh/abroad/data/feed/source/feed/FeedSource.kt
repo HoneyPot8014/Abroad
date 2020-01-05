@@ -1,4 +1,4 @@
-package com.lyh.abroad.data.feed.source
+package com.lyh.abroad.data.feed.source.feed
 
 import com.lyh.abroad.data.feed.model.FeedDataModel
 import com.lyh.abroad.domain.entity.FeedEntity

@@ -1,4 +1,4 @@
-package com.lyh.abroad.data.feed.source
+package com.lyh.abroad.data.feed.source.feed
 
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
