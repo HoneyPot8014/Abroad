@@ -8,16 +8,16 @@ import com.lyh.abroad.domain.repository.UserRepository
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 
-class GetUserUsercase(
+class LogInUsecase(
     private val userRepository: UserRepository
-) : BaseUsecase<UserEntity, GetUserUsercase.UserParam>() {
+) : BaseUsecase<UserEntity, LogInUsecase.LogInParam>() {
 
-    data class UserParam(val uid: String) : Param()
+    data class LogInParam(val email: String, val password: String) : Param()
 
-    override suspend fun bindUsecase(param: UserParam?): ResultModel<UserEntity> =
+    override suspend fun bindUsecase(param: LogInParam?): ResultModel<UserEntity> =
         param?.let {
             withContext(Dispatchers.IO) {
-                userRepository.fetchUser(param.uid)
+                userRepository.fetchUserWithLogIn(it.email, it.password)
             }
         } ?: ResultModel.onFailed(AppException.NullParamException())
 }
