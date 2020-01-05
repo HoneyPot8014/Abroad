@@ -20,7 +20,8 @@ object FeedMapper {
             feedEntity.endDate,
             feedEntity.startDate,
             feedEntity.title,
-            feedEntity.uid
+            feedEntity.uid,
+            feedEntity.userName
         )
     }
 }

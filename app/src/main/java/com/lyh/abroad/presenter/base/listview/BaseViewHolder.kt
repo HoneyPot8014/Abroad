@@ -1,4 +1,4 @@
-package com.lyh.abroad.presenter.base
+package com.lyh.abroad.presenter.base.listview
 
 import android.view.View
 import androidx.recyclerview.widget.RecyclerView

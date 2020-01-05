@@ -39,8 +39,8 @@
         android:layout_marginTop="14dp"
         android:layout_marginEnd="14dp"
         android:layout_marginBottom="8dp"
-        android:textColor="#86ab9f"
-        android:textSize="14dp"
+        android:textColor="@color/colorAccent"
+        android:textSize="13dp"
         tools:text="이혜주" />
 
     <View
