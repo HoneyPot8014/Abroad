@@ -3,6 +3,7 @@ package com.lyh.abroad.presenter.base
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProviders
+import com.google.android.material.snackbar.Snackbar
 
 open class BaseFragment(contentLayoutId: Int) : Fragment(contentLayoutId) {
 
@@ -24,4 +25,7 @@ open class BaseFragment(contentLayoutId: Int) : Fragment(contentLayoutId) {
     private fun <T : ViewModel> newViewModel(modelClass: Class<out T>): T =
         ViewModelProviders.of(this).get(modelClass)
 
+    fun showSnackMessage(text: String) {
+        Snackbar.make(view!!, text, Snackbar.LENGTH_LONG).show()
+    }
 }

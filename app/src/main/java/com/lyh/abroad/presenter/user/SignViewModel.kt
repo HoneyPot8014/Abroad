@@ -1,6 +1,7 @@
 package com.lyh.abroad.presenter.user
 
 import androidx.lifecycle.MutableLiveData
+import com.lyh.abroad.R
 import com.lyh.abroad.domain.interactor.user.LogInUsecase
 import com.lyh.abroad.domain.model.ResultModel
 import com.lyh.abroad.presenter.base.BaseViewModel
@@ -39,12 +40,12 @@ class SignViewModel(
         }
     }
 
-    sealed class FailReason : Reason() {
-        object WrongEmail: FailReason()
-        object WrongPassword: FailReason()
-        object EmptyEmail: FailReason()
-        object EmptyPassword: FailReason()
-        object NoAuth: FailReason()
+    sealed class FailReason(val reason: Int) : Reason() {
+        object WrongEmail: FailReason(R.string.wrong_email)
+        object WrongPassword: FailReason(R.string.wrong_password)
+        object EmptyEmail: FailReason(R.string.empty_email)
+        object EmptyPassword: FailReason(R.string.empty_password)
+        object NoAuth: FailReason(R.string.no_auth)
     }
 
 }

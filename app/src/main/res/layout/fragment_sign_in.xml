@@ -46,6 +46,7 @@
             app:layout_constraintTop_toBottomOf="@id/sign_in_logo" />
 
         <androidx.cardview.widget.CardView
+            android:id="@+id/sign_in_card"
             android:layout_width="0dp"
             android:layout_height="9999dp"
             android:layout_marginTop="40dp"
@@ -66,14 +67,14 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="4dp"
                     android:layout_marginTop="10dp"
-                    android:text="Email"
+                    android:text="@string/email"
                     android:textColor="@color/colorPrimary"
                     android:textSize="20dp" />
 
                 <com.google.android.material.textfield.TextInputLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="아이디를 입력해주세요">
+                    android:hint="@string/hint_email">
 
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/sign_in_email"
@@ -89,14 +90,14 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="4dp"
                     android:layout_marginTop="22dp"
-                    android:text="Password"
+                    android:text="@string/password"
                     android:textColor="@color/colorPrimary"
                     android:textSize="20dp" />
 
                 <com.google.android.material.textfield.TextInputLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="비밀번호를 입력해주세요">
+                    android:hint="@string/hint_password">
 
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/sign_in_password"
@@ -114,7 +115,7 @@
                     android:layout_marginTop="22dp"
                     android:background="@drawable/shape_round"
                     android:onClick="@{() -> signViewModel.signIn()}"
-                    android:text="시작하기"
+                    android:text="@string/start"
                     android:textColor="@android:color/white" />
 
                 <TextView
@@ -124,7 +125,7 @@
                     android:layout_gravity="end"
                     android:layout_marginTop="4dp"
                     android:padding="5dp"
-                    android:text="아직 회원이 아니신가요?" />
+                    android:text="@string/not_yet_member" />
 
             </LinearLayout>
 

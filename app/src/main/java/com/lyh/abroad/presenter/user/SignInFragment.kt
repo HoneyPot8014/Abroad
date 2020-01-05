@@ -1,35 +1,63 @@
 package com.lyh.abroad.presenter.user
 
 
+import android.animation.ValueAnimator
 import android.os.Bundle
 import android.view.View
-import android.widget.Toast
+import android.view.animation.AccelerateInterpolator
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.observe
 import com.lyh.abroad.R
 import com.lyh.abroad.databinding.FragmentSignInBinding
 import com.lyh.abroad.presenter.base.BaseFragment
-import com.lyh.abroad.presenter.base.BaseViewModel
+import com.lyh.abroad.presenter.base.BaseViewModel.Status.*
 import com.lyh.abroad.presenter.base.ViewModelFactory
+import com.lyh.abroad.presenter.user.SignViewModel.FailReason
+import kotlinx.android.synthetic.main.fragment_sign_in.*
 
 class SignInFragment : BaseFragment(R.layout.fragment_sign_in) {
 
+    private lateinit var binding: FragmentSignInBinding
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        FragmentSignInBinding.bind(view).apply {
+
+        setUpBinding()
+        showCardAnim()
+        observeLoginStatus()
+    }
+
+    private fun setUpBinding() {
+        binding = FragmentSignInBinding.bind(view ?:return).apply {
             lifecycleOwner = viewLifecycleOwner
             signViewModel =
                 viewModels<SignViewModel>({ this@SignInFragment }, ViewModelFactory::get).value
+        }
+    }
 
-            viewModels<SignViewModel>({ this@SignInFragment }, ViewModelFactory::get).value.statusLiveData.observe(this@SignInFragment.viewLifecycleOwner) {
-                when (it) {
-                    BaseViewModel.Status.Success -> Toast.makeText(this@SignInFragment.requireContext(), "성공", Toast.LENGTH_LONG).show()
+    private fun showCardAnim() {
+        ValueAnimator.ofFloat(500f, 0f).apply {
+            addUpdateListener {
+                sign_in_card.translationY = animatedValue as Float
+            }
+            duration = 600
+            interpolator = AccelerateInterpolator()
+            start()
+        }
+    }
+
+    private fun observeLoginStatus() {
+        binding.signViewModel?.statusLiveData?.observe(this@SignInFragment.viewLifecycleOwner) {
+            when (it) {
+                Success -> TODO()
+                Loading -> TODO()
+                is Failed -> {
+                    if (it.reason is FailReason) {
+                        showSnackMessage(context?.getString(it.reason.reason) ?: return@observe)
+                    }
                 }
             }
         }
-
-
     }
-
 
 }

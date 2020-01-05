@@ -23,7 +23,7 @@ open class BaseViewModel : ViewModel() {
     sealed class Status {
         object Success : Status()
         object Loading : Status()
-        class Failed(reason: Reason) : Status()
+        class Failed(val reason: Reason) : Status()
     }
 
 }
