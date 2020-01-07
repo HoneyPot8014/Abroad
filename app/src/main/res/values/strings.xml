@@ -24,8 +24,16 @@
 
     <!--  로그인, 회원가입 오류 메세지  -->
     <string name="empty_email">이메일을 입력해주세요</string>
-    <string name="wrong_email">이메일 형식이 올바르지 않습니다.</string>
     <string name="empty_password">비밀번호를 입력해주세요</string>
-    <string name="wrong_password">비밀번호 6자리 이상 입력해주세요</string>
+    <string name="empty_name">닉네임을 설정해주세요</string>
+    <string name="empty_intro">자기소개를 입력해주세요</string>
+    <string name="empty_profile">프로필 사진을 등록해주세요</string>
+    <string name="wrong_email">이메일 형식이 올바르지 않습니다.</string>
+    <string name="wrong_password">비밀번호는 공백을 포함 할 수 없습니다.</string>
+    <string name="wrong_name">닉네임은 공백을 포함 할 수 없습니다.</string>
+    <string name="wrong_intro">최소 10자 이상의 자기소개를 입력해주세요</string>
+    <string name="short_password">비밀번호 6자리 이상 입력해주세요</string>
+    <string name="btn_sign_up">가입하기</string>
+    <string name="cancel">취소</string>
 
 </resources>

@@ -1,7 +1,6 @@
 package com.lyh.abroad.presenter.feed
 
 
-//import com.lyh.abroad.databinding.FragmentFeedBinding
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View

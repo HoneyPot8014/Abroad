@@ -8,7 +8,8 @@ import com.lyh.abroad.data.feed.source.feed.FeedRemoteSource
 import com.lyh.abroad.data.feed.source.user.UserAuth
 import com.lyh.abroad.data.feed.source.user.UserRemoteSource
 import com.lyh.abroad.domain.interactor.feed.GetFeedUsecase
-import com.lyh.abroad.domain.interactor.user.LogInUsecase
+import com.lyh.abroad.domain.interactor.user.SignInUsecase
+import com.lyh.abroad.domain.interactor.user.SignUpUsecase
 import com.lyh.abroad.presenter.feed.FeedViewModel
 import com.lyh.abroad.presenter.user.SignViewModel
 
@@ -27,9 +28,10 @@ object ViewModelFactory {
                     }
                     modelClass.isAssignableFrom(SignViewModel::class.java) -> {
                         modelClass
-                            .getConstructor(LogInUsecase::class.java)
+                            .getConstructor(SignInUsecase::class.java, SignUpUsecase::class.java)
                             .newInstance(
-                                LogInUsecase(UserRepositoryImpl.getInstance(UserAuth, UserRemoteSource))
+                                SignInUsecase(UserRepositoryImpl.getInstance(UserAuth, UserRemoteSource)),
+                                SignUpUsecase(UserRepositoryImpl.getInstance(UserAuth, UserRemoteSource))
                             )
                     }
                     else -> throw Exception("can not create ViewModel : ${modelClass.name}")

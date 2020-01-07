@@ -3,12 +3,9 @@ package com.lyh.abroad.presenter.user
 
 import android.app.Activity.RESULT_OK
 import android.content.Intent
-import android.net.Uri
 import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.activityViewModels
-import com.bumptech.glide.Glide
-import com.bumptech.glide.request.RequestOptions
 import com.lyh.abroad.R
 import com.lyh.abroad.databinding.FragmentSignUpBinding
 import com.lyh.abroad.presenter.base.BaseFragment
@@ -35,7 +32,7 @@ class SignUpFragment : BaseFragment(R.layout.fragment_sign_up) {
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         if (requestCode == GALLERY_PICK) {
             if (resultCode == RESULT_OK) {
-                setProfile(data?.data)
+                binding.signViewModel?.setProfileUri(data?.data)
             }
         }
     }
@@ -55,14 +52,5 @@ class SignUpFragment : BaseFragment(R.layout.fragment_sign_up) {
         }.let {
             startActivityForResult(it, GALLERY_PICK)
         }
-    }
-
-    private fun setProfile(uri: Uri?) {
-        uri?.let {
-            Glide.with(this)
-                .load(it)
-                .apply(RequestOptions.circleCropTransform())
-                .into(add_profile)
-        } ?: showSnackMessage(getString(R.string.gallery_error))
     }
 }

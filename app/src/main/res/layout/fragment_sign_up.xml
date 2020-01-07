@@ -36,18 +36,24 @@
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
                         android:padding="10dp"
-                        android:text="취소"
+                        android:text="@string/cancel"
                         android:textColor="@android:color/holo_red_light" />
+
+                    <View
+                        android:layout_width="0dp"
+                        android:layout_height="0dp"
+                        android:layout_weight="1" />
 
                     <TextView
                         android:id="@+id/sign_up_sign_up"
-                        android:layout_width="match_parent"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="end"
                         android:layout_marginEnd="10dp"
                         android:gravity="end"
                         android:padding="10dp"
-                        android:text="가입하기"
+                        android:onClick="@{() -> signViewModel.signUp()}"
+                        android:text="@string/btn_sign_up"
                         android:textColor="@android:color/white" />
 
                 </LinearLayout>
@@ -109,7 +115,8 @@
                         android:src="@drawable/add_user"
                         app:layout_constraintEnd_toStartOf="@id/guideline"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent" />
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:profileUri="@{signViewModel.profileUriLiveData}" />
 
                     <TextView
                         android:id="@+id/nation_title"
@@ -180,7 +187,8 @@
                             android:id="@+id/sign_up_name"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:inputType="text" />
+                            android:inputType="text"
+                            android:text="@={signViewModel.nameLiveData}" />
 
                     </com.google.android.material.textfield.TextInputLayout>
 
@@ -212,7 +220,8 @@
                             android:id="@+id/sign_up_intro"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:inputType="text" />
+                            android:inputType="text"
+                            android:text="@={signViewModel.introLiveData}" />
 
                     </com.google.android.material.textfield.TextInputLayout>
 

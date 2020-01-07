@@ -10,19 +10,19 @@ object UserAuth {
 
     private val auth = FirebaseAuth.getInstance()
 
-    suspend fun createUser(email: String, password: String) {
-//        suspendCancellableCoroutine<> { suspend ->
-//            auth.createUserWithEmailAndPassword(email, password)
-//                .addOnSuccessListener {
-//                    it.user
-//                }
-//                .addOnCanceledListener {
-//                    suspend.cancel()
-//                }
-//                .addOnFailureListener {
-//                    suspend.cancel(it)
-//                }
-//        }
+    suspend fun createUser(email: String, password: String): ResultModel<AuthResult> {
+        return suspendCancellableCoroutine { suspend ->
+            auth.createUserWithEmailAndPassword(email, password)
+                .addOnSuccessListener {
+                    suspend.resume(ResultModel.onSuccess(it))
+                }
+                .addOnCanceledListener {
+                    suspend.resume(ResultModel.onFailed())
+                }
+                .addOnFailureListener {
+                    suspend.resume(ResultModel.onFailed(it))
+                }
+        }
     }
 
     suspend fun signIn(email: String, password: String): ResultModel<AuthResult> =
