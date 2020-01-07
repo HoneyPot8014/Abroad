@@ -63,6 +63,7 @@ dependencies {
     implementation "com.google.firebase:firebase-storage:$firebase_storage_version"
     // glide
     implementation "com.github.bumptech.glide:glide:$glide_version"
+    implementation 'androidx.legacy:legacy-support-v4:1.0.0'
     annotationProcessor "com.github.bumptech.glide:compiler:$glide_version"
     // google place
     implementation "com.google.android.libraries.places:places:$google_place_version"

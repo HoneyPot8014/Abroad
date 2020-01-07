@@ -10,6 +10,7 @@ import com.lyh.abroad.R
 import com.lyh.abroad.databinding.FragmentSignUpBinding
 import com.lyh.abroad.presenter.base.BaseFragment
 import com.lyh.abroad.presenter.base.ViewModelFactory
+import com.lyh.abroad.presenter.place.PlaceFragment
 import kotlinx.android.synthetic.main.fragment_sign_up.*
 
 class SignUpFragment : BaseFragment(R.layout.fragment_sign_up) {
@@ -26,6 +27,12 @@ class SignUpFragment : BaseFragment(R.layout.fragment_sign_up) {
         setUpBinding()
         add_profile.setOnClickListener {
             startIntentForProfilePick()
+        }
+        search_nation.setOnClickListener {
+            parentFragmentManager.beginTransaction()
+                .replace(R.id.fragment_container, PlaceFragment())
+                .addToBackStack(null)
+                .commit()
         }
     }
 
