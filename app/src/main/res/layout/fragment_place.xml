@@ -36,7 +36,7 @@
         android:layout_height="38dp"
         android:layout_margin="14dp"
         android:background="@drawable/search_bar"
-        android:hint="국가 이름을 입력해주세요"
+        android:hint="@string/search_nation"
         android:paddingStart="8dp"
         android:paddingEnd="8dp"
         app:layout_constraintBottom_toTopOf="@id/place_list"

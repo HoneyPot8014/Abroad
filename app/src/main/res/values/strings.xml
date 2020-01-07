@@ -22,6 +22,9 @@
     <string name="hint_intro">자기 소개를 입력해요주세요</string>
     <string name="gallery_error">이미지를 가져오는데 오류가 발생했습니다</string>
 
+    <!--  국가 검색  -->
+    <string name="search_nation">국가 이름을 입력해주세요</string>
+
     <!--  로그인, 회원가입 오류 메세지  -->
     <string name="empty_email">이메일을 입력해주세요</string>
     <string name="empty_password">비밀번호를 입력해주세요</string>
