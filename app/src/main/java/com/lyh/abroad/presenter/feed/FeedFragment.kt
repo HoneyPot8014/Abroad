@@ -13,7 +13,7 @@ import com.lyh.abroad.databinding.FragmentFeedBinding
 import com.lyh.abroad.presenter.base.BaseFragment
 import com.lyh.abroad.presenter.base.ViewModelFactory
 import com.lyh.abroad.presenter.base.listview.BaseAdapter
-import com.lyh.abroad.presenter.base.listview.FeedListDivider
+import com.lyh.abroad.presenter.base.listview.BaseListDivider
 import com.lyh.abroad.presenter.model.Feed
 import kotlinx.android.synthetic.main.fragment_feed.*
 
@@ -42,7 +42,7 @@ class FeedFragment : BaseFragment(R.layout.fragment_feed) {
                 }
             }
             layoutManager = LinearLayoutManager(context, RecyclerView.VERTICAL, false)
-            addItemDecoration(FeedListDivider(4f))
+            addItemDecoration(BaseListDivider(4f))
         }
     }
 }
