@@ -3,14 +3,10 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="horizontal">
-
-    <ImageView
-        android:id="@+id/nation_img"
-        android:layout_width="24dp"
-        android:layout_height="24dp"
-        tools:src="@drawable/bottom_feed"
-        android:scaleType="centerCrop"/>
+    android:orientation="horizontal"
+    android:layout_marginTop="4dp"
+    android:layout_marginBottom="4dp"
+    android:background="?attr/selectableItemBackground">
 
     <TextView
         android:id="@+id/nation_name"
@@ -18,6 +14,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center_vertical"
         android:layout_marginStart="14dp"
+        android:textSize="18dp"
         tools:text="대한민국 - SouthKorea" />
 
 </LinearLayout>

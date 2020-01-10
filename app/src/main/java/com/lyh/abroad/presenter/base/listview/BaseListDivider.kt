@@ -6,7 +6,7 @@ import androidx.core.view.children
 import androidx.recyclerview.widget.RecyclerView
 import com.lyh.abroad.presenter.util.DisplayUtil
 
-class FeedListDivider(
+class BaseListDivider(
     private val dp: Float,
     private val color: Int = 0xFFebebeb.toInt()
 ) : RecyclerView.ItemDecoration() {
@@ -30,7 +30,7 @@ class FeedListDivider(
                     right.toFloat(),
                     bottom.toFloat(),
                     paint.apply {
-                        this.color = this@FeedListDivider.color
+                        this.color = this@BaseListDivider.color
                     }
                 )
             }
