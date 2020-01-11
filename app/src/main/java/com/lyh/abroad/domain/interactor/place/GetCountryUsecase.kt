@@ -68,19 +68,24 @@ class GetCountryUsecase(
                                         count++
                                     }
                                 } else {
-                                    val countrySecondInt = it.countryName[countryIndex].toInt().toSecondUniCode()
-                                    val querySecondInt = queryInt.toSecondUniCode()
-                                    if (countrySecondInt == querySecondInt) {
-                                        if (queryInt % 28 != 0) {
-                                            if (queryInt == it.countryName[countryIndex].toInt() && lastIndex <= countryIndex && !set.contains(queryInt)) {
-                                                lastIndex = countryIndex
-                                                set.add(queryInt)
-                                                count++
-                                            }
-                                        } else if (lastIndex <= countryIndex && !set.contains(queryInt)) {
+                                    if (queryInt == it.countryName[countryIndex].toInt()) {
+                                        if (lastIndex <= countryIndex && !set.contains(queryInt)) {
                                             lastIndex = countryIndex
                                             set.add(queryInt)
                                             count++
+                                        }
+                                    } else {
+                                        val queryFirstInt = queryInt.toFirstUniCode()
+                                        val querySecondInt = queryInt.toSecondUniCode()
+                                        val countrySecondInt = it.countryName[countryIndex].toInt().toSecondUniCode()
+                                        if (queryFirstInt == countryFirstInt && querySecondInt == countrySecondInt) {
+                                            if (((queryInt - 44032) % 588 % 28) == 0) {
+                                                if (lastIndex <= countryIndex && !set.contains(queryInt)) {
+                                                    lastIndex = countryIndex
+                                                    set.add(queryInt)
+                                                    count++
+                                                }
+                                            }
                                         }
                                     }
                                 }
@@ -109,5 +114,6 @@ class GetCountryUsecase(
     }
 
     private fun Int.toFirstUniCode(): Int = (this - 44032) / 588 + 0x1100
-    private fun Int.toSecondUniCode(): Int = (this - 44032) / 28 + 0x1161
+    private fun Int.toSecondUniCode(): Int = ((this - 44032) % 588) /28 + 0x1161
+
 }
