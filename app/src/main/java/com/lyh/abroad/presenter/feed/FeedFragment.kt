@@ -15,6 +15,7 @@ import com.lyh.abroad.presenter.base.ViewModelFactory
 import com.lyh.abroad.presenter.base.listview.BaseAdapter
 import com.lyh.abroad.presenter.base.listview.BaseListDivider
 import com.lyh.abroad.presenter.model.Feed
+import com.lyh.abroad.presenter.place.PlaceViewModel
 import kotlinx.android.synthetic.main.fragment_feed.*
 
 class FeedFragment : BaseFragment(R.layout.fragment_feed) {
@@ -44,5 +45,6 @@ class FeedFragment : BaseFragment(R.layout.fragment_feed) {
             layoutManager = LinearLayoutManager(context, RecyclerView.VERTICAL, false)
             addItemDecoration(BaseListDivider(4f))
         }
+        activityViewModels<PlaceViewModel>(ViewModelFactory::get)
     }
 }

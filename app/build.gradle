@@ -55,6 +55,8 @@ dependencies {
     implementation "com.squareup.okhttp3:logging-interceptor:$retrofit_logging_version"
     // aac
     implementation "androidx.lifecycle:lifecycle-extensions:$aac_version"
+    implementation "androidx.lifecycle:lifecycle-reactivestreams-ktx:$aac_version"
+    implementation "androidx.lifecycle:lifecycle-livedata-ktx:$aac_version"
     // firebase database
     implementation "com.google.firebase:firebase-database:$firebase_database_version"
     // firebase auth
@@ -63,7 +65,6 @@ dependencies {
     implementation "com.google.firebase:firebase-storage:$firebase_storage_version"
     // glide
     implementation "com.github.bumptech.glide:glide:$glide_version"
-    implementation 'androidx.legacy:legacy-support-v4:1.0.0'
     annotationProcessor "com.github.bumptech.glide:compiler:$glide_version"
     // google place
     implementation "com.google.android.libraries.places:places:$google_place_version"
