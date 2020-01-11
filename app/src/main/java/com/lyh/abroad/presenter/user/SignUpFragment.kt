@@ -11,6 +11,7 @@ import com.lyh.abroad.databinding.FragmentSignUpBinding
 import com.lyh.abroad.presenter.base.BaseFragment
 import com.lyh.abroad.presenter.base.ViewModelFactory
 import com.lyh.abroad.presenter.place.PlaceFragment
+import com.lyh.abroad.presenter.place.PlaceViewModel
 import kotlinx.android.synthetic.main.fragment_sign_up.*
 
 class SignUpFragment : BaseFragment(R.layout.fragment_sign_up) {
@@ -48,6 +49,7 @@ class SignUpFragment : BaseFragment(R.layout.fragment_sign_up) {
         binding = FragmentSignUpBinding.bind(view ?: return).apply {
             lifecycleOwner = viewLifecycleOwner
             signViewModel = activityViewModels<SignViewModel>(ViewModelFactory::get).value
+            placeViewModel = activityViewModels<PlaceViewModel>(ViewModelFactory::get).value
         }
     }
 

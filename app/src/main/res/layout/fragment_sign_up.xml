@@ -1,11 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout>
+<layout xmlns:tools="http://schemas.android.com/tools">
 
     <data>
 
         <variable
             name="signViewModel"
             type="com.lyh.abroad.presenter.user.SignViewModel" />
+
+        <variable
+            name="placeViewModel"
+            type="com.lyh.abroad.presenter.place.PlaceViewModel" />
     </data>
 
     <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
@@ -48,11 +52,10 @@
                         android:id="@+id/sign_up_sign_up"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_gravity="end"
                         android:layout_marginEnd="10dp"
                         android:gravity="end"
+                        android:onClick="@{() -> signViewModel.signUp(placeViewModel.countryLiveData)}"
                         android:padding="10dp"
-                        android:onClick="@{() -> signViewModel.signUp()}"
                         android:text="@string/btn_sign_up"
                         android:textColor="@android:color/white" />
 
@@ -138,13 +141,14 @@
                         android:layout_marginEnd="30dp"
                         android:ellipsize="end"
                         android:lines="1"
-                        android:text="@string/not_choosed_nation"
+                        android:text="@{placeViewModel.countryLiveData == null? @string/not_choosed_nation : placeViewModel.countryLiveData.countryName}"
                         android:textColor="#303030"
                         android:textSize="16dp"
                         app:layout_constraintBottom_toTopOf="@id/search_nation"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toEndOf="@id/guideline"
-                        app:layout_constraintTop_toBottomOf="@id/nation_title" />
+                        app:layout_constraintTop_toBottomOf="@id/nation_title"
+                        tools:text="@string/not_choosed_nation" />
 
                     <Button
                         android:id="@+id/search_nation"
