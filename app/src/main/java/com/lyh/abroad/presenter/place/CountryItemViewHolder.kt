@@ -15,8 +15,11 @@ class CountryItemViewHolder(private val viewModelStore: ViewModelStore, itemView
 
     override fun bind(item: CountryEntity) {
         lifecycleRegistry.handleLifecycleEvent(Lifecycle.Event.ON_START)
-        binding.placeViewModel =
-            ViewModelProvider(viewModelStore, ViewModelFactory.get()).get(PlaceViewModel::class.java)
+        binding.apply {
+            placeViewModel =
+                ViewModelProvider(viewModelStore, ViewModelFactory.get()).get(PlaceViewModel::class.java)
+            lifecycleOwner = this@CountryItemViewHolder
+        }
     }
 
     fun onDestroyed() {
