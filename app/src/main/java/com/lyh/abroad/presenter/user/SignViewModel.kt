@@ -3,13 +3,13 @@ package com.lyh.abroad.presenter.user
 import android.net.Uri
 import androidx.lifecycle.MutableLiveData
 import com.lyh.abroad.R
-import com.lyh.abroad.domain.entity.CountryEntity
 import com.lyh.abroad.domain.entity.SignUpEntity
 import com.lyh.abroad.domain.interactor.user.SignInUsecase
 import com.lyh.abroad.domain.interactor.user.SignUpUsecase
 import com.lyh.abroad.domain.model.ResultModel
 import com.lyh.abroad.presenter.base.BaseViewModel
 import com.lyh.abroad.presenter.base.BaseViewModel.Status.*
+import com.lyh.abroad.presenter.model.Country
 import com.lyh.abroad.presenter.user.SignViewModel.FailReason.*
 import kotlinx.coroutines.launch
 
@@ -49,7 +49,7 @@ class SignViewModel(
         }
     }
 
-    fun signUp(countryEntity: CountryEntity?) {
+    fun signUp(country: Country?) {
         val email = emailLiveData.value
         val password = passwordLiveData.value
         val name = nameLiveData.value
@@ -68,7 +68,7 @@ class SignViewModel(
                 _statusLiveData.value = Loading
                 viewModelScope.launch {
                     signUpUsecase.execute(SignUpUsecase.SignUpParam(SignUpEntity(
-                        email!!, password!!, countryEntity!!.countryCode, "South Korea", intro, profileUri.toString(), name
+                        email!!, password!!, country!!.countryCode, "South Korea", intro, profileUri.toString(), name
                     ))).run {
                         if (status == ResultModel.Status.SUCCESS) {
                             _statusLiveData.value = Success

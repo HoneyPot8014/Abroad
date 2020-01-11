@@ -2,19 +2,21 @@
 <layout>
 
     <data>
+
         <variable
             name="placeViewModel"
             type="com.lyh.abroad.presenter.place.PlaceViewModel" />
+
         <variable
             name="data"
-            type="com.lyh.abroad.domain.entity.CountryEntity" />
+            type="com.lyh.abroad.presenter.model.Country" />
     </data>
 
     <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="?attr/selectableItemBackground"
+        android:background="@{placeViewModel.countryLiveData == data? @color/colorAccent : @android:color/white}"
         android:onClick="@{() -> placeViewModel.onCountryClicked(data)}"
         android:orientation="horizontal"
         android:paddingTop="8dp"
@@ -25,9 +27,10 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
-            android:layout_marginStart="14dp"
+            android:layout_marginStart="18dp"
+            android:text="@{data.displayCountry}"
+            android:textColor="@{placeViewModel.countryLiveData == data? @android:color/white : @color/default_text}"
             android:textSize="18dp"
-            android:text="@{data.countryEmoji + ' ' + data.countryName}"
             tools:text="대한민국 - SouthKorea" />
 
     </LinearLayout>

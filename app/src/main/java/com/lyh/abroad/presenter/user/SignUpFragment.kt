@@ -35,6 +35,9 @@ class SignUpFragment : BaseFragment(R.layout.fragment_sign_up) {
                 .addToBackStack(null)
                 .commit()
         }
+        sign_up_cancel.setOnClickListener {
+            activity?.onBackPressed()
+        }
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {

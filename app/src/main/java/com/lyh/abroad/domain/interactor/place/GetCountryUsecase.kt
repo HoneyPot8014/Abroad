@@ -45,7 +45,8 @@ class GetCountryUsecase(
             it.country.toFlagEmoji(),
             it.country,
             it.displayCountry,
-            null
+            null,
+            mutableSetOf()
         )
     }
 
@@ -54,24 +55,30 @@ class GetCountryUsecase(
             withContext(Dispatchers.Default) {
                 test.filter {
                     if (it.countryName.any { char -> char in '가'..'힣' }) {
-                        var lastIndex = 0
+                        var lastIndex = -1
                         var count = 0
                         val set = mutableSetOf<Int>()
+                        val matchedIndex = mutableSetOf<Int>()
                         for (queryIndex in query.indices) {
+                            if (query[queryIndex] == ' ') {
+                                continue
+                            }
                             for (countryIndex in it.countryName.indices) {
                                 val queryInt = singleChosungMap[query[queryIndex]] ?: query[queryIndex].toInt()
                                 val countryFirstInt = it.countryName[countryIndex].toInt().toFirstUniCode()
                                 if (queryInt == countryFirstInt) {
-                                    if (lastIndex <= countryIndex && !set.contains(queryInt)) {
+                                    if (lastIndex < countryIndex && !set.contains(queryInt)) {
                                         lastIndex = countryIndex
                                         set.add(queryInt)
+                                        matchedIndex.add(countryIndex)
                                         count++
                                     }
                                 } else {
                                     if (queryInt == it.countryName[countryIndex].toInt()) {
-                                        if (lastIndex <= countryIndex && !set.contains(queryInt)) {
+                                        if (lastIndex < countryIndex && !set.contains(queryInt)) {
                                             lastIndex = countryIndex
                                             set.add(queryInt)
+                                            matchedIndex.add(countryIndex)
                                             count++
                                         }
                                     } else {
@@ -80,9 +87,10 @@ class GetCountryUsecase(
                                         val countrySecondInt = it.countryName[countryIndex].toInt().toSecondUniCode()
                                         if (queryFirstInt == countryFirstInt && querySecondInt == countrySecondInt) {
                                             if (((queryInt - 44032) % 588 % 28) == 0) {
-                                                if (lastIndex <= countryIndex && !set.contains(queryInt)) {
+                                                if (lastIndex < countryIndex && !set.contains(queryInt)) {
                                                     lastIndex = countryIndex
                                                     set.add(queryInt)
+                                                    matchedIndex.add(countryIndex)
                                                     count++
                                                 }
                                             }
@@ -91,7 +99,10 @@ class GetCountryUsecase(
                                 }
                             }
                         }
-                        return@filter count == query.length
+                        if (count == query.length) {
+                            it.queryMatchIndexSet = matchedIndex
+                            return@filter count == query.length
+                        }
                     }
                     return@filter false
                 }.let { ResultModel.onSuccess(it) }
