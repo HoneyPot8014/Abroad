@@ -11,17 +11,21 @@ import com.lyh.abroad.R
 import com.lyh.abroad.databinding.FragmentSignInBinding
 import com.lyh.abroad.presenter.base.BaseFragment
 import com.lyh.abroad.presenter.base.BaseViewModel.Status.Failed
+import com.lyh.abroad.presenter.base.BaseViewModel.Status.Success
 import com.lyh.abroad.presenter.base.ViewModelFactory
+import com.lyh.abroad.presenter.custom.BottomNavigation
+import com.lyh.abroad.presenter.main.BottomNavViewModel
 import kotlinx.android.synthetic.main.fragment_sign_in.*
 
 class SignInFragment : BaseFragment(R.layout.fragment_sign_in) {
 
     private lateinit var binding: FragmentSignInBinding
     private var isAnimated = false
+    private lateinit var bottomNavViewModel: BottomNavViewModel
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
+        bottomNavViewModel = activityViewModels<BottomNavViewModel>().value
         setUpBinding()
         showCardAnim()
         observeLoginStatus()
@@ -64,7 +68,7 @@ class SignInFragment : BaseFragment(R.layout.fragment_sign_in) {
     private fun observeLoginStatus() {
         binding.signInViewModel?.statusLiveData?.observe(this@SignInFragment.viewLifecycleOwner) {
             when (it) {
-//                Success -> TODO()
+                Success -> bottomNavViewModel.currentNav.value = BottomNavigation.BottomNavItem.FEED
                 is Failed -> {
                     showSnackMessage(context?.getString(it.reason.message) ?: return@observe)
                 }

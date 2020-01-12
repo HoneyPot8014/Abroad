@@ -1,4 +1,4 @@
-package com.lyh.abroad.presenter
+package com.lyh.abroad.presenter.main
 
 import android.os.Bundle
 import android.view.View.GONE
@@ -8,7 +8,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.observe
 import com.lyh.abroad.R
-import com.lyh.abroad.databinding.ActivityMainBinding
+import com.lyh.abroad.databinding.ActivityBottomNavBinding
 import com.lyh.abroad.presenter.base.BaseViewModel.Status.Failed
 import com.lyh.abroad.presenter.base.BaseViewModel.Status.Success
 import com.lyh.abroad.presenter.base.ViewModelFactory
@@ -16,22 +16,21 @@ import com.lyh.abroad.presenter.custom.BottomNavigation.BottomNavItem.*
 import com.lyh.abroad.presenter.feed.FeedFragment
 import com.lyh.abroad.presenter.user.SignInFragment
 import com.lyh.abroad.presenter.user.UserViewModel
-import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.android.synthetic.main.activity_bottom_nav.*
 
-class MainActivity : AppCompatActivity() {
+class BottomNavActivity : AppCompatActivity() {
 
-    private lateinit var binding: ActivityMainBinding
+    private lateinit var binding: ActivityBottomNavBinding
+    lateinit var bottomNavViewModel: BottomNavViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        bottomNavViewModel = viewModels<BottomNavViewModel>().value
         binding =
-            DataBindingUtil.setContentView<ActivityMainBinding>(this, R.layout.activity_main)
+            DataBindingUtil.setContentView<ActivityBottomNavBinding>(this, R.layout.activity_bottom_nav)
                 .apply {
                     userViewModel = viewModels<UserViewModel>(ViewModelFactory::get).value
                 }
-        binding.userViewModel?.userLiveData?.observe(this) {
-
-        }
         binding.userViewModel?.statusLiveData?.observe(this) {
             val fragment = when (it) {
                 Success -> {
@@ -52,6 +51,10 @@ class MainActivity : AppCompatActivity() {
 
 
         bottom_nav.seletedLiveData.observe(this) {
+            bottomNavViewModel.currentNav.value = it
+        }
+
+        bottomNavViewModel.currentNav.observe(this) {
             val fragment = when (it) {
                 FEED -> FeedFragment()
                 CHATTING -> TODO()
@@ -60,25 +63,21 @@ class MainActivity : AppCompatActivity() {
                 MY_PAGE -> TODO()
                 else -> TODO()
             }
-
-            if (binding.userViewModel?.userLiveData?.value != null) {
                 showBottomNav()
                 supportFragmentManager
                     .beginTransaction()
                     .replace(R.id.fragment_container, fragment)
                     .commit()
-            }
-
         }
     }
 
-    fun hideBottomNav() {
+    private fun hideBottomNav() {
         if (bottom_nav.visibility == VISIBLE) {
             bottom_nav.visibility = GONE
         }
     }
 
-    fun showBottomNav() {
+    private fun showBottomNav() {
         if (bottom_nav.visibility == GONE) {
             bottom_nav.visibility = VISIBLE
         }

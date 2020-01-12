@@ -43,6 +43,16 @@ class BottomNavigation(
         }
     }
 
+    fun setSelected(item: BottomNavItem) {
+        when (item) {
+            FEED -> bottom_nav_feed.performClick()
+            CHATTING -> bottom_nav_chatting.performClick()
+            POST -> bottom_nav_post.performClick()
+            ALARM -> bottom_nav_alarm.performClick()
+            MY_PAGE -> bottom_nav_my_page.performClick()
+        }
+    }
+
     private fun setSelected(view: View) {
         listOf(
             bottom_nav_feed,
