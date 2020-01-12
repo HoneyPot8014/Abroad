@@ -21,32 +21,25 @@ import kotlinx.android.synthetic.main.activity_bottom_nav.*
 class BottomNavActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityBottomNavBinding
-    lateinit var bottomNavViewModel: BottomNavViewModel
+    private lateinit var bottomNavViewModel: BottomNavViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         bottomNavViewModel = viewModels<BottomNavViewModel>().value
         binding =
-            DataBindingUtil.setContentView<ActivityBottomNavBinding>(this, R.layout.activity_bottom_nav)
+            DataBindingUtil.setContentView<ActivityBottomNavBinding>(
+                this,
+                R.layout.activity_bottom_nav
+            )
                 .apply {
                     userViewModel = viewModels<UserViewModel>(ViewModelFactory::get).value
                 }
         binding.userViewModel?.statusLiveData?.observe(this) {
-            val fragment = when (it) {
-                Success -> {
-                    showBottomNav()
-                    FeedFragment()
-                }
-                is Failed -> {
-                    hideBottomNav()
-                    SignInFragment()
-                }
-                else -> null
+            when (it) {
+                Success -> bottomNavViewModel.currentNav.value = FEED
+                is Failed -> bottomNavViewModel.currentNav.value = null
+                else -> Unit
             }
-            supportFragmentManager
-                .beginTransaction()
-                .replace(R.id.fragment_container, fragment ?: return@observe)
-                .commit()
         }
 
         bottom_nav.selectedLiveData.observe(this) {
@@ -63,13 +56,17 @@ class BottomNavActivity : AppCompatActivity() {
                 POST -> null
                 ALARM -> null
                 MY_PAGE -> null
-                else -> null
+                else -> SignInFragment()
             }
+            if (fragment is SignInFragment) {
+                hideBottomNav()
+            } else {
                 showBottomNav()
-                supportFragmentManager
-                    .beginTransaction()
-                    .replace(R.id.fragment_container, fragment ?: return@observe)
-                    .commit()
+            }
+            supportFragmentManager
+                .beginTransaction()
+                .replace(R.id.fragment_container, fragment ?: return@observe)
+                .commit()
         }
     }
 

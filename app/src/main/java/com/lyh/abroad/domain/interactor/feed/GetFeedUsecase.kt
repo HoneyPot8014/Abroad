@@ -12,12 +12,12 @@ class GetFeedUsecase(
     private val feedRepository: FeedRepository
 ) : BaseUsecase<List<FeedEntity>, GetFeedUsecase.FeedParam>() {
 
-    data class FeedParam(val countryCode: String, val country: String) : Param()
+    data class FeedParam(val countryCode: String) : Param()
 
     override suspend fun bindUsecase(param: FeedParam?): ResultModel<List<FeedEntity>> =
         param?.let {
             withContext(Dispatchers.IO) {
-                feedRepository.fetchFeedList(param.countryCode, param.country)
+                feedRepository.fetchFeedList(param.countryCode)
             }
         } ?: ResultModel.onFailed(AppException.NullParamException())
 }

@@ -19,7 +19,7 @@ class FeedViewModel(
 
     init {
         viewModelScope.launch {
-            getFeedUsecase.execute(GetFeedUsecase.FeedParam("KR", "temp")).run {
+            getFeedUsecase.execute(GetFeedUsecase.FeedParam("KR")).run {
                 if (status == ResultModel.Status.SUCCESS) {
                     data?.map { FeedMapper.toModel(it) }
                         .also {

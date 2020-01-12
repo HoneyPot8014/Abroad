@@ -24,8 +24,8 @@ class FeedRepositoryImpl private constructor(
             }
     }
 
-    override suspend fun fetchFeedList(countryCode: String, country: String): ResultModel<List<FeedEntity>> =
-        feedRemoteSource.fetchFeedList(countryCode, country).mapNotNull {
+    override suspend fun fetchFeedList(countryCode: String): ResultModel<List<FeedEntity>> =
+        feedRemoteSource.fetchFeedList(countryCode).mapNotNull {
             FeedDataMapper.toEntity(it)
         }.let {
             ResultModel.onSuccess(it)

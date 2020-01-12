@@ -21,6 +21,7 @@ class UserViewModel(
             getUserUsecase.execute().let {
                 if (it.status == ResultModel.Status.SUCCESS) {
                     _userLiveData.value = it.data
+                    _statusLiveData.value = Status.Success
                 } else {
                     _statusLiveData.value = Status.Failed(UserFailReason.LoginFailed)
                 }

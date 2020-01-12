@@ -13,10 +13,9 @@ object FeedRemoteSource : FeedSource {
 
     private val db = FirebaseDatabase.getInstance().getReference("bulletinBoard")
 
-    override suspend fun fetchFeedList(countryCode: String, country: String): List<FeedDataModel> =
+    override suspend fun fetchFeedList(countryCode: String): List<FeedDataModel> =
         suspendCancellableCoroutine {
             db.child(countryCode)
-                .child(country)
                 .orderByChild("createDate")
                 .addListenerForSingleValueEvent(object : ValueEventListener {
                     override fun onCancelled(p0: DatabaseError) {
@@ -25,9 +24,11 @@ object FeedRemoteSource : FeedSource {
 
                     override fun onDataChange(p0: DataSnapshot) {
                         it.resume(
-                            p0.children.mapNotNull { item ->
-                                item.getValue(FeedDataModel::class.java)
-                            }.toList()
+                            p0.children.mapNotNull { placeId ->
+                                placeId.children.mapNotNull { feed ->
+                                    feed.getValue(FeedDataModel::class.java)
+                                }[0]
+                            }
                         )
                     }
                 })

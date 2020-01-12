@@ -24,9 +24,9 @@ class PlaceFragment : BaseFragment(R.layout.fragment_place) {
         }
 
         nation_list.apply {
-            adapter = PlaceCountryListAdapter(activity?.viewModelStore ?: return@apply)
             layoutManager = LinearLayoutManager(context, RecyclerView.VERTICAL, false)
             addItemDecoration(BaseListDivider(4f))
+            adapter = PlaceCountryListAdapter(activity?.viewModelStore ?: return@apply)
         }
 
         place_cancel.setOnClickListener {
