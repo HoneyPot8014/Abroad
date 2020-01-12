@@ -24,11 +24,13 @@ class FeedFragment : BaseFragment(R.layout.fragment_feed) {
         super.onViewCreated(view, savedInstanceState)
 
         FragmentFeedBinding.bind(view).apply {
-            feedViewModel = activityViewModels<FeedViewModel>(ViewModelFactory::get).value
             lifecycleOwner = viewLifecycleOwner
+            feedViewModel = activityViewModels<FeedViewModel>(ViewModelFactory::get).value
         }
 
         rv_feed.apply {
+            layoutManager = LinearLayoutManager(context, RecyclerView.VERTICAL, false)
+            addItemDecoration(BaseListDivider(16f))
             adapter = object : BaseAdapter<Feed, FeedItemViewHolder>() {
 
                 override fun onCreateViewHolder(
@@ -42,8 +44,6 @@ class FeedFragment : BaseFragment(R.layout.fragment_feed) {
                     )
                 }
             }
-            layoutManager = LinearLayoutManager(context, RecyclerView.VERTICAL, false)
-            addItemDecoration(BaseListDivider(4f))
         }
         activityViewModels<PlaceViewModel>(ViewModelFactory::get)
     }
