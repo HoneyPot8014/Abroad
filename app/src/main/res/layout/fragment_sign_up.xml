@@ -4,12 +4,16 @@
     <data>
 
         <variable
-            name="signViewModel"
-            type="com.lyh.abroad.presenter.user.SignViewModel" />
+            name="signUpViewModel"
+            type="com.lyh.abroad.presenter.user.SignUpViewModel" />
 
         <variable
             name="placeViewModel"
             type="com.lyh.abroad.presenter.place.PlaceViewModel" />
+
+        <import type="android.view.View"/>
+        <import type="com.lyh.abroad.presenter.base.BaseViewModel.Status"/>
+
     </data>
 
     <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
@@ -54,7 +58,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginEnd="10dp"
                         android:gravity="end"
-                        android:onClick="@{() -> signViewModel.signUp(placeViewModel.countryLiveData)}"
+                        android:onClick="@{() -> signUpViewModel.signUp(placeViewModel.countryLiveData)}"
                         android:padding="10dp"
                         android:text="@string/btn_sign_up"
                         android:textColor="@android:color/white" />
@@ -70,10 +74,9 @@
             android:layout_height="match_parent"
             android:fillViewport="true">
 
-            <LinearLayout
+            <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical">
+                android:layout_height="wrap_content">
 
                 <TextView
                     android:id="@+id/sign_up_logo"
@@ -91,7 +94,6 @@
                     android:id="@+id/sign_up_title"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="30dp"
                     android:text="@string/sign_up"
                     android:textColor="@android:color/white"
                     android:textSize="38dp"
@@ -119,7 +121,7 @@
                         app:layout_constraintEnd_toStartOf="@id/guideline"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent"
-                        app:profileUri="@{signViewModel.profileUriLiveData}" />
+                        app:profileUri="@{signUpViewModel.profileUriLiveData}" />
 
                     <TextView
                         android:id="@+id/nation_title"
@@ -192,7 +194,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:inputType="text"
-                            android:text="@={signViewModel.nameLiveData}" />
+                            android:text="@={signUpViewModel.nameLiveData}" />
 
                     </com.google.android.material.textfield.TextInputLayout>
 
@@ -225,7 +227,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:inputType="text"
-                            android:text="@={signViewModel.introLiveData}" />
+                            android:text="@={signUpViewModel.introLiveData}" />
 
                     </com.google.android.material.textfield.TextInputLayout>
 
@@ -258,7 +260,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:inputType="textEmailAddress"
-                            android:text="@={signViewModel.emailLiveData}" />
+                            android:text="@={signUpViewModel.emailLiveData}" />
 
                     </com.google.android.material.textfield.TextInputLayout>
 
@@ -291,7 +293,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:inputType="textPassword"
-                            android:text="@={signViewModel.passwordLiveData}" />
+                            android:text="@={signUpViewModel.passwordLiveData}" />
 
                     </com.google.android.material.textfield.TextInputLayout>
 
@@ -303,7 +305,17 @@
                         app:layout_constraintGuide_percent="0.4" />
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
-            </LinearLayout>
+
+                <ProgressBar
+                    android:id="@+id/pg"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    android:visibility="@{signUpViewModel.statusLiveData instanceof Status.Loading? View.VISIBLE : View.INVISIBLE}"/>
+            </androidx.constraintlayout.widget.ConstraintLayout>
         </ScrollView>
     </LinearLayout>
 </layout>

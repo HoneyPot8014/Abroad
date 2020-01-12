@@ -6,9 +6,12 @@ import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.activityViewModels
+import androidx.lifecycle.observe
 import com.lyh.abroad.R
 import com.lyh.abroad.databinding.FragmentSignUpBinding
 import com.lyh.abroad.presenter.base.BaseFragment
+import com.lyh.abroad.presenter.base.BaseViewModel.Status.Failed
+import com.lyh.abroad.presenter.base.BaseViewModel.Status.Success
 import com.lyh.abroad.presenter.base.ViewModelFactory
 import com.lyh.abroad.presenter.place.PlaceFragment
 import com.lyh.abroad.presenter.place.PlaceViewModel
@@ -38,12 +41,13 @@ class SignUpFragment : BaseFragment(R.layout.fragment_sign_up) {
         sign_up_cancel.setOnClickListener {
             activity?.onBackPressed()
         }
+        observeSignUpStatus()
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         if (requestCode == GALLERY_PICK) {
             if (resultCode == RESULT_OK) {
-                binding.signViewModel?.setProfileUri(data?.data)
+                binding.signUpViewModel?.setProfileUri(data?.data)
             }
         }
     }
@@ -51,8 +55,19 @@ class SignUpFragment : BaseFragment(R.layout.fragment_sign_up) {
     private fun setUpBinding() {
         binding = FragmentSignUpBinding.bind(view ?: return).apply {
             lifecycleOwner = viewLifecycleOwner
-            signViewModel = activityViewModels<SignViewModel>(ViewModelFactory::get).value
+            signUpViewModel = activityViewModels<SignUpViewModel>(ViewModelFactory::get).value
             placeViewModel = activityViewModels<PlaceViewModel>(ViewModelFactory::get).value
+        }
+    }
+
+    private fun observeSignUpStatus() {
+        binding.signUpViewModel?.statusLiveData?.observe(viewLifecycleOwner) {
+            when (it) {
+                Success -> TODO()
+                is Failed -> {
+                    showSnackMessage(context?.getString(it.reason.message) ?: return@observe)
+                }
+            }
         }
     }
 

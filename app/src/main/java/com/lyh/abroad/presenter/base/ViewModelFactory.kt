@@ -13,7 +13,8 @@ import com.lyh.abroad.domain.interactor.user.SignInUsecase
 import com.lyh.abroad.domain.interactor.user.SignUpUsecase
 import com.lyh.abroad.presenter.feed.FeedViewModel
 import com.lyh.abroad.presenter.place.PlaceViewModel
-import com.lyh.abroad.presenter.user.SignViewModel
+import com.lyh.abroad.presenter.user.SignInViewModel
+import com.lyh.abroad.presenter.user.SignUpViewModel
 
 object ViewModelFactory {
 
@@ -22,23 +23,19 @@ object ViewModelFactory {
             override fun <T : ViewModel?> create(modelClass: Class<T>): T =
                 when {
                     modelClass.isAssignableFrom(FeedViewModel::class.java) -> {
-                        modelClass
-                            .getConstructor(GetFeedUsecase::class.java)
-                            .newInstance(
-                                GetFeedUsecase(FeedRepositoryImpl.getInstance(FeedRemoteSource))
-                            )
+                        modelClass.getConstructor(GetFeedUsecase::class.java)
+                            .newInstance(GetFeedUsecase(FeedRepositoryImpl.getInstance(FeedRemoteSource)))
                     }
-                    modelClass.isAssignableFrom(SignViewModel::class.java) -> {
-                        modelClass
-                            .getConstructor(SignInUsecase::class.java, SignUpUsecase::class.java)
-                            .newInstance(
-                                SignInUsecase(UserRepositoryImpl.getInstance(UserAuth, UserRemoteSource)),
-                                SignUpUsecase(UserRepositoryImpl.getInstance(UserAuth, UserRemoteSource))
-                            )
+                    modelClass.isAssignableFrom(SignInViewModel::class.java) -> {
+                        modelClass.getConstructor(SignInUsecase::class.java)
+                            .newInstance(SignInUsecase(UserRepositoryImpl.getInstance(UserAuth, UserRemoteSource)))
+                    }
+                    modelClass.isAssignableFrom(SignUpViewModel::class.java) -> {
+                        modelClass.getConstructor(SignUpUsecase::class.java)
+                            .newInstance(SignUpUsecase(UserRepositoryImpl.getInstance(UserAuth, UserRemoteSource)))
                     }
                     modelClass.isAssignableFrom(PlaceViewModel::class.java) -> {
-                        modelClass
-                            .getConstructor(GetCountryUsecase::class.java)
+                        modelClass.getConstructor(GetCountryUsecase::class.java)
                             .newInstance(GetCountryUsecase())
                     }
                     else -> throw Exception("can not create ViewModel : ${modelClass.name}")

@@ -4,8 +4,11 @@
     <data>
 
         <variable
-            name="signViewModel"
-            type="com.lyh.abroad.presenter.user.SignViewModel" />
+            name="signInViewModel"
+            type="com.lyh.abroad.presenter.user.SignInViewModel" />
+
+        <import type="android.view.View"/>
+        <import type="com.lyh.abroad.presenter.base.BaseViewModel.Status"/>
     </data>
 
     <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
@@ -14,11 +17,10 @@
         android:layout_height="match_parent"
         android:fillViewport="true">
 
-        <LinearLayout
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/colorPrimary"
-            android:orientation="vertical">
+            android:background="@color/colorPrimary">
 
             <TextView
                 android:id="@+id/sign_in_logo"
@@ -46,12 +48,16 @@
 
             <LinearLayout
                 android:id="@+id/sign_in_card"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
                 android:layout_marginTop="40dp"
                 android:background="@drawable/shape_card"
                 android:orientation="vertical"
-                android:padding="30dp">
+                android:padding="30dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/sign_in_title">
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -72,7 +78,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:inputType="textEmailAddress"
-                        android:text="@={signViewModel.emailLiveData}" />
+                        android:text="@={signInViewModel.emailLiveData}" />
 
                 </com.google.android.material.textfield.TextInputLayout>
 
@@ -95,7 +101,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:inputType="textPassword"
-                        android:text="@={signViewModel.passwordLiveData}" />
+                        android:text="@={signInViewModel.passwordLiveData}" />
                 </com.google.android.material.textfield.TextInputLayout>
 
                 <Button
@@ -105,7 +111,7 @@
                     android:layout_gravity="end"
                     android:layout_marginTop="22dp"
                     android:background="@drawable/shape_round"
-                    android:onClick="@{() -> signViewModel.signIn()}"
+                    android:onClick="@{() -> signInViewModel.signIn()}"
                     android:text="@string/start"
                     android:textColor="@android:color/white" />
 
@@ -120,7 +126,17 @@
 
             </LinearLayout>
 
-        </LinearLayout>
+            <ProgressBar
+                android:id="@+id/pg"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                android:visibility="@{signInViewModel.statusLiveData instanceof Status.Loading? View.VISIBLE : View.INVISIBLE}"/>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
     </ScrollView>
 </layout>

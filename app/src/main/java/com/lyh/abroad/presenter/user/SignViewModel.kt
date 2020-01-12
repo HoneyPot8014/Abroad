@@ -1,20 +1,18 @@
 package com.lyh.abroad.presenter.user
 
+
 import android.net.Uri
 import androidx.lifecycle.MutableLiveData
 import com.lyh.abroad.R
 import com.lyh.abroad.domain.entity.SignUpEntity
-import com.lyh.abroad.domain.interactor.user.SignInUsecase
 import com.lyh.abroad.domain.interactor.user.SignUpUsecase
 import com.lyh.abroad.domain.model.ResultModel
 import com.lyh.abroad.presenter.base.BaseViewModel
 import com.lyh.abroad.presenter.base.BaseViewModel.Status.*
 import com.lyh.abroad.presenter.model.Country
-import com.lyh.abroad.presenter.user.SignViewModel.FailReason.*
 import kotlinx.coroutines.launch
 
-class SignViewModel(
-    private val signInUsecase: SignInUsecase,
+class SignUpViewModel(
     private val signUpUsecase: SignUpUsecase
 ) : BaseViewModel() {
 
@@ -24,31 +22,6 @@ class SignViewModel(
     val introLiveData = MutableLiveData<String>()
     val profileUriLiveData = MutableLiveData<Uri>()
 
-    fun signIn() {
-        val email = emailLiveData.value
-        val password = passwordLiveData.value
-        when {
-            !isValidEmailPassword(email, password) -> {
-                _statusLiveData.value = null
-                return
-            }
-            else -> {
-                _statusLiveData.value = Loading
-                viewModelScope.launch {
-                    signInUsecase.execute(SignInUsecase.LogInParam(email!!, password!!)).run {
-                        if (status == ResultModel.Status.SUCCESS) {
-                            _statusLiveData.value = Success
-                            _statusLiveData.value = null
-                        } else {
-                            _statusLiveData.value = Failed(NoAuth)
-                            _statusLiveData.value = null
-                        }
-                    }
-                }
-            }
-        }
-    }
-
     fun signUp(country: Country?) {
         val email = emailLiveData.value
         val password = passwordLiveData.value
@@ -56,25 +29,43 @@ class SignViewModel(
         val intro = introLiveData.value
         val profileUri = profileUriLiveData.value
         when {
-            !isValidEmailPassword(email, password) -> {
-                _statusLiveData.value = null
-                return
-            }
-            name.isNullOrEmpty() -> _statusLiveData.value = Failed(EmptyName)
-            name.isBlank() || name.contains(" ") -> _statusLiveData.value = Failed(WrongName)
-            intro.isNullOrEmpty() || intro.isBlank() -> _statusLiveData.value = Failed(EmptyIntro)
-            profileUri == null -> _statusLiveData.value = Failed(EmptyProfile)
+            email.isNullOrEmpty() -> _statusLiveData.value = Failed(SignUpFailReason.EmptyEmail)
+            email.isBlank() || email.contains(" ") -> _statusLiveData.value =
+                Failed(SignUpFailReason.WrongEmail)
+            !email.contains("@") || !email.contains(".") -> _statusLiveData.value =
+                Failed(SignUpFailReason.WrongEmail)
+            password.isNullOrEmpty() -> _statusLiveData.value =
+                Failed(SignUpFailReason.EmptyPassword)
+            password.isBlank() || password.contains(" ") -> _statusLiveData.value =
+                Failed(SignUpFailReason.WrongPassword)
+            password.length < 6 -> _statusLiveData.value = Failed(SignUpFailReason.ShortPassword)
+            name.isNullOrEmpty() -> _statusLiveData.value = Failed(SignUpFailReason.EmptyName)
+            name.isBlank() || name.contains(" ") -> _statusLiveData.value =
+                Failed(SignUpFailReason.WrongName)
+            intro.isNullOrEmpty() || intro.isBlank() -> _statusLiveData.value =
+                Failed(SignUpFailReason.EmptyIntro)
+            profileUri == null -> _statusLiveData.value = Failed(SignUpFailReason.EmptyProfile)
             else -> {
                 _statusLiveData.value = Loading
                 viewModelScope.launch {
-                    signUpUsecase.execute(SignUpUsecase.SignUpParam(SignUpEntity(
-                        email!!, password!!, country!!.countryCode, "South Korea", intro, profileUri.toString(), name
-                    ))).run {
+                    signUpUsecase.execute(
+                        SignUpUsecase.SignUpParam(
+                            SignUpEntity(
+                                email,
+                                password,
+                                country!!.countryCode,
+                                "South Korea",
+                                intro,
+                                profileUri.toString(),
+                                name
+                            )
+                        )
+                    ).run {
                         if (status == ResultModel.Status.SUCCESS) {
                             _statusLiveData.value = Success
                             _statusLiveData.value = null
                         } else {
-                            _statusLiveData.value = Failed(NoAuth)
+                            _statusLiveData.value = Failed(SignUpFailReason.NoAuth)
                             _statusLiveData.value = null
                         }
                     }
@@ -87,52 +78,22 @@ class SignViewModel(
         uri?.also {
             profileUriLiveData.value = it
         } ?: kotlin.run {
-            _statusLiveData.value = Failed(FailedProfile)
+            _statusLiveData.value = Failed(SignUpFailReason.FailedProfile)
         }
     }
 
-    private fun isValidEmailPassword(email: String?, password: String?) =
-        when {
-            email.isNullOrEmpty() -> {
-                _statusLiveData.value = Failed(EmptyEmail)
-                false
-            }
-            email.isBlank() || email.contains(" ") -> {
-                _statusLiveData.value = Failed(WrongEmail)
-                false
-            }
-            !email.contains("@") || !email.contains(".") -> {
-                _statusLiveData.value = Failed(WrongEmail)
-                false
-            }
-            password.isNullOrEmpty() -> {
-                _statusLiveData.value = Failed(EmptyPassword)
-                false
-            }
-            password.isBlank() || password.contains(" ") -> {
-                _statusLiveData.value = Failed(WrongPassword)
-                false
-            }
-            password.length < 6 -> {
-                _statusLiveData.value = Failed(ShortPassword)
-                false
-            }
-            else -> true
-        }
-
-    sealed class FailReason(message: Int) : Reason(message) {
-        object WrongEmail : FailReason(R.string.wrong_email)
-        object WrongPassword : FailReason(R.string.wrong_password)
-        object WrongName: FailReason(R.string.wrong_name)
-        object ShortPassword : FailReason(R.string.short_password)
-        object WrongIntro : FailReason(R.string.wrong_intro)
-        object EmptyEmail : FailReason(R.string.empty_email)
-        object EmptyPassword : FailReason(R.string.empty_password)
-        object EmptyName : FailReason(R.string.empty_name)
-        object EmptyIntro : FailReason(R.string.empty_intro)
-        object EmptyProfile : FailReason(R.string.empty_profile)
-        object NoAuth : FailReason(R.string.no_auth)
-        object FailedProfile : FailReason(R.string.gallery_error)
+    sealed class SignUpFailReason(message: Int) : Reason(message) {
+        object WrongEmail : SignUpFailReason(R.string.wrong_email)
+        object WrongPassword : SignUpFailReason(R.string.wrong_password)
+        object WrongName : SignUpFailReason(R.string.wrong_name)
+        object ShortPassword : SignUpFailReason(R.string.short_password)
+        object WrongIntro : SignUpFailReason(R.string.wrong_intro)
+        object EmptyEmail : SignUpFailReason(R.string.empty_email)
+        object EmptyPassword : SignUpFailReason(R.string.empty_password)
+        object EmptyName : SignUpFailReason(R.string.empty_name)
+        object EmptyIntro : SignUpFailReason(R.string.empty_intro)
+        object EmptyProfile : SignUpFailReason(R.string.empty_profile)
+        object NoAuth : SignUpFailReason(R.string.no_auth)
+        object FailedProfile : SignUpFailReason(R.string.gallery_error)
     }
-
 }

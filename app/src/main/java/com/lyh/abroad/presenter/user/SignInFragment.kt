@@ -10,9 +10,8 @@ import androidx.lifecycle.observe
 import com.lyh.abroad.R
 import com.lyh.abroad.databinding.FragmentSignInBinding
 import com.lyh.abroad.presenter.base.BaseFragment
-import com.lyh.abroad.presenter.base.BaseViewModel.Status.*
+import com.lyh.abroad.presenter.base.BaseViewModel.Status.Failed
 import com.lyh.abroad.presenter.base.ViewModelFactory
-import com.lyh.abroad.presenter.user.SignViewModel.FailReason
 import kotlinx.android.synthetic.main.fragment_sign_in.*
 
 class SignInFragment : BaseFragment(R.layout.fragment_sign_in) {
@@ -38,8 +37,7 @@ class SignInFragment : BaseFragment(R.layout.fragment_sign_in) {
     private fun setUpBinding() {
         binding = FragmentSignInBinding.bind(view ?: return).apply {
             lifecycleOwner = viewLifecycleOwner
-            signViewModel =
-                activityViewModels<SignViewModel>(ViewModelFactory::get).value
+            signInViewModel = activityViewModels<SignInViewModel>(ViewModelFactory::get).value
         }
     }
 
@@ -58,14 +56,11 @@ class SignInFragment : BaseFragment(R.layout.fragment_sign_in) {
     }
 
     private fun observeLoginStatus() {
-        binding.signViewModel?.statusLiveData?.observe(this@SignInFragment.viewLifecycleOwner) {
+        binding.signInViewModel?.statusLiveData?.observe(this@SignInFragment.viewLifecycleOwner) {
             when (it) {
-                Success -> TODO()
-                Loading -> TODO()
+//                Success -> TODO()
                 is Failed -> {
-                    if (it.reason is FailReason) {
-                        showSnackMessage(context?.getString(it.reason.message) ?: return@observe)
-                    }
+                    showSnackMessage(context?.getString(it.reason.message) ?: return@observe)
                 }
             }
         }
