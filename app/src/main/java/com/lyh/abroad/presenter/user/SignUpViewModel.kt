@@ -45,6 +45,7 @@ class SignUpViewModel(
             intro.isNullOrEmpty() || intro.isBlank() -> _statusLiveData.value =
                 Failed(SignUpFailReason.EmptyIntro)
             profileUri == null -> _statusLiveData.value = Failed(SignUpFailReason.EmptyProfile)
+            country == null -> _statusLiveData.value = Failed(SignUpFailReason.EmptyNation)
             else -> {
                 _statusLiveData.value = Loading
                 viewModelScope.launch {
@@ -53,8 +54,8 @@ class SignUpViewModel(
                             SignUpEntity(
                                 email,
                                 password,
-                                country!!.countryCode,
-                                "South Korea",
+                                country.countryCode,
+                                country.countryName,
                                 intro,
                                 profileUri.toString(),
                                 name
@@ -93,6 +94,7 @@ class SignUpViewModel(
         object EmptyName : SignUpFailReason(R.string.empty_name)
         object EmptyIntro : SignUpFailReason(R.string.empty_intro)
         object EmptyProfile : SignUpFailReason(R.string.empty_profile)
+        object EmptyNation: SignUpFailReason(R.string.empty_nation)
         object NoAuth : SignUpFailReason(R.string.no_auth)
         object FailedProfile : SignUpFailReason(R.string.gallery_error)
     }

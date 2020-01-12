@@ -33,6 +33,7 @@
     <string name="empty_name">닉네임을 설정해주세요</string>
     <string name="empty_intro">자기소개를 입력해주세요</string>
     <string name="empty_profile">프로필 사진을 등록해주세요</string>
+    <string name="empty_nation">국가를 선택해 주세요</string>
     <string name="wrong_email">이메일 형식이 올바르지 않습니다.</string>
     <string name="wrong_password">비밀번호는 공백을 포함 할 수 없습니다.</string>
     <string name="wrong_name">닉네임은 공백을 포함 할 수 없습니다.</string>
