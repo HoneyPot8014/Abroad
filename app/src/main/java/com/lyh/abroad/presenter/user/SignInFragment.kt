@@ -19,7 +19,6 @@ import kotlinx.android.synthetic.main.fragment_sign_in.*
 class SignInFragment : BaseFragment(R.layout.fragment_sign_in) {
 
     private lateinit var binding: FragmentSignInBinding
-    private var isAnimated = false
     private lateinit var bottomNavViewModel: BottomNavViewModel
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -45,7 +44,7 @@ class SignInFragment : BaseFragment(R.layout.fragment_sign_in) {
     }
 
     private fun showCardAnim() {
-        if (!isAnimated) {
+        if (binding.signInViewModel?.isAnimated == false) {
             ValueAnimator.ofFloat(400f, 0f).apply {
                 addUpdateListener {
                     sign_in_card?.translationY = animatedValue as Float
@@ -60,7 +59,7 @@ class SignInFragment : BaseFragment(R.layout.fragment_sign_in) {
                 interpolator = AccelerateInterpolator()
                 start()
             }
-            isAnimated = !isAnimated
+            binding.signInViewModel?.isAnimated = true
         }
     }
 

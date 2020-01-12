@@ -15,8 +15,8 @@ class BottomNavigation(
     attrs: AttributeSet?
 ) : LinearLayout(context, attrs) {
 
-    private val _selectedLiveData = MutableLiveData<BottomNavItem>(FEED)
-    val seletedLiveData
+    private val _selectedLiveData = MutableLiveData<BottomNavItem>()
+    val selectedLiveData
         get() = _selectedLiveData
 
     init {

@@ -13,6 +13,7 @@ class SignInViewModel(
 
     val emailLiveData = MutableLiveData<String>()
     val passwordLiveData = MutableLiveData<String>()
+    var isAnimated = false
 
     fun signIn() {
         val email = emailLiveData.value
