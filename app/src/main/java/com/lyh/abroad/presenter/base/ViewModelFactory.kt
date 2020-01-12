@@ -9,12 +9,14 @@ import com.lyh.abroad.data.feed.source.user.UserAuth
 import com.lyh.abroad.data.feed.source.user.UserRemoteSource
 import com.lyh.abroad.domain.interactor.feed.GetFeedUsecase
 import com.lyh.abroad.domain.interactor.place.GetCountryUsecase
+import com.lyh.abroad.domain.interactor.user.GetUserUsecase
 import com.lyh.abroad.domain.interactor.user.SignInUsecase
 import com.lyh.abroad.domain.interactor.user.SignUpUsecase
 import com.lyh.abroad.presenter.feed.FeedViewModel
 import com.lyh.abroad.presenter.place.PlaceViewModel
 import com.lyh.abroad.presenter.user.SignInViewModel
 import com.lyh.abroad.presenter.user.SignUpViewModel
+import com.lyh.abroad.presenter.user.UserViewModel
 
 object ViewModelFactory {
 
@@ -37,6 +39,10 @@ object ViewModelFactory {
                     modelClass.isAssignableFrom(PlaceViewModel::class.java) -> {
                         modelClass.getConstructor(GetCountryUsecase::class.java)
                             .newInstance(GetCountryUsecase())
+                    }
+                    modelClass.isAssignableFrom(UserViewModel::class.java) -> {
+                        modelClass.getConstructor(GetUserUsecase::class.java)
+                            .newInstance(GetUserUsecase(UserRepositoryImpl.getInstance(UserAuth, UserRemoteSource), UserAuth))
                     }
                     else -> throw Exception("can not create ViewModel : ${modelClass.name}")
                 }

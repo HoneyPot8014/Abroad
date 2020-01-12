@@ -3,8 +3,6 @@
     <item>
         <shape>
             <padding
-                android:left="1dp"
-                android:right="1dp"
                 android:top="1dp" />
             <solid android:color="#1f000000" />
             <corners
@@ -15,8 +13,6 @@
     <item>
         <shape>
             <padding
-                android:left="1dp"
-                android:right="1dp"
                 android:top="1dp" />
             <solid android:color="#2f000000" />
             <corners

@@ -38,4 +38,11 @@ object UserAuth {
                     suspend.resume(ResultModel.onFailed(it))
                 }
         }
+
+    fun getUserUid(): ResultModel<String> =
+        if (auth.currentUser != null) {
+            ResultModel.onSuccess(auth.uid)
+        } else {
+            ResultModel.onFailed()
+        }
 }

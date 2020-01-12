@@ -43,11 +43,17 @@ class SignInFragment : BaseFragment(R.layout.fragment_sign_in) {
 
     private fun showCardAnim() {
         if (!isAnimated) {
-            ValueAnimator.ofFloat(500f, 0f).apply {
+            ValueAnimator.ofFloat(400f, 0f).apply {
                 addUpdateListener {
                     sign_in_card?.translationY = animatedValue as Float
+                    sign_in_email_title?.translationY = animatedValue as Float
+                    sign_in_email_input_layout?.translationY = animatedValue as Float
+                    sign_in_password_title?.translationY = animatedValue as Float
+                    sign_in_password_input_layout?.translationY = animatedValue as Float
+                    sign_in_sign_in?.translationY = animatedValue as Float
+                    sign_in_sign_up?.translationY = animatedValue as Float
                 }
-                duration = 600
+                duration = 400
                 interpolator = AccelerateInterpolator()
                 start()
             }

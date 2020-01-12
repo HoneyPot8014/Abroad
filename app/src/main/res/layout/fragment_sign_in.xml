@@ -7,8 +7,9 @@
             name="signInViewModel"
             type="com.lyh.abroad.presenter.user.SignInViewModel" />
 
-        <import type="android.view.View"/>
-        <import type="com.lyh.abroad.presenter.base.BaseViewModel.Status"/>
+        <import type="android.view.View" />
+
+        <import type="com.lyh.abroad.presenter.base.BaseViewModel.Status" />
     </data>
 
     <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
@@ -38,7 +39,6 @@
                 android:id="@+id/sign_in_title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="30dp"
                 android:text="@string/log_in"
                 android:textColor="@android:color/white"
                 android:textSize="38dp"
@@ -46,97 +46,113 @@
                 app:layout_constraintStart_toStartOf="@id/sign_in_logo"
                 app:layout_constraintTop_toBottomOf="@id/sign_in_logo" />
 
-            <LinearLayout
+            <View
                 android:id="@+id/sign_in_card"
                 android:layout_width="0dp"
                 android:layout_height="0dp"
-                android:layout_marginTop="40dp"
+                android:layout_marginTop="30dp"
                 android:background="@drawable/shape_card"
-                android:orientation="vertical"
-                android:padding="30dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/sign_in_title">
+                app:layout_constraintTop_toBottomOf="@id/sign_in_title" />
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="4dp"
-                    android:layout_marginTop="10dp"
-                    android:text="@string/email"
-                    android:textColor="@color/colorPrimary"
-                    android:textSize="20dp" />
+            <TextView
+                android:id="@+id/sign_in_email_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="34dp"
+                android:layout_marginTop="40dp"
+                android:text="@string/email"
+                android:textColor="@color/colorPrimary"
+                android:textSize="20dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@id/sign_in_card" />
 
-                <com.google.android.material.textfield.TextInputLayout
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/sign_in_email_input_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="30dp"
+                android:layout_marginEnd="30dp"
+                android:hint="@string/hint_email"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/sign_in_email_title">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/sign_in_email"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="@string/hint_email">
+                    android:inputType="textEmailAddress"
+                    android:text="@={signInViewModel.emailLiveData}" />
 
-                    <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/sign_in_email"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:inputType="textEmailAddress"
-                        android:text="@={signInViewModel.emailLiveData}" />
+            </com.google.android.material.textfield.TextInputLayout>
 
-                </com.google.android.material.textfield.TextInputLayout>
+            <TextView
+                android:id="@+id/sign_in_password_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="34dp"
+                android:layout_marginTop="22dp"
+                android:text="@string/password"
+                android:textColor="@color/colorPrimary"
+                android:textSize="20dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/sign_in_email_input_layout" />
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="4dp"
-                    android:layout_marginTop="22dp"
-                    android:text="@string/password"
-                    android:textColor="@color/colorPrimary"
-                    android:textSize="20dp" />
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/sign_in_password_input_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="30dp"
+                android:layout_marginEnd="30dp"
+                android:hint="@string/hint_password"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/sign_in_password_title">
 
-                <com.google.android.material.textfield.TextInputLayout
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/sign_in_password"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="@string/hint_password">
+                    android:inputType="textPassword"
+                    android:text="@={signInViewModel.passwordLiveData}" />
+            </com.google.android.material.textfield.TextInputLayout>
 
-                    <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/sign_in_password"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:inputType="textPassword"
-                        android:text="@={signInViewModel.passwordLiveData}" />
-                </com.google.android.material.textfield.TextInputLayout>
+            <Button
+                android:id="@+id/sign_in_sign_in"
+                android:layout_width="160dp"
+                android:layout_height="40dp"
+                android:layout_marginTop="22dp"
+                android:layout_marginEnd="30dp"
+                android:background="@drawable/shape_round"
+                android:onClick="@{() -> signInViewModel.signIn()}"
+                android:text="@string/start"
+                android:textColor="@android:color/white"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/sign_in_password_input_layout" />
 
-                <Button
-                    android:id="@+id/sign_in_sign_in"
-                    android:layout_width="160dp"
-                    android:layout_height="40dp"
-                    android:layout_gravity="end"
-                    android:layout_marginTop="22dp"
-                    android:background="@drawable/shape_round"
-                    android:onClick="@{() -> signInViewModel.signIn()}"
-                    android:text="@string/start"
-                    android:textColor="@android:color/white" />
-
-                <TextView
-                    android:id="@+id/sign_in_sign_up"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="end"
-                    android:layout_marginTop="4dp"
-                    android:padding="5dp"
-                    android:text="@string/not_yet_member" />
-
-            </LinearLayout>
+            <TextView
+                android:id="@+id/sign_in_sign_up"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="end"
+                android:layout_marginTop="4dp"
+                android:layout_marginEnd="30dp"
+                android:padding="5dp"
+                android:text="@string/not_yet_member"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/sign_in_sign_in" />
 
             <ProgressBar
                 android:id="@+id/pg"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:visibility="@{signInViewModel.statusLiveData instanceof Status.Loading? View.VISIBLE : View.INVISIBLE}"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                android:visibility="@{signInViewModel.statusLiveData instanceof Status.Loading? View.VISIBLE : View.INVISIBLE}"/>
+                app:layout_constraintTop_toTopOf="parent" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
-
     </ScrollView>
 </layout>
