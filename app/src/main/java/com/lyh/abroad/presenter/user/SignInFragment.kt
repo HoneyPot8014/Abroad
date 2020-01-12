@@ -10,11 +10,10 @@ import androidx.lifecycle.observe
 import com.lyh.abroad.R
 import com.lyh.abroad.databinding.FragmentSignInBinding
 import com.lyh.abroad.presenter.base.BaseFragment
-import com.lyh.abroad.presenter.base.BaseViewModel.Status.Failed
-import com.lyh.abroad.presenter.base.BaseViewModel.Status.Success
+import com.lyh.abroad.presenter.base.BaseViewModel.Status.*
 import com.lyh.abroad.presenter.base.ViewModelFactory
+import com.lyh.abroad.presenter.bottomnav.BottomNavViewModel
 import com.lyh.abroad.presenter.custom.BottomNavigation
-import com.lyh.abroad.presenter.main.BottomNavViewModel
 import kotlinx.android.synthetic.main.fragment_sign_in.*
 
 class SignInFragment : BaseFragment(R.layout.fragment_sign_in) {
@@ -68,11 +67,28 @@ class SignInFragment : BaseFragment(R.layout.fragment_sign_in) {
     private fun observeLoginStatus() {
         binding.signInViewModel?.statusLiveData?.observe(this@SignInFragment.viewLifecycleOwner) {
             when (it) {
-                Success -> bottomNavViewModel.currentNav.value = BottomNavigation.BottomNavItem.FEED
+                Success -> {
+                    bottomNavViewModel.currentNav.value = BottomNavigation.BottomNavItem.FEED
+                    hidePg()
+                }
                 is Failed -> {
                     showSnackMessage(context?.getString(it.reason.message) ?: return@observe)
+                    hidePg()
                 }
+                Loading -> showPg()
             }
+        }
+    }
+
+    private fun showPg() {
+        if (pg?.visibility == View.INVISIBLE) {
+            pg?.visibility = View.VISIBLE
+        }
+    }
+
+    private fun hidePg() {
+        if (pg?.visibility == View.VISIBLE) {
+            pg?.visibility = View.INVISIBLE
         }
     }
 }

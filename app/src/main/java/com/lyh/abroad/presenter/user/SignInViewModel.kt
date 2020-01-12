@@ -7,9 +7,9 @@ import com.lyh.abroad.domain.model.ResultModel
 import com.lyh.abroad.presenter.base.BaseViewModel
 import kotlinx.coroutines.launch
 
-class SignInViewModel (
+class SignInViewModel(
     private val signInUsecase: SignInUsecase
-): BaseViewModel() {
+) : BaseViewModel() {
 
     val emailLiveData = MutableLiveData<String>()
     val passwordLiveData = MutableLiveData<String>()
@@ -46,7 +46,7 @@ class SignInViewModel (
         }
     }
 
-    sealed class SignInFailReason(message: Int): Reason(message) {
+    sealed class SignInFailReason(message: Int) : Reason(message) {
         object EmptyEmail : SignInFailReason(R.string.empty_email)
         object EmptyPassword : SignInFailReason(R.string.empty_password)
         object WrongEmail : SignInFailReason(R.string.wrong_email)

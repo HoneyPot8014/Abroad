@@ -1,4 +1,4 @@
-package com.lyh.abroad.presenter.main
+package com.lyh.abroad.presenter.bottomnav
 
 import androidx.lifecycle.MutableLiveData
 import com.lyh.abroad.presenter.base.BaseViewModel
