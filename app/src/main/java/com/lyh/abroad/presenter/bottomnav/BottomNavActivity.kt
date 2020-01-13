@@ -58,11 +58,7 @@ class BottomNavActivity : AppCompatActivity() {
                 MY_PAGE -> null
                 else -> SignInFragment()
             }
-            if (fragment is SignInFragment) {
-                hideBottomNav()
-            } else {
-                showBottomNav()
-            }
+            if (fragment is SignInFragment) hideBottomNav() else showBottomNav()
             supportFragmentManager
                 .beginTransaction()
                 .replace(R.id.fragment_container, fragment ?: return@observe)

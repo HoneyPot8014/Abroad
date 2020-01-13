@@ -27,6 +27,7 @@ class PlaceViewModel(
         country?.let {
             if (countryLiveData.value != country) {
                 countryLiveData.value = it
+                _statusLiveData.value = Status.Success
             } else {
                 countryLiveData.value = null
             }

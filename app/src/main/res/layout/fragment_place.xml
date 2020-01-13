@@ -27,54 +27,31 @@
                 android:id="@+id/toolbar"
                 android:layout_width="match_parent"
                 android:layout_height="?attr/actionBarSize"
+                android:background="@android:color/white"
+                app:contentInsetLeft="0dp"
+                app:contentInsetStart="0dp"
                 android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
 
-                <LinearLayout
+                <ImageView
+                    android:id="@+id/place_back_button"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:src="@drawable/icon_back"
+                    android:padding="10dp"/>
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/place_search"
                     android:layout_width="match_parent"
-                    android:layout_height="?attr/actionBarSize"
-                    android:gravity="center_vertical">
-
-                    <TextView
-                        android:id="@+id/place_cancel"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:padding="10dp"
-                        android:text="@string/cancel"
-                        android:textColor="@android:color/holo_red_light" />
-
-                    <View
-                        android:layout_width="0dp"
-                        android:layout_height="0dp"
-                        android:layout_weight="1" />
-
-                    <TextView
-                        android:id="@+id/place_confirm"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginEnd="10dp"
-                        android:padding="10dp"
-                        android:text="@string/confirm_choose"
-                        android:visibility="@{placeViewModel.countryLiveData == null? View.INVISIBLE : View.VISIBLE}"
-                        android:textColor="@android:color/white" />
-
-                </LinearLayout>
+                    android:layout_height="match_parent"
+                    android:hint="@string/search_nation"
+                    android:background="@null"
+                    android:textColor="@color/quantum_black_secondary_text"
+                    android:textColorHint="@color/default_text"
+                    android:text="@={placeViewModel.searchTextLiveData}" />
 
             </androidx.appcompat.widget.Toolbar>
 
         </com.google.android.material.appbar.AppBarLayout>
-
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/place_search"
-            android:layout_width="match_parent"
-            android:layout_height="38dp"
-            android:layout_margin="14dp"
-            android:background="@drawable/search_bar"
-            android:hint="@string/search_nation"
-            android:paddingStart="8dp"
-            android:paddingEnd="8dp"
-            android:text="@={placeViewModel.searchTextLiveData}"
-            app:layout_constraintBottom_toTopOf="@id/nation_list"
-            app:layout_constraintTop_toBottomOf="@id/app_bar" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/nation_list"
@@ -84,8 +61,7 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/place_search" />
+            app:layout_constraintTop_toBottomOf="@id/app_bar" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
-
 </layout>
