@@ -17,6 +17,9 @@ android {
         multiDexEnabled true
     }
     buildTypes {
+        debug {
+            resValue "string", "place_api_key", place_api_key
+        }
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
