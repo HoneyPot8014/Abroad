@@ -14,6 +14,7 @@ import com.lyh.abroad.presenter.base.BaseViewModel.Status.Success
 import com.lyh.abroad.presenter.base.ViewModelFactory
 import com.lyh.abroad.presenter.custom.BottomNavigation.BottomNavItem.*
 import com.lyh.abroad.presenter.feed.FeedFragment
+import com.lyh.abroad.presenter.post.PostFragment
 import com.lyh.abroad.presenter.user.SignInFragment
 import com.lyh.abroad.presenter.user.UserViewModel
 import kotlinx.android.synthetic.main.activity_bottom_nav.*
@@ -53,7 +54,7 @@ class BottomNavActivity : AppCompatActivity() {
             val fragment = when (it) {
                 FEED -> FeedFragment()
                 CHATTING -> null
-                POST -> null
+                POST -> PostFragment()
                 ALARM -> null
                 MY_PAGE -> null
                 else -> SignInFragment()
