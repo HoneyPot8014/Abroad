@@ -20,8 +20,10 @@ import kotlinx.android.synthetic.main.fragment_sign_in.*
 
 class SignInFragment : BaseFragment(R.layout.fragment_sign_in) {
 
-    private lateinit var binding: FragmentSignInBinding
     private val bottomNavViewModel by activityViewModels<BottomNavViewModel>()
+    private val signInViewModel by viewModels<SignInViewModel> {
+        ViewModelFactory.get(requireActivity().application)
+    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -37,16 +39,14 @@ class SignInFragment : BaseFragment(R.layout.fragment_sign_in) {
     }
 
     private fun setUpBinding() {
-        binding = FragmentSignInBinding.bind(view ?: return).apply {
+        FragmentSignInBinding.bind(view ?: return).apply {
             lifecycleOwner = viewLifecycleOwner
-            signInViewModel = viewModels<SignInViewModel>{
-                ViewModelFactory.get(requireActivity().application)
-            }.value
+            signInViewModel = this@SignInFragment.signInViewModel
         }
     }
 
     private fun showCardAnim() {
-        if (binding.signInViewModel?.isAnimated == false) {
+        if (!signInViewModel.isAnimated) {
             ValueAnimator.ofFloat(400f, 0f).apply {
                 addUpdateListener {
                     sign_in_card?.translationY = animatedValue as Float
@@ -61,12 +61,12 @@ class SignInFragment : BaseFragment(R.layout.fragment_sign_in) {
                 interpolator = AccelerateInterpolator()
                 start()
             }
-            binding.signInViewModel?.isAnimated = true
+            signInViewModel.isAnimated = true
         }
     }
 
     private fun observeLoginStatus() {
-        binding.signInViewModel?.statusLiveData?.observe(this@SignInFragment.viewLifecycleOwner) {
+        signInViewModel.statusLiveData.observe(this@SignInFragment.viewLifecycleOwner) {
             when (it) {
                 Success -> {
                     bottomNavViewModel.currentNav.value = BottomNavigation.BottomNavItem.FEED

@@ -19,29 +19,30 @@ import kotlinx.android.synthetic.main.fragment_feed.*
 
 class FeedFragment : BaseFragment(R.layout.fragment_feed) {
 
+    private val feedViModel by activityViewModels<FeedViewModel> {
+        ViewModelFactory.get(requireActivity().application)
+    }
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
         FragmentFeedBinding.bind(view).apply {
             lifecycleOwner = viewLifecycleOwner
-            feedViewModel = activityViewModels<FeedViewModel>{ViewModelFactory.get(requireActivity().application)}.value
+            feedViewModel = this@FeedFragment.feedViModel
         }
 
         rv_feed.apply {
             layoutManager = LinearLayoutManager(context, RecyclerView.VERTICAL, false)
             addItemDecoration(BaseListDivider(16f))
-            adapter = object : BaseAdapter<Feed, FeedItemViewHolder>() {
-
-                override fun onCreateViewHolder(
-                    parent: ViewGroup,
-                    viewType: Int
-                ): FeedItemViewHolder {
-                    return FeedItemViewHolder(
-                        LayoutInflater.from(context).inflate(
-                            R.layout.item_feed_view, parent, false
-                        )
+            object : BaseAdapter<Feed, FeedItemViewHolder>() {
+                override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) =
+                    FeedItemViewHolder(
+                        LayoutInflater
+                            .from(context)
+                            .inflate(R.layout.item_feed_view, parent, false)
                     )
-                }
+            }.also {
+                adapter = it
             }
         }
     }

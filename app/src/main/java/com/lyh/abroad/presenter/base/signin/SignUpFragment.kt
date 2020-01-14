@@ -5,6 +5,7 @@ import android.app.Activity.RESULT_OK
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
+import androidx.activity.addCallback
 import androidx.fragment.app.commit
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.observe
@@ -20,7 +21,13 @@ import kotlinx.android.synthetic.main.fragment_sign_up.*
 
 class SignUpFragment : BaseFragment(R.layout.fragment_sign_up) {
 
-    private lateinit var binding: FragmentSignUpBinding
+    private val signUpViewModel by viewModels<SignUpViewModel> {
+        ViewModelFactory.get(requireActivity().application)
+    }
+    private val placeViewModel by viewModels<PlaceViewModel>(
+        { parentFragment ?: this@SignUpFragment },
+        { ViewModelFactory.get(requireActivity().application) }
+    )
 
     companion object {
         private const val GALLERY_PICK = 1000
@@ -28,7 +35,9 @@ class SignUpFragment : BaseFragment(R.layout.fragment_sign_up) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
+        dispatcher?.addCallback(viewLifecycleOwner) {
+            parentFragmentManager.popBackStack()
+        }
         setUpBinding()
         add_profile.setOnClickListener {
             startIntentForProfilePick()
@@ -48,23 +57,23 @@ class SignUpFragment : BaseFragment(R.layout.fragment_sign_up) {
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         if (requestCode == GALLERY_PICK) {
             if (resultCode == RESULT_OK) {
-                binding.signUpViewModel?.setProfileUri(data?.data)
+                signUpViewModel.setProfileUri(data?.data)
             }
         }
     }
 
     private fun setUpBinding() {
-        binding = FragmentSignUpBinding.bind(view ?: return).apply {
+        FragmentSignUpBinding.bind(view ?: return).apply {
             lifecycleOwner = viewLifecycleOwner
             requireActivity().application.also {
-                signUpViewModel = viewModels<SignUpViewModel> { ViewModelFactory.get(it) }.value
-                placeViewModel = viewModels<PlaceViewModel> ({parentFragment ?: this@SignUpFragment}, { ViewModelFactory.get(it) }).value
+                signUpViewModel = this@SignUpFragment.signUpViewModel
+                placeViewModel = this@SignUpFragment.placeViewModel
             }
         }
     }
 
     private fun observeSignUpStatus() {
-        binding.signUpViewModel?.statusLiveData?.observe(viewLifecycleOwner) {
+        signUpViewModel.statusLiveData.observe(viewLifecycleOwner) {
             when (it) {
                 Success -> TODO()
                 is Failed -> {

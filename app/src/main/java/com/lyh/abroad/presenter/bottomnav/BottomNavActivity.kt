@@ -4,12 +4,12 @@ import android.os.Bundle
 import android.view.View.GONE
 import android.view.View.VISIBLE
 import androidx.activity.viewModels
-import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.observe
 import com.google.firebase.auth.FirebaseAuth
 import com.lyh.abroad.R
 import com.lyh.abroad.databinding.ActivityBottomNavBinding
+import com.lyh.abroad.presenter.base.BaseActivity
 import com.lyh.abroad.presenter.base.BaseViewModel.Status.Failed
 import com.lyh.abroad.presenter.base.BaseViewModel.Status.Success
 import com.lyh.abroad.presenter.base.ViewModelFactory
@@ -21,7 +21,7 @@ import com.lyh.abroad.presenter.post.PostFragment
 import com.lyh.abroad.presenter.user.UserViewModel
 import kotlinx.android.synthetic.main.activity_bottom_nav.*
 
-class BottomNavActivity : AppCompatActivity() {
+class BottomNavActivity : BaseActivity() {
 
     private lateinit var binding: ActivityBottomNavBinding
     private lateinit var bottomNavViewModel: BottomNavViewModel
