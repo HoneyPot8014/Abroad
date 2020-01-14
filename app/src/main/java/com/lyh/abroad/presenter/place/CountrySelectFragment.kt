@@ -4,6 +4,8 @@ package com.lyh.abroad.presenter.place
 import android.os.Bundle
 import android.view.View
 import androidx.activity.addCallback
+import androidx.fragment.app.activityViewModels
+import androidx.fragment.app.commit
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.observe
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -14,6 +16,7 @@ import com.lyh.abroad.presenter.base.BaseFragment
 import com.lyh.abroad.presenter.base.BaseViewModel.Status
 import com.lyh.abroad.presenter.base.ViewModelFactory
 import com.lyh.abroad.presenter.base.listview.BaseListDivider
+import com.lyh.abroad.presenter.user.UserViewModel
 import kotlinx.android.synthetic.main.fragment_country_select.*
 
 
@@ -23,7 +26,9 @@ class CountrySelectFragment : BaseFragment(R.layout.fragment_country_select) {
         { parentFragment ?: this@CountrySelectFragment },
         { ViewModelFactory.get(requireActivity().application) }
     )
-
+    private val userViewModel by activityViewModels<UserViewModel> {
+        ViewModelFactory.get(requireActivity().application)
+    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -42,12 +47,21 @@ class CountrySelectFragment : BaseFragment(R.layout.fragment_country_select) {
         }
 
         placeViewModel.statusLiveData.observe(viewLifecycleOwner) {
-            if (it == Status.Success) parentFragmentManager.popBackStack()
+            if (it == Status.Success) {
+                if (userViewModel.userLiveData.value == null) {
+                    parentFragmentManager.popBackStack()
+                } else {
+                    parentFragmentManager.commit {
+                        replace(R.id.post_container, CitySelectFragment())
+                        addToBackStack(null)
+                    }
+                }
+            }
         }
     }
 
     private fun setUpBinding() {
-        FragmentCountrySelectBinding.bind(view).apply {
+        FragmentCountrySelectBinding.bind(view ?: return).apply {
             placeViewModel = this@CountrySelectFragment.placeViewModel
             lifecycleOwner = viewLifecycleOwner
         }

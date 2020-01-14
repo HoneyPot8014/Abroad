@@ -31,11 +31,9 @@ class PostFragment : BaseFragment(R.layout.fragment_post) {
 
         post_select_country.setOnClickListener {
             parentFragmentManager.beginTransaction()
-                .replace(R.id.fragment_container, CountrySelectFragment())
+                .replace(R.id.post_container, CountrySelectFragment())
                 .addToBackStack(null)
                 .commit()
         }
     }
-
-
 }
