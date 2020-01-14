@@ -1,11 +1,12 @@
-package com.lyh.abroad.presenter.user
+package com.lyh.abroad.presenter.base.signin
 
 
 import android.app.Activity.RESULT_OK
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
-import androidx.fragment.app.activityViewModels
+import androidx.fragment.app.commit
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.observe
 import com.lyh.abroad.R
 import com.lyh.abroad.databinding.FragmentSignUpBinding
@@ -13,7 +14,7 @@ import com.lyh.abroad.presenter.base.BaseFragment
 import com.lyh.abroad.presenter.base.BaseViewModel.Status.Failed
 import com.lyh.abroad.presenter.base.BaseViewModel.Status.Success
 import com.lyh.abroad.presenter.base.ViewModelFactory
-import com.lyh.abroad.presenter.place.PlaceFragment
+import com.lyh.abroad.presenter.place.CountrySelectFragment
 import com.lyh.abroad.presenter.place.PlaceViewModel
 import kotlinx.android.synthetic.main.fragment_sign_up.*
 
@@ -33,13 +34,13 @@ class SignUpFragment : BaseFragment(R.layout.fragment_sign_up) {
             startIntentForProfilePick()
         }
         search_nation.setOnClickListener {
-            parentFragmentManager.beginTransaction()
-                .replace(R.id.fragment_container, PlaceFragment())
-                .addToBackStack(null)
-                .commit()
+            parentFragmentManager.commit {
+                replace(R.id.sign_up_container, CountrySelectFragment())
+                addToBackStack(null)
+            }
         }
         sign_up_cancel.setOnClickListener {
-            activity?.onBackPressed()
+            parentFragmentManager.popBackStack()
         }
         observeSignUpStatus()
     }
@@ -55,8 +56,10 @@ class SignUpFragment : BaseFragment(R.layout.fragment_sign_up) {
     private fun setUpBinding() {
         binding = FragmentSignUpBinding.bind(view ?: return).apply {
             lifecycleOwner = viewLifecycleOwner
-            signUpViewModel = activityViewModels<SignUpViewModel>(ViewModelFactory::get).value
-            placeViewModel = activityViewModels<PlaceViewModel>(ViewModelFactory::get).value
+            requireActivity().application.also {
+                signUpViewModel = viewModels<SignUpViewModel> { ViewModelFactory.get(it) }.value
+                placeViewModel = viewModels<PlaceViewModel> ({parentFragment ?: this@SignUpFragment}, { ViewModelFactory.get(it) }).value
+            }
         }
     }
 
@@ -77,7 +80,10 @@ class SignUpFragment : BaseFragment(R.layout.fragment_sign_up) {
             type = "image/*"
             action = Intent.ACTION_GET_CONTENT
         }.let {
-            startActivityForResult(it, GALLERY_PICK)
+            startActivityForResult(
+                it,
+                GALLERY_PICK
+            )
         }
     }
 }

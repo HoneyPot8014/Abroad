@@ -5,7 +5,7 @@
 
         <variable
             name="signInViewModel"
-            type="com.lyh.abroad.presenter.user.SignInViewModel" />
+            type="com.lyh.abroad.presenter.base.signin.SignInViewModel" />
 
         <import type="android.view.View" />
 

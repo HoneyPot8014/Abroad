@@ -3,43 +3,45 @@ package com.lyh.abroad.presenter.place
 
 import android.os.Bundle
 import android.view.View
-import androidx.fragment.app.activityViewModels
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.observe
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.lyh.abroad.R
-import com.lyh.abroad.databinding.FragmentPlaceBinding
+import com.lyh.abroad.databinding.FragmentCountrySelectBinding
 import com.lyh.abroad.presenter.base.BaseFragment
 import com.lyh.abroad.presenter.base.BaseViewModel.Status
 import com.lyh.abroad.presenter.base.ViewModelFactory
 import com.lyh.abroad.presenter.base.listview.BaseListDivider
-import kotlinx.android.synthetic.main.fragment_place.*
+import kotlinx.android.synthetic.main.fragment_country_select.*
 
 
-class PlaceFragment : BaseFragment(R.layout.fragment_place) {
+class CountrySelectFragment : BaseFragment(R.layout.fragment_country_select) {
 
-    private lateinit var binding: FragmentPlaceBinding
+    private lateinit var binding: FragmentCountrySelectBinding
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        binding = FragmentPlaceBinding.bind(view).apply {
-            placeViewModel = activityViewModels<PlaceViewModel>(ViewModelFactory::get).value
+        binding = FragmentCountrySelectBinding.bind(view).apply {
+            placeViewModel = viewModels<PlaceViewModel>(
+                { parentFragment ?: this@CountrySelectFragment} ,
+                { ViewModelFactory.get(requireActivity().application) }
+            ).value
             lifecycleOwner = viewLifecycleOwner
         }
 
         nation_list.apply {
             layoutManager = LinearLayoutManager(context, RecyclerView.VERTICAL, false)
             addItemDecoration(BaseListDivider(0.5f))
-            adapter = PlaceCountryListAdapter(activity?.viewModelStore ?: return@apply)
+            adapter = PlaceCountryListAdapter(binding.placeViewModel ?: return@apply)
         }
 
         place_back_button.setOnClickListener {
-            activity?.onBackPressed()
+            parentFragmentManager.popBackStack()
         }
 
         binding.placeViewModel?.statusLiveData?.observe(viewLifecycleOwner) {
-            if (it == Status.Success) activity?.onBackPressed()
+            if (it == Status.Success) parentFragmentManager.popBackStack()
         }
-
     }
 }

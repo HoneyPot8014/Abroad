@@ -1,4 +1,4 @@
-package com.lyh.abroad.presenter.user
+package com.lyh.abroad.presenter.base.signin
 
 
 import android.animation.ValueAnimator
@@ -6,6 +6,8 @@ import android.os.Bundle
 import android.view.View
 import android.view.animation.AccelerateInterpolator
 import androidx.fragment.app.activityViewModels
+import androidx.fragment.app.commit
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.observe
 import com.lyh.abroad.R
 import com.lyh.abroad.databinding.FragmentSignInBinding
@@ -19,27 +21,27 @@ import kotlinx.android.synthetic.main.fragment_sign_in.*
 class SignInFragment : BaseFragment(R.layout.fragment_sign_in) {
 
     private lateinit var binding: FragmentSignInBinding
-    private lateinit var bottomNavViewModel: BottomNavViewModel
+    private val bottomNavViewModel by activityViewModels<BottomNavViewModel>()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        bottomNavViewModel = activityViewModels<BottomNavViewModel>().value
         setUpBinding()
         showCardAnim()
         observeLoginStatus()
         sign_in_sign_up.setOnClickListener {
-            activity?.supportFragmentManager
-                ?.beginTransaction()
-                ?.replace(R.id.fragment_container, SignUpFragment())
-                ?.addToBackStack(null)
-                ?.commit()
+            parentFragmentManager.commit {
+                replace(R.id.sign_up_container, SignUpFragment())
+                addToBackStack(null)
+            }
         }
     }
 
     private fun setUpBinding() {
         binding = FragmentSignInBinding.bind(view ?: return).apply {
             lifecycleOwner = viewLifecycleOwner
-            signInViewModel = activityViewModels<SignInViewModel>(ViewModelFactory::get).value
+            signInViewModel = viewModels<SignInViewModel>{
+                ViewModelFactory.get(requireActivity().application)
+            }.value
         }
     }
 

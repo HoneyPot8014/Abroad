@@ -47,7 +47,7 @@
                     android:background="@null"
                     android:textColor="@color/quantum_black_secondary_text"
                     android:textColorHint="@color/default_text"
-                    android:text="@={placeViewModel.searchTextLiveData}" />
+                    android:text="@={placeViewModel.countrySearchTextLiveData}" />
 
             </androidx.appcompat.widget.Toolbar>
 

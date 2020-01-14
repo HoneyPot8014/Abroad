@@ -1,4 +1,4 @@
-package com.lyh.abroad.presenter.user
+package com.lyh.abroad.presenter.base.signin
 
 import androidx.lifecycle.MutableLiveData
 import com.lyh.abroad.R

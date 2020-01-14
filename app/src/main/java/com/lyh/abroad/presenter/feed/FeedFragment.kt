@@ -15,7 +15,6 @@ import com.lyh.abroad.presenter.base.ViewModelFactory
 import com.lyh.abroad.presenter.base.listview.BaseAdapter
 import com.lyh.abroad.presenter.base.listview.BaseListDivider
 import com.lyh.abroad.presenter.model.Feed
-import com.lyh.abroad.presenter.place.PlaceViewModel
 import kotlinx.android.synthetic.main.fragment_feed.*
 
 class FeedFragment : BaseFragment(R.layout.fragment_feed) {
@@ -25,7 +24,7 @@ class FeedFragment : BaseFragment(R.layout.fragment_feed) {
 
         FragmentFeedBinding.bind(view).apply {
             lifecycleOwner = viewLifecycleOwner
-            feedViewModel = activityViewModels<FeedViewModel>(ViewModelFactory::get).value
+            feedViewModel = activityViewModels<FeedViewModel>{ViewModelFactory.get(requireActivity().application)}.value
         }
 
         rv_feed.apply {
@@ -45,6 +44,5 @@ class FeedFragment : BaseFragment(R.layout.fragment_feed) {
                 }
             }
         }
-        activityViewModels<PlaceViewModel>(ViewModelFactory::get)
     }
 }
