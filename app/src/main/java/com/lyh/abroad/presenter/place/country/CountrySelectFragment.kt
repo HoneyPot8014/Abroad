@@ -41,10 +41,7 @@ class CountrySelectFragment : BaseFragment(R.layout.fragment_country_select) {
         nation_list.apply {
             layoutManager = LinearLayoutManager(context, RecyclerView.VERTICAL, false)
             addItemDecoration(BaseListDivider(0.5f))
-            adapter =
-                CountryListAdapter(
-                    placeViewModel
-                )
+            adapter = CountryListAdapter(placeViewModel)
         }
 
         place_back_button.setOnClickListener {
