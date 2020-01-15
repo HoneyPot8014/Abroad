@@ -40,14 +40,21 @@ class CityRemoteSource private constructor(val context: Context) : CitySource {
                     .build()
             )
                 .addOnSuccessListener {
-                    it.autocompletePredictions.mapNotNull { city ->
-                        CityEntity(
-                            city.placeId,
-                            city.getPrimaryText(null).toString(),
-                            city.getSecondaryText(null).toString()
+                    continuation.resume(
+                        ResultModel.onSuccess(
+                            it.autocompletePredictions
+                                .map { city ->
+                                    CityEntity(
+                                        city.placeId,
+                                        city.getPrimaryText(null).toString(),
+                                        city.getSecondaryText(null).toString()
+                                    )
+                                }
                         )
-                    }.let { result -> continuation.resume(ResultModel.onSuccess(result)) }
+                    )
                 }
-                .addOnFailureListener { continuation.resume(ResultModel.onFailed()) }
+                .addOnFailureListener {
+                    continuation.resume(ResultModel.onFailed())
+                }
         }
 }

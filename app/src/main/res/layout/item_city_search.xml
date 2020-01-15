@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout>
+
+    <data>
+
+        <variable
+            name="placeViewModel"
+            type="com.lyh.abroad.presenter.place.PlaceViewModel" />
+
+        <variable
+            name="data"
+            type="com.lyh.abroad.domain.entity.CityEntity" />
+    </data>
+
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@{placeViewModel.cityLiveData == data? @color/colorAccent : @android:color/white}"
+        android:onClick="@{() -> placeViewModel.onCityClicked(data)}"
+        android:orientation="horizontal"
+        android:paddingTop="12dp"
+        android:paddingBottom="12dp">
+
+        <TextView
+            android:id="@+id/nation_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_marginStart="24dp"
+            android:text="@{data.cityName}"
+            android:textColor="@{placeViewModel.cityLiveData == data? @android:color/white : @color/default_text}"
+            android:textSize="18dp"
+            tools:text="대한민국 - SouthKorea" />
+
+    </LinearLayout>
+</layout>

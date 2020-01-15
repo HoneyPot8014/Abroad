@@ -40,14 +40,14 @@
                     android:padding="10dp"/>
 
                 <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/place_search"
+                    android:id="@+id/city_search"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:hint="도시 이름을 입력해주세요"
                     android:background="@null"
                     android:textColor="@color/quantum_black_secondary_text"
                     android:textColorHint="@color/default_text"
-                    android:text="@={placeViewModel.countrySearchTextLiveData}" />
+                    android:text="@={placeViewModel.citySearchLiveData}" />
 
             </androidx.appcompat.widget.Toolbar>
 
@@ -57,6 +57,7 @@
             android:id="@+id/city_list"
             android:layout_width="0dp"
             android:layout_height="0dp"
+            app:cityItem="@{placeViewModel.cityListLiveData}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"

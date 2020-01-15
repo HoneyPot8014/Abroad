@@ -11,7 +11,7 @@ class GetCityUsecase(
     private val cityRepository: CityRepository
 ) : BaseUsecase<List<CityEntity>, GetCityUsecase.CityParam>() {
 
-    data class CityParam(val query: String) : Param()
+    data class CityParam(val query: String?) : Param()
 
     override suspend fun bindUsecase(param: CityParam?): ResultModel<List<CityEntity>> =
         param?.query?.let {
