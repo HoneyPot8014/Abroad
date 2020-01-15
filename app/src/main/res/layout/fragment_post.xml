@@ -54,9 +54,9 @@
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
                         android:layout_weight="1"
-                        android:drawableStart="@drawable/icon_drop_down"
                         android:gravity="center"
-                        android:text=" 국가 선택"
+                        app:country="@{placeViewModel.countryLiveData}"
+                        app:city="@{placeViewModel.cityLiveData}"
                         android:textColor="@color/quantum_black_secondary_text"
                         android:textSize="16dp"
                         app:layout_constraintEnd_toStartOf="@id/post_next"
@@ -74,6 +74,7 @@
                         android:textSize="16dp"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
+
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
             </androidx.appcompat.widget.Toolbar>

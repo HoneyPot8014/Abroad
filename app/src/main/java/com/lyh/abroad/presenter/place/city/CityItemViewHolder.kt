@@ -1,4 +1,4 @@
-package com.lyh.abroad.presenter.place
+package com.lyh.abroad.presenter.place.city
 
 import android.view.View
 import androidx.lifecycle.Lifecycle
@@ -7,6 +7,7 @@ import androidx.lifecycle.LifecycleRegistry
 import com.lyh.abroad.databinding.ItemCitySearchBinding
 import com.lyh.abroad.presenter.base.listview.BaseViewHolder
 import com.lyh.abroad.presenter.model.City
+import com.lyh.abroad.presenter.place.PlaceViewModel
 
 class CityItemViewHolder(private val placeViewModel: PlaceViewModel, itemView: View) :
     BaseViewHolder<City>(itemView), LifecycleOwner {

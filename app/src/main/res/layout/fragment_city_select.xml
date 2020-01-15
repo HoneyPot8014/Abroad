@@ -33,7 +33,7 @@
                 android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
 
                 <ImageView
-                    android:id="@+id/place_back_button"
+                    android:id="@+id/city_back_button"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:src="@drawable/icon_back"

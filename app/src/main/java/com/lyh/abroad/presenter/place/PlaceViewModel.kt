@@ -1,5 +1,6 @@
 package com.lyh.abroad.presenter.place
 
+import androidx.lifecycle.MediatorLiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.liveData
 import androidx.lifecycle.switchMap
@@ -26,11 +27,18 @@ class PlaceViewModel(
                 ?.map { CountryMapper.toModel(it) })
         }
     }
-
     val cityListLiveData = citySearchLiveData.switchMap {
         liveData {
             emit(getCityUsecase.execute(GetCityUsecase.CityParam(it)).data
                 ?.map { CityMapper.toModel(it) })
+        }
+    }
+    val isPlaceSelected = MediatorLiveData<Boolean>().apply {
+        addSource(countryLiveData) {
+            value = it != null && cityLiveData.value != null
+        }
+        addSource(cityLiveData) {
+            value = it != null && countryLiveData.value != null
         }
     }
 

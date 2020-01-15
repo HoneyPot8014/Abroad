@@ -15,8 +15,8 @@ import com.lyh.abroad.presenter.base.BaseFragment
 import com.lyh.abroad.presenter.base.BaseViewModel.Status.Failed
 import com.lyh.abroad.presenter.base.BaseViewModel.Status.Success
 import com.lyh.abroad.presenter.base.ViewModelFactory
-import com.lyh.abroad.presenter.place.CountrySelectFragment
 import com.lyh.abroad.presenter.place.PlaceViewModel
+import com.lyh.abroad.presenter.place.country.CountrySelectFragment
 import kotlinx.android.synthetic.main.fragment_sign_up.*
 
 class SignUpFragment : BaseFragment(R.layout.fragment_sign_up) {
@@ -44,7 +44,9 @@ class SignUpFragment : BaseFragment(R.layout.fragment_sign_up) {
         }
         search_nation.setOnClickListener {
             parentFragmentManager.commit {
-                replace(R.id.sign_up_container, CountrySelectFragment())
+                replace(R.id.sign_up_container,
+                    CountrySelectFragment()
+                )
                 addToBackStack(null)
             }
         }

@@ -41,5 +41,6 @@
     <string name="short_password">비밀번호 6자리 이상 입력해주세요</string>
     <string name="btn_sign_up">가입하기</string>
     <string name="cancel">취소</string>
+    <string name="select_place">국가 선택</string>
 
 </resources>

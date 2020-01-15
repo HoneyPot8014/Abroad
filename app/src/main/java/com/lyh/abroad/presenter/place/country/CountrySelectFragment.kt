@@ -1,4 +1,4 @@
-package com.lyh.abroad.presenter.place
+package com.lyh.abroad.presenter.place.country
 
 
 import android.os.Bundle
@@ -16,6 +16,8 @@ import com.lyh.abroad.presenter.base.BaseFragment
 import com.lyh.abroad.presenter.base.BaseViewModel.Status
 import com.lyh.abroad.presenter.base.ViewModelFactory
 import com.lyh.abroad.presenter.base.listview.BaseListDivider
+import com.lyh.abroad.presenter.place.PlaceViewModel
+import com.lyh.abroad.presenter.place.city.CitySelectFragment
 import com.lyh.abroad.presenter.user.UserViewModel
 import kotlinx.android.synthetic.main.fragment_country_select.*
 
@@ -39,7 +41,10 @@ class CountrySelectFragment : BaseFragment(R.layout.fragment_country_select) {
         nation_list.apply {
             layoutManager = LinearLayoutManager(context, RecyclerView.VERTICAL, false)
             addItemDecoration(BaseListDivider(0.5f))
-            adapter = PlaceCountryListAdapter(placeViewModel)
+            adapter =
+                CountryListAdapter(
+                    placeViewModel
+                )
         }
 
         place_back_button.setOnClickListener {
@@ -55,6 +60,15 @@ class CountrySelectFragment : BaseFragment(R.layout.fragment_country_select) {
                         replace(R.id.post_container, CitySelectFragment())
                         addToBackStack(null)
                     }
+                }
+            }
+        }
+
+        country_next.setOnClickListener {
+            if (placeViewModel.countryLiveData.value != null) {
+                parentFragmentManager.commit {
+                    replace(R.id.post_container, CitySelectFragment())
+                    addToBackStack(null)
                 }
             }
         }

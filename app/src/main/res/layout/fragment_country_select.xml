@@ -7,7 +7,7 @@
             name="placeViewModel"
             type="com.lyh.abroad.presenter.place.PlaceViewModel" />
 
-        <import type="android.view.View"/>
+        <import type="android.view.View" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
@@ -28,26 +28,43 @@
                 android:layout_width="match_parent"
                 android:layout_height="?attr/actionBarSize"
                 android:background="@android:color/white"
+                android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
                 app:contentInsetLeft="0dp"
-                app:contentInsetStart="0dp"
-                android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
+                app:contentInsetStart="0dp">
 
-                <ImageView
-                    android:id="@+id/place_back_button"
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:src="@drawable/icon_back"
-                    android:padding="10dp"/>
-
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/place_search"
+                <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:hint="@string/search_nation"
-                    android:background="@null"
-                    android:textColor="@color/quantum_black_secondary_text"
-                    android:textColorHint="@color/default_text"
-                    android:text="@={placeViewModel.countrySearchTextLiveData}" />
+                    android:layout_height="match_parent">
+
+                    <ImageView
+                        android:id="@+id/place_back_button"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:padding="10dp"
+                        android:src="@drawable/icon_back" />
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/place_search"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:background="@null"
+                        android:hint="@string/search_nation"
+                        android:text="@={placeViewModel.countrySearchTextLiveData}"
+                        android:textColor="@color/quantum_black_secondary_text"
+                        android:textColorHint="@color/default_text" />
+
+                    <TextView
+                        android:id="@+id/country_next"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:gravity="center_vertical"
+                        android:padding="15dp"
+                        android:text="다음"
+                        android:textColor="@color/quantum_black_secondary_text"
+                        android:visibility="@{placeViewModel.countryLiveData == null? View.GONE : View.VISIBLE}" />
+
+                </LinearLayout>
 
             </androidx.appcompat.widget.Toolbar>
 
