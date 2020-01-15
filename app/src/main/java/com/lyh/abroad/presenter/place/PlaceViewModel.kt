@@ -3,11 +3,12 @@ package com.lyh.abroad.presenter.place
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.liveData
 import androidx.lifecycle.switchMap
-import com.lyh.abroad.domain.entity.CityEntity
 import com.lyh.abroad.domain.interactor.place.GetCityUsecase
 import com.lyh.abroad.domain.interactor.place.GetCountryUsecase
 import com.lyh.abroad.presenter.base.BaseViewModel
+import com.lyh.abroad.presenter.mapper.CityMapper
 import com.lyh.abroad.presenter.mapper.CountryMapper
+import com.lyh.abroad.presenter.model.City
 import com.lyh.abroad.presenter.model.Country
 
 class PlaceViewModel(
@@ -18,7 +19,7 @@ class PlaceViewModel(
     val countrySearchTextLiveData = MutableLiveData<String>(null)
     val citySearchLiveData = MutableLiveData<String>(null)
     val countryLiveData = MutableLiveData<Country>()
-    val cityLiveData = MutableLiveData<CityEntity>()
+    val cityLiveData = MutableLiveData<City>()
     val countryListLiveData = countrySearchTextLiveData.switchMap {
         liveData {
             emit(getCountryUsecase.execute(GetCountryUsecase.CountryParam(it)).data
@@ -28,7 +29,8 @@ class PlaceViewModel(
 
     val cityListLiveData = citySearchLiveData.switchMap {
         liveData {
-            emit(getCityUsecase.execute(GetCityUsecase.CityParam(it)).data)
+            emit(getCityUsecase.execute(GetCityUsecase.CityParam(it)).data
+                ?.map { CityMapper.toModel(it) })
         }
     }
 
@@ -44,9 +46,9 @@ class PlaceViewModel(
         }
     }
 
-    fun onCityClicked(cityEntity: CityEntity?) {
-        cityEntity?.let {
-            if (cityLiveData.value != cityEntity) {
+    fun onCityClicked(city: City?) {
+        city?.let {
+            if (cityLiveData.value != city) {
                 cityLiveData.value = it
                 _statusLiveData.value = Status.Success
             } else {

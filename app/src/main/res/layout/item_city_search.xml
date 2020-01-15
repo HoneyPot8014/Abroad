@@ -9,7 +9,7 @@
 
         <variable
             name="data"
-            type="com.lyh.abroad.domain.entity.CityEntity" />
+            type="com.lyh.abroad.presenter.model.City" />
     </data>
 
     <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
@@ -28,7 +28,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
             android:layout_marginStart="24dp"
-            android:text="@{data.cityName}"
+            android:text="@{data.displayName}"
             android:textColor="@{placeViewModel.cityLiveData == data? @android:color/white : @color/default_text}"
             android:textSize="18dp"
             tools:text="대한민국 - SouthKorea" />
