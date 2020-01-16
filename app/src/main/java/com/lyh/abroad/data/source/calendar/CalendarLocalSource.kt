@@ -1,12 +1,13 @@
 package com.lyh.abroad.data.source.calendar
 
+import com.lyh.abroad.domain.entity.CalendarEntity
 import com.lyh.abroad.domain.entity.DateEntity
 import com.lyh.abroad.domain.model.ResultModel
 import java.util.*
 
 object CalendarLocalSource : CalendarSource {
 
-    override suspend fun getCalendar(year: Int, month: Int): ResultModel<List<DateEntity>> {
+    override suspend fun getCalendar(year: Int, month: Int): ResultModel<CalendarEntity> {
         val calendar = Calendar.getInstance(Locale.getDefault()).apply {
             set(Calendar.YEAR, year)
             set(Calendar.MONTH, month)
@@ -15,7 +16,9 @@ object CalendarLocalSource : CalendarSource {
             calendar.set(Calendar.DAY_OF_MONTH, it)
             DateEntity(calendar.timeInMillis)
         }.let {
-            ResultModel.onSuccess(it)
+            ResultModel.onSuccess(
+                CalendarEntity(year, month, it)
+            )
         }
     }
 }
