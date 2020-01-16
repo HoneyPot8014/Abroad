@@ -20,7 +20,8 @@ class GetCalendarUsecase(
                 calendarRepository.getCalendar(param.year, param.month)
             }
         } ?: kotlin.run {
-            Calendar.getInstance().run {
+            Calendar.getInstance(Locale.getDefault()).run {
+                timeInMillis = System.currentTimeMillis()
                 calendarRepository.getCalendar(get(Calendar.YEAR), get(Calendar.MONTH))
             }
         }
