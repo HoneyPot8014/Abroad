@@ -6,7 +6,9 @@ import com.lyh.abroad.domain.model.ResultModel
 
 interface UserRepository {
 
-    suspend fun fetchUser(uid: String): ResultModel<UserEntity>
+    suspend fun getUid(): ResultModel<String>
+
+    suspend fun fetchUser(): ResultModel<UserEntity>
 
     suspend fun fetchUserWithLogIn(email: String, password: String): ResultModel<UserEntity>
 

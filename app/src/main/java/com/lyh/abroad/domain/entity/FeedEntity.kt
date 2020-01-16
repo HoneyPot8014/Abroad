@@ -1,6 +1,8 @@
 package com.lyh.abroad.domain.entity
 
 data class FeedEntity(
+    val countryId: String,
+    val cityId: String,
     /** 채팅 방 이름*/
     val chattingRoomId: String,
     /** 게시글 내용*/
