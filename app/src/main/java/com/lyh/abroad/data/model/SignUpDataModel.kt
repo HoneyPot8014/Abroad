@@ -1,4 +1,4 @@
-package com.lyh.abroad.data.feed.model
+package com.lyh.abroad.data.model
 
 import android.net.Uri
 

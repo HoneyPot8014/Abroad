@@ -1,7 +1,7 @@
-package com.lyh.abroad.data.feed.source.feed
+package com.lyh.abroad.data.source.feed
 
-import com.lyh.abroad.data.feed.model.FeedDataModel
-import com.lyh.abroad.data.feed.model.PostDataModel
+import com.lyh.abroad.data.model.FeedDataModel
+import com.lyh.abroad.data.model.PostDataModel
 import com.lyh.abroad.domain.model.ResultModel
 
 interface FeedSource {

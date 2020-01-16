@@ -1,10 +1,10 @@
-package com.lyh.abroad.data.feed.repository
+package com.lyh.abroad.data.repository
 
 import android.net.Uri
-import com.lyh.abroad.data.feed.mapper.SignUpToUserMapper
-import com.lyh.abroad.data.feed.mapper.UserDataMapper
-import com.lyh.abroad.data.feed.source.user.UserAuth
-import com.lyh.abroad.data.feed.source.user.UserSource
+import com.lyh.abroad.data.mapper.SignUpToUserMapper
+import com.lyh.abroad.data.mapper.UserDataMapper
+import com.lyh.abroad.data.source.user.UserAuth
+import com.lyh.abroad.data.source.user.UserSource
 import com.lyh.abroad.domain.entity.SignUpEntity
 import com.lyh.abroad.domain.entity.UserEntity
 import com.lyh.abroad.domain.model.ResultModel

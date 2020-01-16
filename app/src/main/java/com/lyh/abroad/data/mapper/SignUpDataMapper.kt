@@ -1,7 +1,7 @@
-package com.lyh.abroad.data.feed.mapper
+package com.lyh.abroad.data.mapper
 
 import android.net.Uri
-import com.lyh.abroad.data.feed.model.SignUpDataModel
+import com.lyh.abroad.data.model.SignUpDataModel
 import com.lyh.abroad.domain.entity.SignUpEntity
 
 object SignUpDataMapper {

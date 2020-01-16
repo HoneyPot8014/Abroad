@@ -1,4 +1,4 @@
-package com.lyh.abroad.data.feed.mapper
+package com.lyh.abroad.data.mapper
 
 import com.lyh.abroad.domain.entity.SignUpEntity
 import com.lyh.abroad.domain.entity.UserEntity

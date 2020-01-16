@@ -1,4 +1,4 @@
-package com.lyh.abroad.data.feed.source.place
+package com.lyh.abroad.data.source.place
 
 import android.content.Context
 import com.google.android.libraries.places.api.Places

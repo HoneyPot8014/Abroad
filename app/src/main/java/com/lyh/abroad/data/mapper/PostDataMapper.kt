@@ -1,6 +1,6 @@
-package com.lyh.abroad.data.feed.mapper
+package com.lyh.abroad.data.mapper
 
-import com.lyh.abroad.data.feed.model.PostDataModel
+import com.lyh.abroad.data.model.PostDataModel
 import com.lyh.abroad.domain.entity.PostEntity
 
 object PostDataMapper {

@@ -1,4 +1,4 @@
-package com.lyh.abroad.data.feed.source.place
+package com.lyh.abroad.data.source.place
 
 import com.lyh.abroad.domain.entity.CityEntity
 import com.lyh.abroad.domain.model.ResultModel

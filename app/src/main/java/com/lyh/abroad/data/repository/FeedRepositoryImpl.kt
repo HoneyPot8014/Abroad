@@ -1,9 +1,9 @@
-package com.lyh.abroad.data.feed.repository
+package com.lyh.abroad.data.repository
 
 import androidx.annotation.UiThread
-import com.lyh.abroad.data.feed.mapper.FeedDataMapper
-import com.lyh.abroad.data.feed.mapper.PostDataMapper
-import com.lyh.abroad.data.feed.source.feed.FeedSource
+import com.lyh.abroad.data.mapper.FeedDataMapper
+import com.lyh.abroad.data.mapper.PostDataMapper
+import com.lyh.abroad.data.source.feed.FeedSource
 import com.lyh.abroad.domain.entity.FeedEntity
 import com.lyh.abroad.domain.entity.PostEntity
 import com.lyh.abroad.domain.model.ResultModel

@@ -1,6 +1,6 @@
-package com.lyh.abroad.data.feed.mapper
+package com.lyh.abroad.data.mapper
 
-import com.lyh.abroad.data.feed.model.FeedDataModel
+import com.lyh.abroad.data.model.FeedDataModel
 import com.lyh.abroad.domain.entity.FeedEntity
 
 object FeedDataMapper {

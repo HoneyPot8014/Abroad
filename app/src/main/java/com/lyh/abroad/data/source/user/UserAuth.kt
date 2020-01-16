@@ -1,4 +1,4 @@
-package com.lyh.abroad.data.feed.source.user
+package com.lyh.abroad.data.source.user
 
 import com.google.firebase.auth.AuthResult
 import com.google.firebase.auth.FirebaseAuth

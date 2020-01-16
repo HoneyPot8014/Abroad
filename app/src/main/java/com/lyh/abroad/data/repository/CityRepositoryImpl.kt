@@ -1,6 +1,6 @@
-package com.lyh.abroad.data.feed.repository
+package com.lyh.abroad.data.repository
 
-import com.lyh.abroad.data.feed.source.place.CitySource
+import com.lyh.abroad.data.source.place.CitySource
 import com.lyh.abroad.domain.entity.CityEntity
 import com.lyh.abroad.domain.model.ResultModel
 import com.lyh.abroad.domain.repository.CityRepository

@@ -1,11 +1,11 @@
-package com.lyh.abroad.data.feed.source.feed
+package com.lyh.abroad.data.source.feed
 
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
-import com.lyh.abroad.data.feed.model.FeedDataModel
-import com.lyh.abroad.data.feed.model.PostDataModel
+import com.lyh.abroad.data.model.FeedDataModel
+import com.lyh.abroad.data.model.PostDataModel
 import com.lyh.abroad.domain.model.ResultModel
 import kotlinx.coroutines.suspendCancellableCoroutine
 import kotlin.coroutines.resume

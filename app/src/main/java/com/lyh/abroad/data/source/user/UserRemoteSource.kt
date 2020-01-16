@@ -1,4 +1,4 @@
-package com.lyh.abroad.data.feed.source.user
+package com.lyh.abroad.data.source.user
 
 import android.net.Uri
 import com.google.firebase.database.DataSnapshot
@@ -6,7 +6,7 @@ import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
 import com.google.firebase.storage.FirebaseStorage
-import com.lyh.abroad.data.feed.model.UserDataModel
+import com.lyh.abroad.data.model.UserDataModel
 import com.lyh.abroad.domain.entity.UserEntity
 import com.lyh.abroad.domain.model.ResultModel
 import kotlinx.coroutines.suspendCancellableCoroutine
