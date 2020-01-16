@@ -10,6 +10,8 @@ object FeedDataMapper {
             null
         } else {
             FeedEntity(
+                feedDataModel.countryId!!,
+                feedDataModel.cityId!!,
                 feedDataModel.chattingRoomId!!,
                 feedDataModel.contents!!,
                 feedDataModel.createDate!!,
@@ -24,6 +26,8 @@ object FeedDataMapper {
 
     fun toModel(feedEntity: FeedEntity): FeedDataModel =
         FeedDataModel(
+            feedEntity.countryId,
+            feedEntity.cityId,
             feedEntity.chattingRoomId,
             feedEntity.contents,
             feedEntity.createDate,

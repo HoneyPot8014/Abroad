@@ -7,7 +7,6 @@ import com.lyh.abroad.data.feed.source.user.UserAuth
 import com.lyh.abroad.data.feed.source.user.UserSource
 import com.lyh.abroad.domain.entity.SignUpEntity
 import com.lyh.abroad.domain.entity.UserEntity
-import com.lyh.abroad.domain.exception.AppException
 import com.lyh.abroad.domain.model.ResultModel
 import com.lyh.abroad.domain.model.ResultModel.Status.SUCCESS
 import com.lyh.abroad.domain.repository.UserRepository
@@ -16,6 +15,8 @@ class UserRepositoryImpl private constructor(
     private val userAuth: UserAuth,
     private val userRemoteSource: UserSource
 ) : UserRepository {
+
+    private val cache = mutableMapOf<String, UserEntity>()
 
     companion object {
 
@@ -29,21 +30,32 @@ class UserRepositoryImpl private constructor(
             }
     }
 
-    override suspend fun fetchUser(uid: String): ResultModel<UserEntity> =
-        userRemoteSource.fetchUser(uid).let {
-            if (it.status == SUCCESS) {
-                ResultModel.onSuccess(UserDataMapper.toEntity(it.data))
-            } else {
-                ResultModel.onFailed(it.error)
-            }
-        }
+    override suspend fun getUid(): ResultModel<String> = userAuth.getUserUid()
 
-    override suspend fun fetchUserWithLogIn(email: String, password: String): ResultModel<UserEntity> {
+    override suspend fun fetchUser(): ResultModel<UserEntity> =
+        userAuth.getUid().data?.let {
+            if (cache[it] != null) {
+                return@let ResultModel.onSuccess(cache[it])
+            }
+            userRemoteSource.fetchUser(it).let { userModel ->
+                if (userModel.status == SUCCESS) {
+                    UserDataMapper.toEntity(userModel.data)?.let { userEntity ->
+                        cache[it] = userEntity
+                        ResultModel.onSuccess(userEntity)
+                    } ?: ResultModel.onFailed()
+                } else {
+                    ResultModel.onFailed(userModel.error)
+                }
+            }
+        } ?: ResultModel.onFailed()
+
+    override suspend fun fetchUserWithLogIn(
+        email: String,
+        password: String
+    ): ResultModel<UserEntity> {
         return userAuth.signIn(email, password).let {
             if (it.status == SUCCESS) {
-                it.data?.user?.uid?.let { uid ->
-                    fetchUser(uid)
-                } ?: ResultModel.onFailed(AppException.NoAuthException())
+                fetchUser()
             } else {
                 ResultModel.onFailed(it.error)
             }
@@ -57,11 +69,14 @@ class UserRepositoryImpl private constructor(
         userAuth.createUser(signUpEntity.email, signUpEntity.password).let { authResult ->
             // auth 성공
             if (authResult.status == SUCCESS) {
-                authResult.data?.user?.uid?.let { uid -> // auth 성공
+                authResult.data?.user?.uid?.let { uid ->
+                    // auth 성공
                     val profileResult = setProfile(uid, signUpEntity.profileUri)
                     if (profileResult.status == SUCCESS) {
-                        profileResult.data?.let { url -> // 프로필 저장 성공
-                            val dbResult = setUser(SignUpToUserMapper.toEntity(signUpEntity, uid, url))
+                        profileResult.data?.let { url ->
+                            // 프로필 저장 성공
+                            val dbResult =
+                                setUser(SignUpToUserMapper.toEntity(signUpEntity, uid, url))
                             if (dbResult.status == SUCCESS) {
                                 ResultModel.onSuccess(Unit) //db 저장 성공
                             } else {

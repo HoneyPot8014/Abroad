@@ -10,6 +10,10 @@ object UserAuth {
 
     private val auth = FirebaseAuth.getInstance()
 
+    fun getUid() = auth.uid?.let {
+        ResultModel.onSuccess(it)
+    } ?: ResultModel.onFailed()
+
     suspend fun createUser(email: String, password: String): ResultModel<AuthResult> {
         return suspendCancellableCoroutine { suspend ->
             auth.createUserWithEmailAndPassword(email, password)

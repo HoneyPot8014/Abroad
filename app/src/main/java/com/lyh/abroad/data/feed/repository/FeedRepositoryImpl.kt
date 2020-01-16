@@ -2,8 +2,10 @@ package com.lyh.abroad.data.feed.repository
 
 import androidx.annotation.UiThread
 import com.lyh.abroad.data.feed.mapper.FeedDataMapper
+import com.lyh.abroad.data.feed.mapper.PostDataMapper
 import com.lyh.abroad.data.feed.source.feed.FeedSource
 import com.lyh.abroad.domain.entity.FeedEntity
+import com.lyh.abroad.domain.entity.PostEntity
 import com.lyh.abroad.domain.model.ResultModel
 import com.lyh.abroad.domain.repository.FeedRepository
 
@@ -31,8 +33,12 @@ class FeedRepositoryImpl private constructor(
             ResultModel.onSuccess(it)
         }
 
-    override suspend fun setFeed(feedEntity: FeedEntity) {
-
+    override suspend fun setFeed(postEntity: PostEntity): ResultModel<Unit> {
+        return feedRemoteSource.setFeed(
+            postEntity.countryId,
+            postEntity.cityId,
+            PostDataMapper.toModel(postEntity)
+        )
     }
 
 }

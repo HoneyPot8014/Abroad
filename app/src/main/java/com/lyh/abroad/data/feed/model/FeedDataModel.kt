@@ -1,6 +1,8 @@
 package com.lyh.abroad.data.feed.model
 
 data class FeedDataModel(
+    var countryId: String? = null,
+    var cityId: String? = null,
     /** 채팅 방 이름*/
     val chattingRoomId: String? = null,
     /** 게시글 내용*/
@@ -19,7 +21,9 @@ data class FeedDataModel(
     val userName: String? = null
 ) {
     fun isEmpty(): Boolean =
-        chattingRoomId == null ||
+        countryId == null ||
+                cityId == null ||
+                chattingRoomId == null ||
                 contents == null ||
                 createDate == null ||
                 endDate == null ||

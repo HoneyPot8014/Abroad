@@ -5,7 +5,8 @@ import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
 import com.lyh.abroad.data.feed.model.FeedDataModel
-import com.lyh.abroad.domain.entity.FeedEntity
+import com.lyh.abroad.data.feed.model.PostDataModel
+import com.lyh.abroad.domain.model.ResultModel
 import kotlinx.coroutines.suspendCancellableCoroutine
 import kotlin.coroutines.resume
 
@@ -25,17 +26,31 @@ object FeedRemoteSource : FeedSource {
                     override fun onDataChange(p0: DataSnapshot) {
                         it.resume(
                             p0.children.mapNotNull { placeId ->
-                                placeId.children.mapNotNull { feed ->
-                                    feed.getValue(FeedDataModel::class.java)
-                                }[0]
-                            }
+                                placeId.children
+                                    .mapNotNull { feed ->
+                                        feed.getValue(FeedDataModel::class.java)?.apply {
+                                            countryId = countryCode
+                                            cityId = placeId.key
+                                        }
+                                    }
+                            }.flatten()
                         )
                     }
                 })
         }
 
-    override suspend fun setFeed(feedEntity: FeedEntity) {
-
+    override suspend fun setFeed(countryId: String, cityId: String, postDataModel: PostDataModel): ResultModel<Unit> {
+        return suspendCancellableCoroutine {continuation ->
+            db.child(countryId)
+                .child(cityId)
+                .push()
+                .setValue(postDataModel)
+                .addOnSuccessListener {
+                    continuation.resume(ResultModel.onSuccess(Unit))
+                }
+                .addOnFailureListener {
+                    continuation.resume(ResultModel.onFailed())
+                }
+        }
     }
-
 }
