@@ -44,6 +44,7 @@ class CalendarFragment private constructor(
             lifecycleOwner = viewLifecycleOwner
             calendarViewModel = this@CalendarFragment.calendarViewModel
         }
+        calendar.calendarViewModel = this.calendarViewModel
     }
 
 }
