@@ -26,6 +26,7 @@ class CalendarPagerFragment : BaseFragment(R.layout.fragment_calendar_pager) {
             parentFragmentManager.popBackStack()
         }
         setUpBinding()
+        // TODO : 로직 bindingAdapter로 변경
         calendar_pager.apply {
             orientation = ViewPager2.ORIENTATION_HORIZONTAL
             adapter = CalendarPagerAdapter(this@CalendarPagerFragment, calendarViewModel)

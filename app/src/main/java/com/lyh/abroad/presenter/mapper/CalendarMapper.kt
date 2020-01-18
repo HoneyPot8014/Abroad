@@ -1,7 +1,7 @@
 package com.lyh.abroad.presenter.mapper
 
 import com.lyh.abroad.domain.entity.CalendarEntity
-import com.lyh.abroad.presenter.model.Calendar
+import com.lyh.abroad.presenter.model.CalendarData
 import com.lyh.abroad.presenter.model.Date
 import java.util.*
 
@@ -9,7 +9,7 @@ object CalendarMapper {
 
     fun toModel(calendarEntity: CalendarEntity) =
         java.util.Calendar.getInstance(Locale.getDefault()).let { calendar ->
-            Calendar(
+            CalendarData(
                 calendarEntity.year,
                 calendarEntity.month,
                 calendarEntity.days.map {

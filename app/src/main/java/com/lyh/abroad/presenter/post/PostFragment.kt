@@ -3,11 +3,13 @@ package com.lyh.abroad.presenter.post
 
 import android.os.Bundle
 import android.view.View
+import androidx.fragment.app.commit
 import androidx.fragment.app.viewModels
 import com.lyh.abroad.R
 import com.lyh.abroad.databinding.FragmentPostBinding
 import com.lyh.abroad.presenter.base.BaseFragment
 import com.lyh.abroad.presenter.base.ViewModelFactory
+import com.lyh.abroad.presenter.calendar.CalendarPagerFragment
 import com.lyh.abroad.presenter.place.PlaceViewModel
 import com.lyh.abroad.presenter.place.country.CountrySelectFragment
 import kotlinx.android.synthetic.main.fragment_post.*
@@ -35,6 +37,13 @@ class PostFragment : BaseFragment(R.layout.fragment_post) {
                 )
                 .addToBackStack(null)
                 .commit()
+        }
+
+        post_next.setOnClickListener {
+            parentFragmentManager.commit {
+                replace(R.id.post_container, CalendarPagerFragment())
+                addToBackStack(null)
+            }
         }
     }
 
