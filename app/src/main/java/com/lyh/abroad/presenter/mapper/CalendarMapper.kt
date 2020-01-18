@@ -8,13 +8,18 @@ import java.util.*
 object CalendarMapper {
 
     fun toModel(calendarEntity: CalendarEntity) =
-        java.util.Calendar.getInstance(Locale.getDefault()).let { calendar ->
+        Calendar.getInstance(Locale.getDefault()).let { calendar ->
             CalendarData(
                 calendarEntity.year,
                 calendarEntity.month,
                 calendarEntity.days.map {
                     calendar.timeInMillis = it.date
-                    Date(it.date, calendar.get(java.util.Calendar.DAY_OF_MONTH))
+                    Date(
+                        it.date,
+                        calendar.get(Calendar.DAY_OF_MONTH),
+                        calendar.get(Calendar.WEEK_OF_MONTH),
+                        calendar.get(Calendar.DAY_OF_WEEK)
+                    )
                 }
             )
         }
