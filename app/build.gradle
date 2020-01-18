@@ -72,6 +72,8 @@ dependencies {
     annotationProcessor "com.github.bumptech.glide:compiler:$glide_version"
     // google place
     implementation "com.google.android.libraries.places:places:$google_place_version"
+    // viewpager2
+    implementation "androidx.viewpager2:viewpager2:$view_pager2_version"
     // databinding
     kapt "com.android.databinding:compiler:$databinding_version"
 }
