@@ -7,13 +7,13 @@
             name="calendarViewModel"
             type="com.lyh.abroad.presenter.calendar.CalendarViewModel" />
     </data>
-    
+
     <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
         <com.lyh.abroad.presenter.custom.CustomCalendarView
-            android:id="@+id/test"
+            android:id="@+id/calendar"
             android:layout_width="match_parent"
             android:layout_height="match_parent" />
     </LinearLayout>

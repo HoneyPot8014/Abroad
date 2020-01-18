@@ -35,7 +35,7 @@ class CalendarFragment private constructor(
         //TODO 테스트코드 삭제
         val a = arguments?.getInt("currentPage") ?: 0
         calendarViewModel.calendarLiveData.value?.getOrNull(a)?.date.also {
-            test.setDate(it ?: return@also)
+            calendar.setDate(it ?: return@also)
         }
     }
 

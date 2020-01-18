@@ -30,11 +30,15 @@ class CustomCalendarView(
                     weight = 1f
                 }
             weightSum = 7.0f
-            (0 until dayList.first().daysOfWeek - 1).forEach { i ->
+            val firstDayOfWeek = dayList.first().daysOfWeek - 1
+            (0 until firstDayOfWeek).forEach { _ ->
                 addView(createDay())
             }
             dayList.forEach {
                 addView(createDay(it.displayDay.toString()))
+            }
+            (firstDayOfWeek until 7).forEach { _ ->
+                addView(createDay())
             }
         }.let {
             addView(it)
@@ -45,7 +49,7 @@ class CustomCalendarView(
         TextView(context).apply {
             layoutParams = TableRow.LayoutParams(
                 TableRow.LayoutParams.WRAP_CONTENT,
-                TableRow.LayoutParams.WRAP_CONTENT
+                TableRow.LayoutParams.MATCH_PARENT
             ).apply {
                 weight = 1f
             }
@@ -55,6 +59,7 @@ class CustomCalendarView(
 
     fun setDate(date: List<Date>) {
         this.date = date
+        removeAllViews()
         create()
         requestLayout()
     }
