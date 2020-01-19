@@ -118,11 +118,15 @@ class CustomCalendarView(
                 }
                 calendarViewModel?.startDateLiveData?.observe(this@CustomCalendarView) {
                     if (it == null) setBackgroundColor(0xFFffffff.toInt())
-                    if (it == date) setBackgroundColor(context.getColor(R.color.colorAccent))
+                    else if (it == date) setBackgroundColor(context.getColor(R.color.colorAccent))
                 }
                 calendarViewModel?.endDateLiveData?.observe(this@CustomCalendarView) {
                     if (it == null) setBackgroundColor(0xFFffffff.toInt())
-                    if (it == date) setBackgroundColor(0xFF888888.toInt())
+                    else if (it == date) setBackgroundColor(0xFF888888.toInt())
+                }
+                calendarViewModel?.datePeriodLiveData?.observe(this@CustomCalendarView) {
+                    if (it == null) setBackgroundColor(0xFFffffff.toInt())
+                    else if (it.contains(date)) setBackgroundColor(0xFF555555.toInt())
                 }
             }
         }

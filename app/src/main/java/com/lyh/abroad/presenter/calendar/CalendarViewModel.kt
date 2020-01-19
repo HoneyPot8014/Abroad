@@ -1,6 +1,7 @@
 package com.lyh.abroad.presenter.calendar
 
 import androidx.lifecycle.LiveData
+import androidx.lifecycle.MediatorLiveData
 import androidx.lifecycle.MutableLiveData
 import com.lyh.abroad.domain.interactor.date.GetCalendarUsecase
 import com.lyh.abroad.presenter.base.BaseViewModel
@@ -31,6 +32,33 @@ class CalendarViewModel(
     private val _endDateLiveData = MutableLiveData<Date>()
     val endDateLiveData: LiveData<Date>
         get() = _endDateLiveData
+
+    val datePeriodLiveData = MediatorLiveData<List<Date>>().apply {
+        addSource(startDateLiveData) {
+            if (it != null && endDateLiveData.value != null) {
+                _calendarLiveData.value?.map { calendar ->
+                    calendar.date
+                }?.flatten()
+                    ?.filter { element ->
+                        element.date > it.date && element.date < endDateLiveData.value!!.date
+                    }?.also { result ->
+                        value = result
+                    }
+            }
+        }
+        addSource(endDateLiveData) {
+            value = if (it != null && startDateLiveData.value != null) {
+                _calendarLiveData.value?.map { calendar ->
+                    calendar.date
+                }?.flatten()
+                    ?.filter { element ->
+                        element.date > startDateLiveData.value!!.date && element.date < it.date
+                    }
+            } else {
+                null
+            }
+        }
+    }
 
     init {
         viewModelScope.launch {
@@ -86,8 +114,12 @@ class CalendarViewModel(
                 _startDateLiveData.value = null
                 _endDateLiveData.value = null
             }
+            startDateLiveData.value != null && endDateLiveData.value == null &&
+                    startDateLiveData.value!!.date > date.date -> {
+                _endDateLiveData.value = _startDateLiveData.value
+                _startDateLiveData.value = date
+            }
             startDateLiveData.value != null && endDateLiveData.value == null -> {
-                // period로 바꿔야함.
                 _endDateLiveData.value = date
             }
             startDateLiveData.value != null && endDateLiveData.value == date -> {
