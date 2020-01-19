@@ -126,6 +126,7 @@ class CalendarViewModel(
                 _startDateLiveData.value = null
                 _endDateLiveData.value = null
             }
+            // 여기로 오면 안되는 case
             startDateLiveData.value == null && endDateLiveData.value != null -> {
                 _startDateLiveData.value = date
             }

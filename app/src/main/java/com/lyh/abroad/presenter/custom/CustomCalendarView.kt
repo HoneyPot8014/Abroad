@@ -2,13 +2,10 @@ package com.lyh.abroad.presenter.custom
 
 import android.content.Context
 import android.util.AttributeSet
-import android.view.GestureDetector
 import android.view.LayoutInflater
-import android.view.MotionEvent
 import android.view.View
 import android.widget.TableLayout
 import android.widget.TableRow
-import android.widget.TextView
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.LifecycleRegistry
@@ -17,6 +14,7 @@ import com.lyh.abroad.R
 import com.lyh.abroad.databinding.ItemCalendarBinding
 import com.lyh.abroad.presenter.calendar.CalendarViewModel
 import com.lyh.abroad.presenter.model.Date
+import kotlinx.android.synthetic.main.item_calendar.view.*
 
 class CustomCalendarView(
     context: Context?,
@@ -70,9 +68,9 @@ class CustomCalendarView(
     }
 
     private fun createEmptyView(): View =
-        TextView(context).apply {
+        LayoutInflater.from(context).inflate(R.layout.item_calendar, this, false).apply {
             layoutParams = TableRow.LayoutParams(
-                TableRow.LayoutParams.WRAP_CONTENT,
+                TableRow.LayoutParams.MATCH_PARENT,
                 TableRow.LayoutParams.MATCH_PARENT
             ).apply {
                 weight = 1f
@@ -86,47 +84,26 @@ class CustomCalendarView(
             this.date = date
         }.run {
             root.apply {
-                val gestureDetector =
-                    GestureDetector(context, object : GestureDetector.SimpleOnGestureListener() {
-
-                        override fun onDown(e: MotionEvent?): Boolean {
-                            calendarViewModel?.onDateSelected(date)
-                            return true
-                        }
-
-                        override fun onScroll(
-                            e1: MotionEvent?,
-                            e2: MotionEvent?,
-                            distanceX: Float,
-                            distanceY: Float
-                        ): Boolean {
-                            calendarViewModel?.onDateSelected(date)
-                            return true
-                        }
-                    })
                 layoutParams = TableRow.LayoutParams(
                     TableRow.LayoutParams.WRAP_CONTENT,
                     TableRow.LayoutParams.MATCH_PARENT
                 ).apply {
                     weight = 1f
                 }
-//                setOnTouchListener { _, event ->
-//                    gestureDetector.onTouchEvent(event)
-//                }
                 setOnClickListener {
                     calendarViewModel?.onDateSelected(date)
                 }
                 calendarViewModel?.startDateLiveData?.observe(this@CustomCalendarView) {
-                    if (it == null) setBackgroundColor(0xFFffffff.toInt())
-                    else if (it == date) setBackgroundColor(context.getColor(R.color.colorAccent))
+                    if (it == null) day_selected.visibility = View.INVISIBLE
+                    else if (it == date) day_selected.visibility = View.VISIBLE
                 }
                 calendarViewModel?.endDateLiveData?.observe(this@CustomCalendarView) {
-                    if (it == null) setBackgroundColor(0xFFffffff.toInt())
-                    else if (it == date) setBackgroundColor(0xFF888888.toInt())
+                    if (it == null) day_selected.visibility = View.INVISIBLE
+                    else if (it == date) day_selected.visibility = View.VISIBLE
                 }
                 calendarViewModel?.datePeriodLiveData?.observe(this@CustomCalendarView) {
-                    if (it == null) setBackgroundColor(0xFFffffff.toInt())
-                    else if (it.contains(date)) setBackgroundColor(0xFF555555.toInt())
+                    if (it == null) day_selected.visibility = View.INVISIBLE
+                    else if (it.contains(date)) day_selected.visibility = View.VISIBLE
                 }
             }
         }
