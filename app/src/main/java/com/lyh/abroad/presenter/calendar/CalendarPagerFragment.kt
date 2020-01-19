@@ -35,9 +35,7 @@ class CalendarPagerFragment : BaseFragment(R.layout.fragment_calendar_pager) {
             }
             registerOnPageChangeCallback(object: ViewPager2.OnPageChangeCallback() {
                 override fun onPageSelected(position: Int) {
-                    if (currentItem == adapter!!.itemCount - 1) {
-                        calendarViewModel.getNextCalendar()
-                    }
+                    calendarViewModel.setCurrent(position)
                 }
             })
         }

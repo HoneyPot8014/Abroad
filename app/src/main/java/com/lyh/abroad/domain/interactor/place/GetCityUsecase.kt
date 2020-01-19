@@ -1,6 +1,5 @@
 package com.lyh.abroad.domain.interactor.place
 
-import android.util.Log
 import com.lyh.abroad.domain.entity.CityEntity
 import com.lyh.abroad.domain.interactor.BaseUsecase
 import com.lyh.abroad.domain.model.ResultModel
@@ -17,9 +16,7 @@ class GetCityUsecase(
     override suspend fun bindUsecase(param: CityParam?): ResultModel<List<CityEntity>> =
         param?.query?.let {
             withContext(Dispatchers.Main) {
-                cityRepository.getCity(it).also {
-                    Log.d("용현", it.data?.toString())
-                }
+                cityRepository.getCity(it)
             }
         } ?: ResultModel.onSuccess(emptyList())
 }

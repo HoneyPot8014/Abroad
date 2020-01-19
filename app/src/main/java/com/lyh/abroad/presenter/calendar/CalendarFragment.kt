@@ -10,9 +10,7 @@ import com.lyh.abroad.presenter.base.BaseFragment
 import com.lyh.abroad.presenter.base.ViewModelFactory
 import kotlinx.android.synthetic.main.fragment_calendar.*
 
-class CalendarFragment private constructor(
-
-) : BaseFragment(R.layout.fragment_calendar) {
+class CalendarFragment : BaseFragment(R.layout.fragment_calendar) {
 
     private val calendarViewModel by viewModels<CalendarViewModel>(
         { parentFragment ?: this },
@@ -46,5 +44,4 @@ class CalendarFragment private constructor(
         }
         calendar.calendarViewModel = this.calendarViewModel
     }
-
 }
