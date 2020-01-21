@@ -5,6 +5,7 @@ import android.view.View.GONE
 import android.view.View.VISIBLE
 import androidx.activity.viewModels
 import androidx.databinding.DataBindingUtil
+import androidx.fragment.app.commit
 import androidx.lifecycle.observe
 import com.lyh.abroad.R
 import com.lyh.abroad.databinding.ActivityBottomNavBinding
@@ -61,10 +62,9 @@ class BottomNavActivity : BaseActivity() {
                 else -> SignInContainerFragment()
             }
             if (fragment is SignInFragment) hideBottomNav() else showBottomNav()
-            supportFragmentManager
-                .beginTransaction()
-                .replace(R.id.fragment_container, fragment ?: return@observe)
-                .commit()
+            supportFragmentManager.commit {
+                    replace(R.id.fragment_container, fragment ?: return@observe, fragment.javaClass.name)
+            }
         }
     }
 

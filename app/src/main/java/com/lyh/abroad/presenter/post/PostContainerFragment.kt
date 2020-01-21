@@ -11,8 +11,10 @@ class PostContainerFragment : BaseFragment(R.layout.fragment_post_container) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        childFragmentManager.commit {
-            add(R.id.post_container, PostFragment())
+        if (savedInstanceState == null) {
+            childFragmentManager.commit {
+                add(R.id.post_container, PostFragment())
+            }
         }
     }
 }
