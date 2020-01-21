@@ -34,6 +34,7 @@ class CustomCalendarView(
 
     override fun onDetachedFromWindow() {
         super.onDetachedFromWindow()
+        // TODO MemoryLeak 발생. Destroy해야하지만 window에 붙는 시점과 UI 컨트롤러와의 lifecycle이 달라서 수정해야함.
         lifecycleRegistry.handleLifecycleEvent(Lifecycle.Event.ON_STOP)
     }
 

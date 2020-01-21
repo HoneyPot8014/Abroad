@@ -23,21 +23,17 @@ import kotlinx.android.synthetic.main.activity_bottom_nav.*
 
 class BottomNavActivity : BaseActivity() {
 
-    private lateinit var binding: ActivityBottomNavBinding
     private lateinit var bottomNavViewModel: BottomNavViewModel
+    private val userViewModel by viewModels<UserViewModel> { ViewModelFactory.get(application) }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         bottomNavViewModel = viewModels<BottomNavViewModel>().value
-        binding =
-            DataBindingUtil.setContentView<ActivityBottomNavBinding>(
-                this,
-                R.layout.activity_bottom_nav
-            )
-                .apply {
-                    userViewModel = viewModels<UserViewModel>{ViewModelFactory.get(application)}.value
-                }
-        binding.userViewModel?.statusLiveData?.observe(this) {
+        DataBindingUtil.setContentView<ActivityBottomNavBinding>(this, R.layout.activity_bottom_nav)
+            .apply {
+                userViewModel = this@BottomNavActivity.userViewModel
+            }
+        userViewModel.statusLiveData?.observe(this) {
             when (it) {
                 Success -> bottomNavViewModel.currentNav.value = FEED
                 is Failed -> bottomNavViewModel.currentNav.value = null
@@ -63,7 +59,11 @@ class BottomNavActivity : BaseActivity() {
             }
             if (fragment is SignInFragment) hideBottomNav() else showBottomNav()
             supportFragmentManager.commit {
-                    replace(R.id.fragment_container, fragment ?: return@observe, fragment.javaClass.name)
+                replace(
+                    R.id.fragment_container,
+                    fragment ?: return@observe,
+                    fragment.javaClass.name
+                )
             }
         }
     }
