@@ -52,7 +52,7 @@ class CustomCalendarView(
                     weight = 1f
                 }
             weightSum = 7.0f
-            val firstDayOfWeek = dayList.first().daysOfWeek - 1
+            val firstDayOfWeek = (dayList.firstOrNull()?.daysOfWeek ?: 1) - 1
             (0 until firstDayOfWeek).forEach { _ ->
                 addView(createEmptyView())
             }
@@ -91,18 +91,10 @@ class CustomCalendarView(
                     weight = 1f
                 }
                 setOnClickListener {
-                    calendarViewModel?.onDateSelected(date)
+                    calendarViewModel?.test(date)
                 }
-                calendarViewModel?.startDateLiveData?.observe(this@CustomCalendarView) {
-                    if (it == null) day_selected.visibility = View.INVISIBLE
-                    else if (it == date) day_selected.visibility = View.VISIBLE
-                }
-                calendarViewModel?.endDateLiveData?.observe(this@CustomCalendarView) {
-                    if (it == null) day_selected.visibility = View.INVISIBLE
-                    else if (it == date) day_selected.visibility = View.VISIBLE
-                }
-                calendarViewModel?.datePeriodLiveData?.observe(this@CustomCalendarView) {
-                    if (it == null) day_selected.visibility = View.INVISIBLE
+                calendarViewModel?.periodLiveData?.observe(this@CustomCalendarView) {
+                    if (it.isNullOrEmpty()) day_selected.visibility = View.INVISIBLE
                     else if (it.contains(date)) day_selected.visibility = View.VISIBLE
                 }
             }

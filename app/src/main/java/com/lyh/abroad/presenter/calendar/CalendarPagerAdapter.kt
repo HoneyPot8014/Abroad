@@ -7,8 +7,8 @@ import com.lyh.abroad.presenter.model.CalendarData
 
 class CalendarPagerAdapter(
     parentFragment: Fragment,
-    private val calendarViewModel: CalendarViewModel
-) : FragmentStateAdapter(parentFragment.parentFragmentManager, parentFragment.lifecycle) {
+    calendarViewModel: CalendarViewModel
+) : FragmentStateAdapter(parentFragment.childFragmentManager, parentFragment.lifecycle) {
 
     private var list = emptyList<CalendarData>()
 

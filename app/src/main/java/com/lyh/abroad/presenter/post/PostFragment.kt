@@ -41,7 +41,7 @@ class PostFragment : BaseFragment(R.layout.fragment_post) {
 
         post_next.setOnClickListener {
             parentFragmentManager.commit {
-                replace(R.id.post_container, CalendarPagerFragment())
+                add(R.id.post_container, CalendarPagerFragment())
                 addToBackStack(null)
             }
         }

@@ -13,7 +13,7 @@ import kotlinx.android.synthetic.main.fragment_calendar.*
 class CalendarFragment : BaseFragment(R.layout.fragment_calendar) {
 
     private val calendarViewModel by viewModels<CalendarViewModel>(
-        { parentFragment ?: this },
+        { parentFragment?.parentFragment ?: this },
         { ViewModelFactory.get(requireActivity().application) }
     )
 
