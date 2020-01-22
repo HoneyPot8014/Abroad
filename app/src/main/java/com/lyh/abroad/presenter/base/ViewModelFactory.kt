@@ -14,16 +14,18 @@ import com.lyh.abroad.data.source.user.UserAuth
 import com.lyh.abroad.data.source.user.UserRemoteSource
 import com.lyh.abroad.domain.interactor.date.GetCalendarUsecase
 import com.lyh.abroad.domain.interactor.feed.GetFeedUsecase
+import com.lyh.abroad.domain.interactor.feed.SetFeedUsecase
 import com.lyh.abroad.domain.interactor.place.GetCityUsecase
 import com.lyh.abroad.domain.interactor.place.GetCountryUsecase
 import com.lyh.abroad.domain.interactor.user.GetUserUsecase
 import com.lyh.abroad.domain.interactor.user.SignInUsecase
 import com.lyh.abroad.domain.interactor.user.SignUpUsecase
-import com.lyh.abroad.presenter.base.signin.SignInViewModel
-import com.lyh.abroad.presenter.base.signin.SignUpViewModel
 import com.lyh.abroad.presenter.calendar.CalendarViewModel
 import com.lyh.abroad.presenter.feed.FeedViewModel
 import com.lyh.abroad.presenter.place.PlaceViewModel
+import com.lyh.abroad.presenter.post.PostViewModel
+import com.lyh.abroad.presenter.signin.SignInViewModel
+import com.lyh.abroad.presenter.signin.SignUpViewModel
 import com.lyh.abroad.presenter.user.UserViewModel
 
 object ViewModelFactory {
@@ -58,6 +60,11 @@ object ViewModelFactory {
                     modelClass.isAssignableFrom(CalendarViewModel::class.java) -> {
                         modelClass.getConstructor(GetCalendarUsecase::class.java)
                             .newInstance(GetCalendarUsecase(CalendarRepositoryImpl.getInstance(CalendarLocalSource)))
+                    }
+                    modelClass.isAssignableFrom(PostViewModel::class.java) -> {
+                        modelClass.getConstructor(SetFeedUsecase::class.java)
+                            .newInstance(SetFeedUsecase(UserRepositoryImpl.getInstance(UserAuth, UserRemoteSource),
+                                FeedRepositoryImpl.getInstance(FeedRemoteSource)))
                     }
                     else -> throw Exception("can not create ViewModel : ${modelClass.name}")
                 }

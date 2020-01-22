@@ -43,4 +43,10 @@
     <string name="cancel">취소</string>
     <string name="select_place">국가 선택</string>
 
+    <!--  게시물 작성  -->
+    <string name="empty_title">제목을 작성해주세요</string>
+    <string name="empty_content">내용을 작성해주세</string>
+    <string name="not_selected_place">여행할 국가와 도시를 선택해주세요.</string>
+    <string name="no_period">여행할 기간을 설정해주세요</string>
+    <string name="post_failed">게시물 작성에 실패했습니다. 잠시 후 다시 시도해주세요</string>
 </resources>

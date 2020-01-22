@@ -5,7 +5,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.fragment.app.activityViewModels
+import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.lyh.abroad.R
@@ -19,7 +19,7 @@ import kotlinx.android.synthetic.main.fragment_feed.*
 
 class FeedFragment : BaseFragment(R.layout.fragment_feed) {
 
-    private val feedViModel by activityViewModels<FeedViewModel> {
+    private val feedViModel by viewModels<FeedViewModel> {
         ViewModelFactory.get(requireActivity().application)
     }
 

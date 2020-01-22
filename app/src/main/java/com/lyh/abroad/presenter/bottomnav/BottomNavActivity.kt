@@ -13,11 +13,11 @@ import com.lyh.abroad.presenter.base.BaseActivity
 import com.lyh.abroad.presenter.base.BaseViewModel.Status.Failed
 import com.lyh.abroad.presenter.base.BaseViewModel.Status.Success
 import com.lyh.abroad.presenter.base.ViewModelFactory
-import com.lyh.abroad.presenter.base.signin.SignInContainerFragment
-import com.lyh.abroad.presenter.base.signin.SignInFragment
 import com.lyh.abroad.presenter.custom.BottomNavigation.BottomNavItem.*
 import com.lyh.abroad.presenter.feed.FeedFragment
 import com.lyh.abroad.presenter.post.PostContainerFragment
+import com.lyh.abroad.presenter.signin.SignInContainerFragment
+import com.lyh.abroad.presenter.signin.SignInFragment
 import com.lyh.abroad.presenter.user.UserViewModel
 import kotlinx.android.synthetic.main.activity_bottom_nav.*
 

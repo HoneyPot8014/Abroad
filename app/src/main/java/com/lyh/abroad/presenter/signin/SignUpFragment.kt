@@ -1,4 +1,4 @@
-package com.lyh.abroad.presenter.base.signin
+package com.lyh.abroad.presenter.signin
 
 
 import android.app.Activity.RESULT_OK
@@ -12,8 +12,7 @@ import androidx.lifecycle.observe
 import com.lyh.abroad.R
 import com.lyh.abroad.databinding.FragmentSignUpBinding
 import com.lyh.abroad.presenter.base.BaseFragment
-import com.lyh.abroad.presenter.base.BaseViewModel.Status.Failed
-import com.lyh.abroad.presenter.base.BaseViewModel.Status.Success
+import com.lyh.abroad.presenter.base.BaseViewModel.Status.*
 import com.lyh.abroad.presenter.base.ViewModelFactory
 import com.lyh.abroad.presenter.place.PlaceViewModel
 import com.lyh.abroad.presenter.place.country.CountrySelectFragment
@@ -44,7 +43,8 @@ class SignUpFragment : BaseFragment(R.layout.fragment_sign_up) {
         }
         search_nation.setOnClickListener {
             parentFragmentManager.commit {
-                replace(R.id.sign_up_container,
+                replace(
+                    R.id.sign_up_container,
                     CountrySelectFragment()
                 )
                 addToBackStack(null)
@@ -67,18 +67,22 @@ class SignUpFragment : BaseFragment(R.layout.fragment_sign_up) {
     private fun setUpBinding() {
         FragmentSignUpBinding.bind(view ?: return).apply {
             lifecycleOwner = viewLifecycleOwner
-            requireActivity().application.also {
-                signUpViewModel = this@SignUpFragment.signUpViewModel
-                placeViewModel = this@SignUpFragment.placeViewModel
-            }
+            signUpViewModel = this@SignUpFragment.signUpViewModel
+            placeViewModel = this@SignUpFragment.placeViewModel
         }
     }
 
     private fun observeSignUpStatus() {
         signUpViewModel.statusLiveData.observe(viewLifecycleOwner) {
             when (it) {
-                Success -> TODO()
+                Success -> {
+                    hidePg()
+                }
+                Loading -> {
+                    showPg()
+                }
                 is Failed -> {
+                    hidePg()
                     showSnackMessage(context?.getString(it.reason.message) ?: return@observe)
                 }
             }
@@ -95,6 +99,18 @@ class SignUpFragment : BaseFragment(R.layout.fragment_sign_up) {
                 it,
                 GALLERY_PICK
             )
+        }
+    }
+
+    private fun showPg() {
+        if (pg?.visibility == View.INVISIBLE) {
+            pg?.visibility = View.VISIBLE
+        }
+    }
+
+    private fun hidePg() {
+        if (pg?.visibility == View.VISIBLE) {
+            pg?.visibility = View.INVISIBLE
         }
     }
 }

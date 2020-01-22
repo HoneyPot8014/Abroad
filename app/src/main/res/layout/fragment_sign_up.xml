@@ -5,7 +5,7 @@
 
         <variable
             name="signUpViewModel"
-            type="com.lyh.abroad.presenter.base.signin.SignUpViewModel" />
+            type="com.lyh.abroad.presenter.signin.SignUpViewModel" />
 
         <variable
             name="placeViewModel"

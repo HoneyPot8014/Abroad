@@ -6,6 +6,14 @@
         <variable
             name="calendarViewModel"
             type="com.lyh.abroad.presenter.calendar.CalendarViewModel" />
+
+        <variable
+            name="postViewModel"
+            type="com.lyh.abroad.presenter.post.PostViewModel" />
+
+        <variable
+            name="placeViewModel"
+            type="com.lyh.abroad.presenter.place.PlaceViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
@@ -29,7 +37,7 @@
                 android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
                 app:contentInsetStart="0dp">
 
-                <LinearLayout
+                <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:baselineAligned="true"
@@ -38,13 +46,16 @@
                     <TextView
                         android:id="@+id/calendar_year"
                         android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
+                        android:layout_height="wrap_content"
                         android:layout_marginStart="15dp"
                         android:gravity="center"
                         android:text="@{String.valueOf(calendarViewModel.currentCalendar.year)}"
                         android:textColor="@color/default_text"
                         android:textSize="24dp"
                         android:textStyle="bold"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
                         tools:text="2019" />
 
                     <TextView
@@ -55,9 +66,25 @@
                         android:gravity="center"
                         android:text="@{String.valueOf(calendarViewModel.currentCalendar.month) + '월'}"
                         android:textColor="@color/default_text"
+                        app:layout_constraintBottom_toBottomOf="@id/calendar_year"
+                        app:layout_constraintStart_toEndOf="@id/calendar_year"
                         tools:text="1월" />
 
-                </LinearLayout>
+                    <TextView
+                        android:id="@+id/post_btn"
+                        android:layout_width="wrap_content"
+                        android:layout_height="0dp"
+                        android:gravity="end|center_vertical"
+                        android:onClick="@{() -> postViewModel.setFeed(placeViewModel.countryLiveData, placeViewModel.cityLiveData, calendarViewModel.periodLiveData)}"
+                        android:padding="15dp"
+                        android:text="게시하기"
+                        android:textColor="@{calendarViewModel.periodLiveData != null? @color/quantum_black_secondary_text : @color/divider}"
+                        android:textSize="16dp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
 
             </androidx.appcompat.widget.Toolbar>
 
@@ -135,6 +162,16 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/calendar_top" />
+
+        <ProgressBar
+            android:id="@+id/pg"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:visibility="gone"/>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
