@@ -3,6 +3,7 @@ package com.lyh.abroad.domain.interactor.feed
 import com.lyh.abroad.domain.entity.PostEntity
 import com.lyh.abroad.domain.interactor.BaseUsecase
 import com.lyh.abroad.domain.model.ResultModel
+import com.lyh.abroad.domain.repository.ChatRepository
 import com.lyh.abroad.domain.repository.FeedRepository
 import com.lyh.abroad.domain.repository.UserRepository
 import kotlinx.coroutines.Dispatchers
@@ -10,6 +11,7 @@ import kotlinx.coroutines.withContext
 
 class SetFeedUsecase(
     private val userRepository: UserRepository,
+    private val chatRepository: ChatRepository,
     private val feedRepository: FeedRepository
 ) : BaseUsecase<Unit, SetFeedUsecase.SetFeedParam>() {
 
@@ -25,19 +27,27 @@ class SetFeedUsecase(
     override suspend fun bindUsecase(param: SetFeedParam?): ResultModel<Unit> {
         return param?.let {
             withContext(Dispatchers.Main) {
-                userRepository.fetchUser().data?.let {
-                    feedRepository.setFeed(
-                        PostEntity(
-                            param.countryId,
-                            param.cityId,
-                            param.contents,
-                            param.endDate,
-                            param.startDate,
-                            param.title,
-                            it.uid,
-                            it.userName
+                val user = userRepository.fetchUser().run {
+                    data ?: return@withContext ResultModel.onFailed<Unit>(error)
+                }
+                chatRepository.setChatRoom(user.uid).run {
+                    data ?: return@withContext ResultModel.onFailed<Unit>(error)
+                }.let { chattingRoomId ->
+                    userRepository.fetchUser().data?.let {
+                        feedRepository.setFeed(
+                            PostEntity(
+                                param.countryId,
+                                param.cityId,
+                                param.contents,
+                                param.endDate,
+                                param.startDate,
+                                param.title,
+                                it.uid,
+                                it.userName,
+                                chattingRoomId
+                            )
                         )
-                    )
+                    }
                 }
             }
         } ?: ResultModel.onFailed()

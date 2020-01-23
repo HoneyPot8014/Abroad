@@ -5,6 +5,8 @@ import com.lyh.abroad.domain.model.ResultModel
 
 interface ChatRepository {
 
+    suspend fun setChatRoom(uid: String): ResultModel<String>
+
     suspend fun getChatList(): ResultModel<List<ReceiveChatEntity>>
 
 }

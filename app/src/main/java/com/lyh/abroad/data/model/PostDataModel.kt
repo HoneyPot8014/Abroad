@@ -9,6 +9,6 @@ data class PostDataModel(
     val title: String,
     val uid: String,
     val userName: String,
-    val chattingRoomId: String = "",
+    val chattingRoomId: String,
     val createDate: Map<String, String> = ServerValue.TIMESTAMP
 )

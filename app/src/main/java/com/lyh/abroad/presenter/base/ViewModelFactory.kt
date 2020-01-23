@@ -3,11 +3,9 @@ package com.lyh.abroad.presenter.base
 import android.content.Context
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import com.lyh.abroad.data.repository.CalendarRepositoryImpl
-import com.lyh.abroad.data.repository.CityRepositoryImpl
-import com.lyh.abroad.data.repository.FeedRepositoryImpl
-import com.lyh.abroad.data.repository.UserRepositoryImpl
+import com.lyh.abroad.data.repository.*
 import com.lyh.abroad.data.source.calendar.CalendarLocalSource
+import com.lyh.abroad.data.source.chat.ChatRemoteDataSource
 import com.lyh.abroad.data.source.feed.FeedRemoteSource
 import com.lyh.abroad.data.source.place.CityRemoteSource
 import com.lyh.abroad.data.source.user.UserAuth
@@ -68,8 +66,11 @@ object ViewModelFactory {
                     }
                     modelClass.isAssignableFrom(PostViewModel::class.java) -> {
                         modelClass.getConstructor(SetFeedUsecase::class.java)
-                            .newInstance(SetFeedUsecase(UserRepositoryImpl.getInstance(UserAuth, UserRemoteSource),
-                                FeedRepositoryImpl.getInstance(FeedRemoteSource)))
+                            .newInstance(SetFeedUsecase(
+                                UserRepositoryImpl.getInstance(UserAuth, UserRemoteSource),
+                                ChatRepositoryImpl.getInstance(ChatRemoteDataSource),
+                                FeedRepositoryImpl.getInstance(FeedRemoteSource))
+                            )
                     }
                     else -> throw Exception("can not create ViewModel : ${modelClass.name}")
                 }

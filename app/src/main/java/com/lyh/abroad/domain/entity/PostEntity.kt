@@ -8,5 +8,6 @@ data class PostEntity(
     val startDate: String,
     val title: String,
     val uid: String,
-    val userName: String
+    val userName: String,
+    val chattingRoomId: String
 )
