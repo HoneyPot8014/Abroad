@@ -9,6 +9,7 @@ import com.lyh.abroad.R
 import com.lyh.abroad.databinding.FragmentUserDetailBinding
 import com.lyh.abroad.presenter.base.BaseFragment
 import com.lyh.abroad.presenter.base.ViewModelFactory
+import kotlinx.android.synthetic.main.fragment_user_detail.*
 
 class UserDetailFragment : BaseFragment(R.layout.fragment_user_detail) {
 
@@ -20,9 +21,7 @@ class UserDetailFragment : BaseFragment(R.layout.fragment_user_detail) {
 
         fun newInstance(uid: String) =
             UserDetailFragment().apply {
-                arguments = Bundle().apply {
-                    putString("uid", uid)
-                }
+                arguments = Bundle().apply { putString("uid", uid) }
             }
     }
 
@@ -32,7 +31,11 @@ class UserDetailFragment : BaseFragment(R.layout.fragment_user_detail) {
             parentFragmentManager.popBackStack()
         }
         setUpBinding()
+        // TODO 로직 변경
         userDetailViewModel.setUser(arguments!!.getString("uid")!!)
+        cancel.setOnClickListener {
+            parentFragmentManager.popBackStack()
+        }
     }
 
     private fun setUpBinding() {

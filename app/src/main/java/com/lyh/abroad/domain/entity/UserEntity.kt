@@ -6,7 +6,7 @@ data class UserEntity(
     /** 도시*/
     val currentCountry: String,
     /** 자기소개*/
-    val planContent: String,
+    val planContents: String,
     /** FMC 토큰*/
     val pushToken: String,
     /** Firebase Uid*/

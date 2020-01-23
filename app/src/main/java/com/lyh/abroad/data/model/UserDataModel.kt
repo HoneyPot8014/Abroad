@@ -6,7 +6,7 @@ data class UserDataModel(
     /** 도시*/
     val currentCountry: String? = null,
     /** 자기소개*/
-    val planContent: String? = null,
+    val planContents: String? = null,
     /** FMC 토큰*/
     val pushToken: String? = null,
     /** Firebase Uid*/
@@ -21,7 +21,7 @@ data class UserDataModel(
     fun isEmpty(): Boolean =
         countryCode == null ||
                 currentCountry == null ||
-                planContent == null ||
+                planContents == null ||
                 pushToken == null ||
                 uid == null ||
                 userId == null ||

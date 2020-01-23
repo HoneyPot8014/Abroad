@@ -48,8 +48,8 @@
                 android:id="@+id/cancel"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="18dp"
-                android:layout_marginTop="18dp"
+                android:layout_marginStart="12dp"
+                android:layout_marginTop="12dp"
                 android:src="@drawable/cancel"
                 app:layout_constraintStart_toStartOf="@id/profile"
                 app:layout_constraintTop_toTopOf="@id/profile" />
@@ -61,7 +61,7 @@
                 android:layout_marginStart="12dp"
                 android:layout_marginTop="24dp"
                 android:layout_marginEnd="12dp"
-
+                android:text="@{userDetailViewModel.userLiveData.planContents}"
                 android:textSize="14dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"

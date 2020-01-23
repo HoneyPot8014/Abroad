@@ -16,7 +16,7 @@ object SignUpDataMapper {
             signUpEntity.password,
             signUpEntity.countryCode,
             signUpEntity.currentCountry,
-            signUpEntity.planContent,
+            signUpEntity.planContents,
             Uri.parse(signUpEntity.profileUri),
             signUpEntity.userName
         )

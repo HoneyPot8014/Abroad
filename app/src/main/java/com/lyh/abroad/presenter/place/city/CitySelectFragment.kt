@@ -45,10 +45,6 @@ class CitySelectFragment : BaseFragment(R.layout.fragment_city_select) {
                 parentFragmentManager.popBackStack()
             }
         }
-
-//        placeViewModel.isPlaceSelected.observe(viewLifecycleOwner) {
-//            Log.d("용현", "${it ?:"아직없음"}")
-//        }
     }
 
     private fun setUpBinding() {

@@ -9,7 +9,7 @@ object SignUpToUserMapper {
         return UserEntity(
             signUpEntity.countryCode,
             signUpEntity.currentCountry,
-            signUpEntity.planContent,
+            signUpEntity.planContents,
             "",
             uid,
             signUpEntity.email,

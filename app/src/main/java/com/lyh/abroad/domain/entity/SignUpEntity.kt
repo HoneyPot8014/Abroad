@@ -10,7 +10,7 @@ data class SignUpEntity(
     /** 도시*/
     val currentCountry: String,
     /** 자기소개*/
-    val planContent: String,
+    val planContents: String,
     /** 프로필 url*/
     val profileUri: String,
     /** 사용자 이름*/

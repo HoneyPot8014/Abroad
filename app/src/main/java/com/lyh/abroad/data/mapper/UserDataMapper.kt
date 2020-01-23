@@ -12,7 +12,7 @@ object UserDataMapper {
             UserEntity(
                 userDataModel.countryCode!!,
                 userDataModel.currentCountry!!,
-                userDataModel.planContent!!,
+                userDataModel.planContents!!,
                 userDataModel.pushToken!!,
                 userDataModel.uid!!,
                 userDataModel.userId!!,
@@ -26,7 +26,7 @@ object UserDataMapper {
         UserDataModel(
             userEntity.countryCode,
             userEntity.currentCountry,
-            userEntity.planContent,
+            userEntity.planContents,
             userEntity.pushToken,
             userEntity.uid,
             userEntity.userId,
