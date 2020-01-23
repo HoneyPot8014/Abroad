@@ -10,6 +10,8 @@ interface UserRepository {
 
     suspend fun fetchUser(): ResultModel<UserEntity>
 
+    suspend fun fetchUser(uid: String): ResultModel<UserEntity>
+
     suspend fun fetchUserWithLogIn(email: String, password: String): ResultModel<UserEntity>
 
     suspend fun setUser(userEntity: UserEntity): ResultModel<Unit>
