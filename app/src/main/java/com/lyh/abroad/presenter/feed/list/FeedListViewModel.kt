@@ -1,4 +1,4 @@
-package com.lyh.abroad.presenter.feed
+package com.lyh.abroad.presenter.feed.list
 
 import androidx.lifecycle.MutableLiveData
 import com.lyh.abroad.R
@@ -9,7 +9,7 @@ import com.lyh.abroad.presenter.mapper.FeedMapper
 import com.lyh.abroad.presenter.model.Feed
 import kotlinx.coroutines.launch
 
-class FeedViewModel(
+class FeedListViewModel(
     private val getFeedUsecase: GetFeedUsecase
 ) : BaseViewModel() {
 

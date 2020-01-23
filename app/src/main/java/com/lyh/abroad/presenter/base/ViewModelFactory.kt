@@ -21,12 +21,13 @@ import com.lyh.abroad.domain.interactor.user.GetUserUsecase
 import com.lyh.abroad.domain.interactor.user.SignInUsecase
 import com.lyh.abroad.domain.interactor.user.SignUpUsecase
 import com.lyh.abroad.presenter.calendar.CalendarViewModel
-import com.lyh.abroad.presenter.feed.FeedViewModel
+import com.lyh.abroad.presenter.feed.list.FeedListViewModel
 import com.lyh.abroad.presenter.place.PlaceViewModel
 import com.lyh.abroad.presenter.post.PostViewModel
 import com.lyh.abroad.presenter.signin.SignInViewModel
 import com.lyh.abroad.presenter.signin.SignUpViewModel
 import com.lyh.abroad.presenter.user.UserViewModel
+import com.lyh.abroad.presenter.user.detail.UserDetailViewModel
 
 object ViewModelFactory {
 
@@ -34,9 +35,13 @@ object ViewModelFactory {
         object : ViewModelProvider.Factory {
             override fun <T : ViewModel?> create(modelClass: Class<T>): T =
                 when {
-                    modelClass.isAssignableFrom(FeedViewModel::class.java) -> {
+                    modelClass.isAssignableFrom(FeedListViewModel::class.java) -> {
                         modelClass.getConstructor(GetFeedUsecase::class.java)
                             .newInstance(GetFeedUsecase(FeedRepositoryImpl.getInstance(FeedRemoteSource)))
+                    }
+                    modelClass.isAssignableFrom(UserDetailViewModel::class.java) -> {
+                        modelClass.getConstructor(GetUserUsecase::class.java)
+                            .newInstance(GetUserUsecase(UserRepositoryImpl.getInstance(UserAuth, UserRemoteSource)))
                     }
                     modelClass.isAssignableFrom(SignInViewModel::class.java) -> {
                         modelClass.getConstructor(SignInUsecase::class.java)

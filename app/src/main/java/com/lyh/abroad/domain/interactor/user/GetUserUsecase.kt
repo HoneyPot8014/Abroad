@@ -9,10 +9,17 @@ import kotlinx.coroutines.withContext
 
 class GetUserUsecase(
     private val userRepository: UserRepository
-) : BaseUsecase<UserEntity, Nothing>() {
+) : BaseUsecase<UserEntity, GetUserUsecase.GetUserParam>() {
 
-    override suspend fun bindUsecase(param: Nothing?): ResultModel<UserEntity> =
-        withContext(Dispatchers.Main) {
+    data class GetUserParam(val uid: String) : Param()
+
+    override suspend fun bindUsecase(param: GetUserParam?): ResultModel<UserEntity> =
+        param?.let {
+            withContext(Dispatchers.Main) {
+                userRepository.fetchUser(it.uid)
+            }
+        } ?: withContext(Dispatchers.Main) {
             userRepository.fetchUser()
         }
+
 }

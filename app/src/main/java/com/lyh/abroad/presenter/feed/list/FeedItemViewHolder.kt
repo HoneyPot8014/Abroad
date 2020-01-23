@@ -1,4 +1,4 @@
-package com.lyh.abroad.presenter.feed
+package com.lyh.abroad.presenter.feed.list
 
 import android.view.View
 import android.widget.TextView

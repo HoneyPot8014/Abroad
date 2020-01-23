@@ -5,7 +5,7 @@
 
         <variable
             name="feedViewModel"
-            type="com.lyh.abroad.presenter.feed.FeedViewModel" />
+            type="com.lyh.abroad.presenter.feed.list.FeedListViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"

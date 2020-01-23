@@ -1,5 +1,9 @@
 package com.lyh.abroad.presenter.model
 
+import android.os.Parcelable
+import kotlinx.android.parcel.Parcelize
+
+@Parcelize
 data class Feed(
     /** 채팅 방 이름*/
     val chattingRoomId: String,
@@ -17,4 +21,4 @@ data class Feed(
     val id: String,
     /** 작성자 닉네임*/
     val userName: String
-)
+) : Parcelable

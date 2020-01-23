@@ -1,4 +1,4 @@
-package com.lyh.abroad.presenter.feed
+package com.lyh.abroad.presenter.user.detail
 
 
 import android.os.Bundle
@@ -6,19 +6,26 @@ import android.view.View
 import androidx.activity.addCallback
 import androidx.fragment.app.viewModels
 import com.lyh.abroad.R
-import com.lyh.abroad.databinding.FragmentFeedDetailBinding
+import com.lyh.abroad.databinding.FragmentUserDetailBinding
 import com.lyh.abroad.presenter.base.BaseFragment
 import com.lyh.abroad.presenter.base.ViewModelFactory
+import com.lyh.abroad.presenter.model.Feed
 import com.lyh.abroad.presenter.user.UserViewModel
 
-class FeedDetailFragment : BaseFragment(R.layout.fragment_feed_detail) {
+class UserDetailFragment : BaseFragment(R.layout.fragment_user_detail) {
 
-    private val feedViewModel by viewModels<FeedViewModel>(
-        { parentFragment ?: this },
-        { ViewModelFactory.get(requireActivity().application) }
-    )
     private val userViewModel by viewModels<UserViewModel> {
         ViewModelFactory.get(requireActivity().application)
+    }
+
+    companion object {
+
+        fun newInstance(feed: Feed) =
+            UserDetailFragment().apply {
+                arguments = Bundle().apply {
+                    putParcelable("feed", feed)
+                }
+            }
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -30,10 +37,9 @@ class FeedDetailFragment : BaseFragment(R.layout.fragment_feed_detail) {
     }
 
     private fun setUpBinding() {
-        FragmentFeedDetailBinding.bind(view ?: return).apply {
+        FragmentUserDetailBinding.bind(view ?: return).apply {
             lifecycleOwner = viewLifecycleOwner
-            feedViewModel = this@FeedDetailFragment.feedViewModel
-            userViewModel = this@FeedDetailFragment.userViewModel
+            userViewModel = this@UserDetailFragment.userViewModel
         }
     }
 
