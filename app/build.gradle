@@ -66,6 +66,8 @@ dependencies {
     implementation "com.google.firebase:firebase-auth:$firebase_auth_version"
     // firebase storage
     implementation "com.google.firebase:firebase-storage:$firebase_storage_version"
+    // fmc
+    implementation "com.google.firebase:firebase-messaging:$firebase_fmc_version"
     // glide
     implementation "com.github.bumptech.glide:glide:$glide_version"
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
