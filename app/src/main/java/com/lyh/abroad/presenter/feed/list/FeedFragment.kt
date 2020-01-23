@@ -12,7 +12,7 @@ import com.lyh.abroad.databinding.FragmentFeedBinding
 import com.lyh.abroad.presenter.base.BaseFragment
 import com.lyh.abroad.presenter.base.ViewModelFactory
 import com.lyh.abroad.presenter.base.listview.BaseListDivider
-import com.lyh.abroad.presenter.user.detail.UserDetailFragment
+import com.lyh.abroad.presenter.feed.detail.FeedDetailFragment
 import kotlinx.android.synthetic.main.fragment_feed.*
 
 class FeedFragment : BaseFragment(R.layout.fragment_feed) {
@@ -35,7 +35,7 @@ class FeedFragment : BaseFragment(R.layout.fragment_feed) {
             adapter = FeedListAdapter().apply {
                 setOnClickListener {
                     parentFragmentManager.commit {
-                        replace(R.id.feed_container, UserDetailFragment.newInstance(it))
+                        replace(R.id.feed_container, FeedDetailFragment.newInstance(it))
                         addToBackStack(null)
                     }
                 }

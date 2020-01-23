@@ -9,21 +9,19 @@ import com.lyh.abroad.R
 import com.lyh.abroad.databinding.FragmentUserDetailBinding
 import com.lyh.abroad.presenter.base.BaseFragment
 import com.lyh.abroad.presenter.base.ViewModelFactory
-import com.lyh.abroad.presenter.model.Feed
-import com.lyh.abroad.presenter.user.UserViewModel
 
 class UserDetailFragment : BaseFragment(R.layout.fragment_user_detail) {
 
-    private val userViewModel by viewModels<UserViewModel> {
+    private val userDetailViewModel by viewModels<UserDetailViewModel> {
         ViewModelFactory.get(requireActivity().application)
     }
 
     companion object {
 
-        fun newInstance(feed: Feed) =
+        fun newInstance(uid: String) =
             UserDetailFragment().apply {
                 arguments = Bundle().apply {
-                    putParcelable("feed", feed)
+                    putString("uid", uid)
                 }
             }
     }
@@ -34,12 +32,13 @@ class UserDetailFragment : BaseFragment(R.layout.fragment_user_detail) {
             parentFragmentManager.popBackStack()
         }
         setUpBinding()
+        userDetailViewModel.setUser(arguments!!.getString("uid")!!)
     }
 
     private fun setUpBinding() {
         FragmentUserDetailBinding.bind(view ?: return).apply {
             lifecycleOwner = viewLifecycleOwner
-            userViewModel = this@UserDetailFragment.userViewModel
+            userDetailViewModel = this@UserDetailFragment.userDetailViewModel
         }
     }
 

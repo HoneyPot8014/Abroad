@@ -1,5 +1,6 @@
 package com.lyh.abroad.presenter.feed.list
 
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import com.lyh.abroad.R
@@ -18,6 +19,7 @@ class FeedListAdapter : BaseAdapter<Feed, FeedItemViewHolder>() {
     override fun onBindViewHolder(holder: FeedItemViewHolder, position: Int) {
         super.onBindViewHolder(holder, position)
         holder.itemView.setOnClickListener {
+            Log.d("용현", "position: $position, item : ${getItem(position)}")
             onClickListener?.invoke(getItem(position))
         }
     }

@@ -27,4 +27,14 @@ class UserDetailViewModel(
         }
     }
 
+    fun setUser(uid: String) {
+        viewModelScope.launch {
+            getUserUsecase.execute(GetUserUsecase.GetUserParam(uid)).run {
+                if (status == ResultModel.Status.SUCCESS) {
+                    _userLiveData.value = data
+                }
+            }
+        }
+    }
+
 }
