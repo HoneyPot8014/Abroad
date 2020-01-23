@@ -10,6 +10,7 @@ import com.lyh.abroad.data.source.feed.FeedRemoteSource
 import com.lyh.abroad.data.source.place.CityRemoteSource
 import com.lyh.abroad.data.source.user.UserAuth
 import com.lyh.abroad.data.source.user.UserRemoteSource
+import com.lyh.abroad.domain.interactor.chat.SetChatRoomUsecase
 import com.lyh.abroad.domain.interactor.date.GetCalendarUsecase
 import com.lyh.abroad.domain.interactor.feed.GetFeedUsecase
 import com.lyh.abroad.domain.interactor.feed.SetFeedUsecase
@@ -19,6 +20,7 @@ import com.lyh.abroad.domain.interactor.user.GetUserUsecase
 import com.lyh.abroad.domain.interactor.user.SignInUsecase
 import com.lyh.abroad.domain.interactor.user.SignUpUsecase
 import com.lyh.abroad.presenter.calendar.CalendarViewModel
+import com.lyh.abroad.presenter.chat.SetChatRoomViewModel
 import com.lyh.abroad.presenter.feed.list.FeedListViewModel
 import com.lyh.abroad.presenter.place.PlaceViewModel
 import com.lyh.abroad.presenter.post.PostViewModel
@@ -70,6 +72,13 @@ object ViewModelFactory {
                                 UserRepositoryImpl.getInstance(UserAuth, UserRemoteSource),
                                 ChatRepositoryImpl.getInstance(ChatRemoteDataSource),
                                 FeedRepositoryImpl.getInstance(FeedRemoteSource))
+                            )
+                    }
+                    modelClass.isAssignableFrom(SetChatRoomViewModel::class.java) -> {
+                        modelClass.getConstructor(SetChatRoomUsecase::class.java)
+                            .newInstance(SetChatRoomUsecase(
+                                    UserRepositoryImpl.getInstance(UserAuth, UserRemoteSource),
+                                    ChatRepositoryImpl.getInstance(ChatRemoteDataSource))
                             )
                     }
                     else -> throw Exception("can not create ViewModel : ${modelClass.name}")

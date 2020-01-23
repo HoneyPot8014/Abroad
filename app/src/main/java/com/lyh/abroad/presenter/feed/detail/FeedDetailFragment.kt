@@ -5,9 +5,12 @@ import android.os.Bundle
 import android.view.View
 import androidx.activity.addCallback
 import androidx.fragment.app.commit
+import androidx.fragment.app.viewModels
 import com.lyh.abroad.R
 import com.lyh.abroad.databinding.FragmentFeedDetailBinding
 import com.lyh.abroad.presenter.base.BaseFragment
+import com.lyh.abroad.presenter.base.ViewModelFactory
+import com.lyh.abroad.presenter.chat.SetChatRoomViewModel
 import com.lyh.abroad.presenter.model.Feed
 import com.lyh.abroad.presenter.user.detail.UserDetailFragment
 import kotlinx.android.synthetic.main.fragment_feed_detail.*
@@ -15,6 +18,9 @@ import kotlinx.android.synthetic.main.fragment_feed_detail.*
 class FeedDetailFragment : BaseFragment(R.layout.fragment_feed_detail) {
 
     private lateinit var binding: FragmentFeedDetailBinding
+    private val setChatRoomViewModel by viewModels<SetChatRoomViewModel> {
+        ViewModelFactory.get(requireActivity().application)
+    }
 
     companion object {
 
@@ -48,6 +54,7 @@ class FeedDetailFragment : BaseFragment(R.layout.fragment_feed_detail) {
         binding = FragmentFeedDetailBinding.bind(view ?: return).apply {
             lifecycleOwner = viewLifecycleOwner
             feed = arguments?.getParcelable("feed")
+            setChatRoomViewModel = this@FeedDetailFragment.setChatRoomViewModel
         }
     }
 }

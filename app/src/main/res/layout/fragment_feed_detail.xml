@@ -6,6 +6,10 @@
         <variable
             name="feed"
             type="com.lyh.abroad.presenter.model.Feed" />
+
+        <variable
+            name="setChatRoomViewModel"
+            type="com.lyh.abroad.presenter.chat.SetChatRoomViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
@@ -108,6 +112,7 @@
             android:background="@color/colorPrimary"
             android:gravity="center"
             android:padding="16dp"
+            android:onClick="@{() -> setChatRoomViewModel.createChat(feed.chattingRoomId)}"
             android:text="채팅 참여신청"
             android:textColor="@android:color/white"
             android:textSize="18dp"

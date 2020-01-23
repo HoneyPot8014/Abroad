@@ -22,6 +22,10 @@ class ChatRepositoryImpl(
     override suspend fun setChatRoom(uid: String): ResultModel<String> =
         chatRemoteDataSource.setChatRoom(uid)
 
+    override suspend fun setChatRoom(uid: String, chattingRoomId: String): ResultModel<Unit> {
+        return chatRemoteDataSource.setChatRoom(uid, chattingRoomId)
+    }
+
     override suspend fun getChatList(): ResultModel<List<ReceiveChatEntity>> {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }

@@ -22,18 +22,12 @@ object ChatRemoteDataSource : ChatDataSource {
             }
         }
 
-    override suspend fun setChatRoom(uid: String, chattingRoomId: String): ResultModel<Unit> {
-        return suspendCancellableCoroutine { continuation ->
-            val dbRef = db.child(chattingRoomId)
-            if (dbRef.key == null) {
-                continuation.resume(ResultModel.onFailed())
-            } else {
-                dbRef
-                    .updateChildren(mapOf("users" to mapOf(uid to false)))
-                    .addOnSuccessListener { continuation.resume(ResultModel.onSuccess(Unit)) }
-                    .addOnFailureListener { continuation.resume(ResultModel.onFailed(it)) }
-            }
+    override suspend fun setChatRoom(uid: String, chattingRoomId: String): ResultModel<Unit> =
+        suspendCancellableCoroutine { continuation ->
+            // TODO 나 자신일 경우, true -> false로 바꾸는 로직임. 수정해야함.
+            db.child(chattingRoomId)
+                .updateChildren(mapOf("users" to mapOf(uid to false)))
+                .addOnSuccessListener { continuation.resume(ResultModel.onSuccess(Unit)) }
+                .addOnFailureListener { continuation.resume(ResultModel.onFailed(it)) }
         }
-    }
-
 }
