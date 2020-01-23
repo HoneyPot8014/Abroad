@@ -30,6 +30,7 @@ class UserDetailFragment : BaseFragment(R.layout.fragment_user_detail) {
         dispatcher?.addCallback(viewLifecycleOwner) {
             parentFragmentManager.popBackStack()
         }
+        hideBottomNav()
         setUpBinding()
         // TODO 로직 변경
         userDetailViewModel.setUser(arguments!!.getString("uid")!!)

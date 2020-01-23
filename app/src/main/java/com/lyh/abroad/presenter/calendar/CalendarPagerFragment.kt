@@ -42,6 +42,7 @@ class CalendarPagerFragment : BaseFragment(R.layout.fragment_calendar_pager) {
         dispatcher?.addCallback(viewLifecycleOwner) {
             parentFragmentManager.popBackStack()
         }
+        hideBottomNav()
         setUpBinding()
         // TODO : 로직 bindingAdapter로 변경
         calendar_pager.apply {

@@ -31,6 +31,7 @@ class FeedDetailFragment : BaseFragment(R.layout.fragment_feed_detail) {
         dispatcher?.addCallback(viewLifecycleOwner) {
             parentFragmentManager.popBackStack()
         }
+        hideBottomNav()
         setUpBinding()
         user_name.setOnClickListener {
             parentFragmentManager.commit {

@@ -30,6 +30,7 @@ class CalendarFragment : BaseFragment(R.layout.fragment_calendar) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         setUpBinding()
+        hideBottomNav()
         //TODO 테스트코드 삭제
         val a = arguments?.getInt("currentPage") ?: 0
         calendarViewModel.calendarLiveData.value?.getOrNull(a)?.date.also {

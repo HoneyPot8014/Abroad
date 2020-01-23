@@ -101,5 +101,17 @@
             app:layout_constraintTop_toBottomOf="@id/divider"
             tools:text="속초에서 물회 뿌실 분속초에서 물회 뿌실 분속초에서 물회 뿌실 분속초에서 물회 뿌실 분속초에서 물회 뿌실 분속초에서 물회 뿌실 분속초에서 물회 뿌실 분속초에서 물회 뿌실 분속초에서 물회 뿌실 분속초에서 물회 뿌실 분속초에서 물회 뿌실 분속초에서 물회 뿌실 분속초에서 물회 뿌실 분속초에서 물회 뿌실 분속초에서 물회 뿌실 분속초에서 물회 뿌실 분" />
 
+        <TextView
+            android:id="@+id/request_chat"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/colorPrimary"
+            android:gravity="center"
+            android:padding="16dp"
+            android:text="채팅 참여신청"
+            android:textColor="@android:color/white"
+            android:textSize="18dp"
+            app:layout_constraintBottom_toBottomOf="parent" />
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

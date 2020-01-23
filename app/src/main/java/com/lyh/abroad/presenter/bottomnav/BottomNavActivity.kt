@@ -17,7 +17,6 @@ import com.lyh.abroad.presenter.custom.BottomNavigation.BottomNavItem.*
 import com.lyh.abroad.presenter.feed.FeedContainerFragment
 import com.lyh.abroad.presenter.post.PostContainerFragment
 import com.lyh.abroad.presenter.signin.SignInContainerFragment
-import com.lyh.abroad.presenter.signin.SignInFragment
 import com.lyh.abroad.presenter.user.UserViewModel
 import kotlinx.android.synthetic.main.activity_bottom_nav.*
 
@@ -31,9 +30,11 @@ class BottomNavActivity : BaseActivity() {
         bottomNavViewModel = viewModels<BottomNavViewModel>().value
         DataBindingUtil.setContentView<ActivityBottomNavBinding>(this, R.layout.activity_bottom_nav)
             .apply {
+                lifecycleOwner = this@BottomNavActivity
                 userViewModel = this@BottomNavActivity.userViewModel
+                bottomNavViewModel = this@BottomNavActivity.bottomNavViewModel
             }
-        userViewModel.statusLiveData?.observe(this) {
+        userViewModel.statusLiveData.observe(this) {
             when (it) {
                 Success -> bottomNavViewModel.currentNav.value = FEED
                 is Failed -> bottomNavViewModel.currentNav.value = null
@@ -57,7 +58,6 @@ class BottomNavActivity : BaseActivity() {
                 MY_PAGE -> null
                 else -> SignInContainerFragment()
             }
-            if (fragment is SignInFragment) hideBottomNav() else showBottomNav()
             supportFragmentManager.commit {
                 replace(
                     R.id.fragment_container,

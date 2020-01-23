@@ -33,6 +33,7 @@ class PostFragment : BaseFragment(R.layout.fragment_post) {
         super.onViewCreated(view, savedInstanceState)
 
         setUpBinding()
+        hideBottomNav()
         post_back_button.setOnClickListener {
             activity?.onBackPressed()
         }

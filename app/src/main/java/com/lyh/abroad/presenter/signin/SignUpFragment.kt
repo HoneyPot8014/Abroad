@@ -37,6 +37,7 @@ class SignUpFragment : BaseFragment(R.layout.fragment_sign_up) {
         dispatcher?.addCallback(viewLifecycleOwner) {
             parentFragmentManager.popBackStack()
         }
+        hideBottomNav()
         setUpBinding()
         add_profile.setOnClickListener {
             startIntentForProfilePick()

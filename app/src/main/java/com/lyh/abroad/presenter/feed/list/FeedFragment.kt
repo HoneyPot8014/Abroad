@@ -23,7 +23,7 @@ class FeedFragment : BaseFragment(R.layout.fragment_feed) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
+        showBottomNav()
         FragmentFeedBinding.bind(view).apply {
             lifecycleOwner = viewLifecycleOwner
             feedViewModel = this@FeedFragment.feedViModel

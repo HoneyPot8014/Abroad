@@ -37,6 +37,7 @@ class CountrySelectFragment : BaseFragment(R.layout.fragment_country_select) {
         dispatcher?.addCallback(viewLifecycleOwner) {
             parentFragmentManager.popBackStack()
         }
+        hideBottomNav()
         setUpBinding()
         nation_list.apply {
             layoutManager = LinearLayoutManager(context, RecyclerView.VERTICAL, false)

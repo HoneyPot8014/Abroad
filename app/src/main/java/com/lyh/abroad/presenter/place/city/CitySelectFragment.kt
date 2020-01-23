@@ -28,6 +28,7 @@ class CitySelectFragment : BaseFragment(R.layout.fragment_city_select) {
         dispatcher?.addCallback(viewLifecycleOwner) {
             parentFragmentManager.popBackStack()
         }
+        hideBottomNav()
         setUpBinding()
         city_back_button.setOnClickListener {
             parentFragmentManager.popBackStack()
