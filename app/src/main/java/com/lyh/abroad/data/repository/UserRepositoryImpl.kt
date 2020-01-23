@@ -37,17 +37,20 @@ class UserRepositoryImpl private constructor(
             if (cache[it] != null) {
                 return@let ResultModel.onSuccess(cache[it])
             }
-            userRemoteSource.fetchUser(it).let { userModel ->
-                if (userModel.status == SUCCESS) {
-                    UserDataMapper.toEntity(userModel.data)?.let { userEntity ->
-                        cache[it] = userEntity
-                        ResultModel.onSuccess(userEntity)
-                    } ?: ResultModel.onFailed()
-                } else {
-                    ResultModel.onFailed(userModel.error)
-                }
-            }
+            return@let fetchUser(it)
         } ?: ResultModel.onFailed()
+
+    override suspend fun fetchUser(uid: String): ResultModel<UserEntity> =
+        userRemoteSource.fetchUser(uid).let { userModel ->
+            if (userModel.status == SUCCESS) {
+                UserDataMapper.toEntity(userModel.data)?.let { userEntity ->
+                    cache[uid] = userEntity
+                    ResultModel.onSuccess(userEntity)
+                } ?: ResultModel.onFailed()
+            } else {
+                ResultModel.onFailed(userModel.error)
+            }
+        }
 
     override suspend fun fetchUserWithLogIn(
         email: String,
