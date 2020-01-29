@@ -20,10 +20,10 @@ class ChatRepositoryImpl(
     }
 
     override suspend fun setChatRoom(uid: String): ResultModel<String> =
-        chatRemoteDataSource.setChatRoom(uid)
+        TODO()
 
     override suspend fun setChatRoom(uid: String, chattingRoomId: String): ResultModel<Unit> {
-        return chatRemoteDataSource.setChatRoom(uid, chattingRoomId)
+        TODO()
     }
 
     override suspend fun getChatList(): ResultModel<List<ReceiveChatEntity>> {

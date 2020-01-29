@@ -4,7 +4,7 @@ import com.lyh.abroad.domain.entity.PostEntity
 import com.lyh.abroad.domain.interactor.BaseUsecase
 import com.lyh.abroad.domain.model.ResultModel
 import com.lyh.abroad.domain.repository.AuthRepository
-import com.lyh.abroad.domain.repository.ChatRepository
+import com.lyh.abroad.domain.repository.ChatRoomRepository
 import com.lyh.abroad.domain.repository.FeedRepository
 import com.lyh.abroad.domain.repository.UserRepository
 import kotlinx.coroutines.Dispatchers
@@ -13,7 +13,7 @@ import kotlinx.coroutines.withContext
 class SetFeedUsecase(
     private val authRepository: AuthRepository,
     private val userRepository: UserRepository,
-    private val chatRepository: ChatRepository,
+    private val chatRoomRepository: ChatRoomRepository,
     private val feedRepository: FeedRepository
 ) : BaseUsecase<Unit, SetFeedUsecase.SetFeedParam>() {
 
@@ -33,7 +33,7 @@ class SetFeedUsecase(
                     ?: return@withContext ResultModel.onFailed<Unit>()
                 val user = userRepository.fetchUser(uid).data
                     ?: return@withContext ResultModel.onFailed<Unit>()
-                val chattingRoomId = chatRepository.setChatRoom(user.uid).data
+                val chattingRoomId = chatRoomRepository.setChatRoom(user.uid).data
                     ?: return@withContext ResultModel.onFailed<Unit>()
                 feedRepository.setFeed(
                     PostEntity(

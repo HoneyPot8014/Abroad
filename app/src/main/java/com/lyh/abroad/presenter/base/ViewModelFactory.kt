@@ -6,7 +6,7 @@ import androidx.lifecycle.ViewModelProvider
 import com.lyh.abroad.data.repository.*
 import com.lyh.abroad.data.source.auth.AuthRemoteSource
 import com.lyh.abroad.data.source.calendar.CalendarLocalSource
-import com.lyh.abroad.data.source.chat.ChatRemoteDataSource
+import com.lyh.abroad.data.source.chatroom.ChatRoomRemoteSource
 import com.lyh.abroad.data.source.feed.FeedRemoteSource
 import com.lyh.abroad.data.source.place.CityRemoteSource
 import com.lyh.abroad.data.source.user.UserRemoteSource
@@ -43,22 +43,22 @@ object ViewModelFactory {
                         modelClass.getConstructor(GetUserUsecase::class.java)
                             .newInstance(GetUserUsecase(
                                 AuthRepositoryImpl.getInstance(AuthRemoteSource),
-                                UserRepositoryImpl.getInstance(UserRemoteSource)
-                            ))
+                                UserRepositoryImpl.getInstance(UserRemoteSource))
+                            )
                     }
                     modelClass.isAssignableFrom(SignInViewModel::class.java) -> {
                         modelClass.getConstructor(SignInUsecase::class.java)
                             .newInstance(SignInUsecase(
                                 AuthRepositoryImpl.getInstance(AuthRemoteSource),
-                                UserRepositoryImpl.getInstance(UserRemoteSource)
-                            ))
+                                UserRepositoryImpl.getInstance(UserRemoteSource))
+                            )
                     }
                     modelClass.isAssignableFrom(SignUpViewModel::class.java) -> {
                         modelClass.getConstructor(SignUpUsecase::class.java)
                             .newInstance(SignUpUsecase(
                                 AuthRepositoryImpl.getInstance(AuthRemoteSource),
-                                UserRepositoryImpl.getInstance(UserRemoteSource)
-                            ))
+                                UserRepositoryImpl.getInstance(UserRemoteSource))
+                            )
                     }
                     modelClass.isAssignableFrom(PlaceViewModel::class.java) -> {
                         modelClass.getConstructor(GetCountryUsecase::class.java, GetCityUsecase::class.java)
@@ -71,8 +71,8 @@ object ViewModelFactory {
                         modelClass.getConstructor(GetUserUsecase::class.java)
                             .newInstance(GetUserUsecase(
                                 AuthRepositoryImpl.getInstance(AuthRemoteSource),
-                                UserRepositoryImpl.getInstance(UserRemoteSource)
-                            ))
+                                UserRepositoryImpl.getInstance(UserRemoteSource))
+                            )
                     }
                     modelClass.isAssignableFrom(CalendarViewModel::class.java) -> {
                         modelClass.getConstructor(GetCalendarUsecase::class.java)
@@ -83,7 +83,7 @@ object ViewModelFactory {
                             .newInstance(SetFeedUsecase(
                                 AuthRepositoryImpl.getInstance(AuthRemoteSource),
                                 UserRepositoryImpl.getInstance(UserRemoteSource),
-                                ChatRepositoryImpl.getInstance(ChatRemoteDataSource),
+                                ChatRoomRepositoryImpl.getInstance(ChatRoomRemoteSource),
                                 FeedRepositoryImpl.getInstance(FeedRemoteSource))
                             )
                     }
@@ -91,8 +91,8 @@ object ViewModelFactory {
                         modelClass.getConstructor(SetChatRoomUsecase::class.java)
                             .newInstance(SetChatRoomUsecase(
                                 AuthRepositoryImpl.getInstance(AuthRemoteSource),
-                                    ChatRepositoryImpl.getInstance(ChatRemoteDataSource)
-                            ))
+                                ChatRoomRepositoryImpl.getInstance(ChatRoomRemoteSource))
+                            )
                     }
                     else -> throw Exception("can not create ViewModel : ${modelClass.name}")
                 }
