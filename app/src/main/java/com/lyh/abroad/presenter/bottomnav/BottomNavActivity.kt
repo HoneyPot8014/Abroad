@@ -1,13 +1,10 @@
 package com.lyh.abroad.presenter.bottomnav
 
 import android.os.Bundle
-import android.view.View.GONE
-import android.view.View.VISIBLE
 import androidx.activity.viewModels
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.commit
 import androidx.lifecycle.observe
-import com.google.firebase.auth.FirebaseAuth
 import com.lyh.abroad.R
 import com.lyh.abroad.databinding.ActivityBottomNavBinding
 import com.lyh.abroad.presenter.base.BaseActivity
@@ -27,7 +24,6 @@ class BottomNavActivity : BaseActivity() {
     private val userViewModel by viewModels<UserViewModel> { ViewModelFactory.get(application) }
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        FirebaseAuth.getInstance().signOut()
         super.onCreate(savedInstanceState)
         bottomNavViewModel = viewModels<BottomNavViewModel>().value
         DataBindingUtil.setContentView<ActivityBottomNavBinding>(this, R.layout.activity_bottom_nav)
@@ -67,18 +63,6 @@ class BottomNavActivity : BaseActivity() {
                     fragment.javaClass.name
                 )
             }
-        }
-    }
-
-    private fun hideBottomNav() {
-        if (bottom_nav?.visibility == VISIBLE) {
-            bottom_nav?.visibility = GONE
-        }
-    }
-
-    private fun showBottomNav() {
-        if (bottom_nav?.visibility == GONE) {
-            bottom_nav?.visibility = VISIBLE
         }
     }
 }
