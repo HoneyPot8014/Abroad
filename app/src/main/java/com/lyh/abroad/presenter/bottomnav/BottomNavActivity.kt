@@ -7,6 +7,7 @@ import androidx.activity.viewModels
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.commit
 import androidx.lifecycle.observe
+import com.google.firebase.auth.FirebaseAuth
 import com.lyh.abroad.R
 import com.lyh.abroad.databinding.ActivityBottomNavBinding
 import com.lyh.abroad.presenter.base.BaseActivity
@@ -26,6 +27,7 @@ class BottomNavActivity : BaseActivity() {
     private val userViewModel by viewModels<UserViewModel> { ViewModelFactory.get(application) }
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        FirebaseAuth.getInstance().signOut()
         super.onCreate(savedInstanceState)
         bottomNavViewModel = viewModels<BottomNavViewModel>().value
         DataBindingUtil.setContentView<ActivityBottomNavBinding>(this, R.layout.activity_bottom_nav)

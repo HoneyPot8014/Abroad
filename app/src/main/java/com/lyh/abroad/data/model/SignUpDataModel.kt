@@ -16,5 +16,7 @@ data class SignUpDataModel(
     /** 프로필 url*/
     val profileUri: Uri,
     /** 사용자 이름*/
-    val userName: String
+    val userName: String,
+    /** FMC 토큰 */
+    var pushToken: String? = ""
 )

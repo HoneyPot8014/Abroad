@@ -4,11 +4,11 @@ import android.content.Context
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.lyh.abroad.data.repository.*
+import com.lyh.abroad.data.source.auth.AuthRemoteSource
 import com.lyh.abroad.data.source.calendar.CalendarLocalSource
 import com.lyh.abroad.data.source.chat.ChatRemoteDataSource
 import com.lyh.abroad.data.source.feed.FeedRemoteSource
 import com.lyh.abroad.data.source.place.CityRemoteSource
-import com.lyh.abroad.data.source.user.UserAuth
 import com.lyh.abroad.data.source.user.UserRemoteSource
 import com.lyh.abroad.domain.interactor.chat.SetChatRoomUsecase
 import com.lyh.abroad.domain.interactor.date.GetCalendarUsecase
@@ -41,15 +41,24 @@ object ViewModelFactory {
                     }
                     modelClass.isAssignableFrom(UserDetailViewModel::class.java) -> {
                         modelClass.getConstructor(GetUserUsecase::class.java)
-                            .newInstance(GetUserUsecase(UserRepositoryImpl.getInstance(UserAuth, UserRemoteSource)))
+                            .newInstance(GetUserUsecase(
+                                AuthRepositoryImpl.getInstance(AuthRemoteSource),
+                                UserRepositoryImpl.getInstance(UserRemoteSource)
+                            ))
                     }
                     modelClass.isAssignableFrom(SignInViewModel::class.java) -> {
                         modelClass.getConstructor(SignInUsecase::class.java)
-                            .newInstance(SignInUsecase(UserRepositoryImpl.getInstance(UserAuth, UserRemoteSource)))
+                            .newInstance(SignInUsecase(
+                                AuthRepositoryImpl.getInstance(AuthRemoteSource),
+                                UserRepositoryImpl.getInstance(UserRemoteSource)
+                            ))
                     }
                     modelClass.isAssignableFrom(SignUpViewModel::class.java) -> {
                         modelClass.getConstructor(SignUpUsecase::class.java)
-                            .newInstance(SignUpUsecase(UserRepositoryImpl.getInstance(UserAuth, UserRemoteSource)))
+                            .newInstance(SignUpUsecase(
+                                AuthRepositoryImpl.getInstance(AuthRemoteSource),
+                                UserRepositoryImpl.getInstance(UserRemoteSource)
+                            ))
                     }
                     modelClass.isAssignableFrom(PlaceViewModel::class.java) -> {
                         modelClass.getConstructor(GetCountryUsecase::class.java, GetCityUsecase::class.java)
@@ -60,7 +69,10 @@ object ViewModelFactory {
                     }
                     modelClass.isAssignableFrom(UserViewModel::class.java) -> {
                         modelClass.getConstructor(GetUserUsecase::class.java)
-                            .newInstance(GetUserUsecase(UserRepositoryImpl.getInstance(UserAuth, UserRemoteSource)))
+                            .newInstance(GetUserUsecase(
+                                AuthRepositoryImpl.getInstance(AuthRemoteSource),
+                                UserRepositoryImpl.getInstance(UserRemoteSource)
+                            ))
                     }
                     modelClass.isAssignableFrom(CalendarViewModel::class.java) -> {
                         modelClass.getConstructor(GetCalendarUsecase::class.java)
@@ -69,7 +81,8 @@ object ViewModelFactory {
                     modelClass.isAssignableFrom(PostViewModel::class.java) -> {
                         modelClass.getConstructor(SetFeedUsecase::class.java)
                             .newInstance(SetFeedUsecase(
-                                UserRepositoryImpl.getInstance(UserAuth, UserRemoteSource),
+                                AuthRepositoryImpl.getInstance(AuthRemoteSource),
+                                UserRepositoryImpl.getInstance(UserRemoteSource),
                                 ChatRepositoryImpl.getInstance(ChatRemoteDataSource),
                                 FeedRepositoryImpl.getInstance(FeedRemoteSource))
                             )
@@ -77,9 +90,9 @@ object ViewModelFactory {
                     modelClass.isAssignableFrom(SetChatRoomViewModel::class.java) -> {
                         modelClass.getConstructor(SetChatRoomUsecase::class.java)
                             .newInstance(SetChatRoomUsecase(
-                                    UserRepositoryImpl.getInstance(UserAuth, UserRemoteSource),
-                                    ChatRepositoryImpl.getInstance(ChatRemoteDataSource))
-                            )
+                                AuthRepositoryImpl.getInstance(AuthRemoteSource),
+                                    ChatRepositoryImpl.getInstance(ChatRemoteDataSource)
+                            ))
                     }
                     else -> throw Exception("can not create ViewModel : ${modelClass.name}")
                 }

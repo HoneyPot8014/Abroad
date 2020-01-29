@@ -78,6 +78,7 @@ class SignUpFragment : BaseFragment(R.layout.fragment_sign_up) {
             when (it) {
                 Success -> {
                     hidePg()
+                    parentFragmentManager.popBackStack()
                 }
                 Loading -> {
                     showPg()
