@@ -16,6 +16,10 @@ class UserViewModel(
         get() = _userLiveData
 
     init {
+        fetchUser()
+    }
+
+    fun fetchUser() {
         viewModelScope.launch {
             _statusLiveData.value = Status.Loading
             getUserUsecase.execute().let {

@@ -6,6 +6,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import androidx.activity.addCallback
+import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.commit
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.observe
@@ -16,6 +17,7 @@ import com.lyh.abroad.presenter.base.BaseViewModel.Status.*
 import com.lyh.abroad.presenter.base.ViewModelFactory
 import com.lyh.abroad.presenter.place.PlaceViewModel
 import com.lyh.abroad.presenter.place.country.CountrySelectFragment
+import com.lyh.abroad.presenter.user.UserViewModel
 import kotlinx.android.synthetic.main.fragment_sign_up.*
 
 class SignUpFragment : BaseFragment(R.layout.fragment_sign_up) {
@@ -27,6 +29,9 @@ class SignUpFragment : BaseFragment(R.layout.fragment_sign_up) {
         { parentFragment ?: this@SignUpFragment },
         { ViewModelFactory.get(requireActivity().application) }
     )
+    private val userViewModel by activityViewModels<UserViewModel> {
+        ViewModelFactory.get(requireActivity().application)
+    }
 
     companion object {
         private const val GALLERY_PICK = 1000
@@ -79,6 +84,7 @@ class SignUpFragment : BaseFragment(R.layout.fragment_sign_up) {
                 Success -> {
                     hidePg()
                     parentFragmentManager.popBackStack()
+                    userViewModel.fetchUser()
                 }
                 Loading -> {
                     showPg()

@@ -17,8 +17,8 @@ object FeedMapper {
             feedEntity.contents,
             SimpleDateFormat("yyyy.MM.dd EEE", Locale.getDefault())
                 .format(Date(feedEntity.createDate)),
-            feedEntity.endDate.toString(),
-            feedEntity.startDate.toString(),
+            feedEntity.endDate,
+            feedEntity.startDate,
             feedEntity.title,
             feedEntity.uid,
             feedEntity.userName

@@ -1,6 +1,5 @@
 package com.lyh.abroad.data.source.feed
 
-import android.util.Log
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
@@ -26,23 +25,8 @@ object FeedRemoteSource : FeedSource {
                     }
 
                     override fun onDataChange(p0: DataSnapshot) {
-                        val a = p0.children.iterator()
-                        while (a.hasNext()) {
-                            Log.d("용현2", a.next().toString())
-                        }
                         continuation.resume(
-                            p0.children.mapNotNull {
-                                it.getValue(FeedDataModel::class.java)
-                            }
-//                            p0.children.mapNotNull { placeId ->
-//                                placeId.children
-//                                    .mapNotNull { feed ->
-//                                        feed.getValue(FeedDataModel::class.java)?.apply {
-//                                            countryId = countryCode
-//                                            cityId = placeId.key
-//                                        }
-//                                    }
-//                            }.flatten()
+                            p0.children.mapNotNull { it.getValue(FeedDataModel::class.java) }
                         )
                     }
                 })
