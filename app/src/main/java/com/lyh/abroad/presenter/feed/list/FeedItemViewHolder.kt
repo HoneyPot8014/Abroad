@@ -12,6 +12,6 @@ class FeedItemViewHolder(itemView: View) : BaseViewHolder<Feed>(itemView) {
         itemView.findViewById<TextView>(R.id.feed_title).text = item.title
         itemView.findViewById<TextView>(R.id.feed_content).text = item.contents
         itemView.findViewById<TextView>(R.id.feed_writer_id).text = item.userName
-        itemView.findViewById<TextView>(R.id.feed_create_date).text = item.createDate
+//        itemView.findViewById<TextView>(R.id.feed_create_date).text = item.createDate
     }
 }

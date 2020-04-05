@@ -1,6 +1,6 @@
 package com.lyh.abroad.presenter.chat
 
-import com.lyh.abroad.domain.interactor.chat.SetChatRoomUsecase
+import com.lyh.abroad.domain.interactor.chatroom.SetChatRoomUsecase
 import com.lyh.abroad.domain.model.ResultModel
 import com.lyh.abroad.presenter.base.BaseViewModel
 import kotlinx.coroutines.launch

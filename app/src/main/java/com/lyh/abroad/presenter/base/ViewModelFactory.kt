@@ -10,7 +10,7 @@ import com.lyh.abroad.data.source.chatroom.ChatRoomRemoteSource
 import com.lyh.abroad.data.source.feed.FeedRemoteSource
 import com.lyh.abroad.data.source.place.CityRemoteSource
 import com.lyh.abroad.data.source.user.UserRemoteSource
-import com.lyh.abroad.domain.interactor.chat.SetChatRoomUsecase
+import com.lyh.abroad.domain.interactor.chatroom.SetChatRoomUsecase
 import com.lyh.abroad.domain.interactor.date.GetCalendarUsecase
 import com.lyh.abroad.domain.interactor.feed.GetFeedUsecase
 import com.lyh.abroad.domain.interactor.feed.SetFeedUsecase

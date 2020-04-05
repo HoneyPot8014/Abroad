@@ -1,5 +1,6 @@
 package com.lyh.abroad.data.source.feed
 
+import android.util.Log
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
@@ -15,25 +16,33 @@ object FeedRemoteSource : FeedSource {
     private val db = FirebaseDatabase.getInstance().getReference("bulletinBoard")
 
     override suspend fun fetchFeedList(countryCode: String): List<FeedDataModel> =
-        suspendCancellableCoroutine {
+        suspendCancellableCoroutine { continuation ->
             db.child(countryCode)
+                .child("allPosts")
                 .orderByChild("createDate")
                 .addListenerForSingleValueEvent(object : ValueEventListener {
                     override fun onCancelled(p0: DatabaseError) {
-                        it.cancel(p0.toException())
+                        continuation.cancel(p0.toException())
                     }
 
                     override fun onDataChange(p0: DataSnapshot) {
-                        it.resume(
-                            p0.children.mapNotNull { placeId ->
-                                placeId.children
-                                    .mapNotNull { feed ->
-                                        feed.getValue(FeedDataModel::class.java)?.apply {
-                                            countryId = countryCode
-                                            cityId = placeId.key
-                                        }
-                                    }
-                            }.flatten()
+                        val a = p0.children.iterator()
+                        while (a.hasNext()) {
+                            Log.d("용현2", a.next().toString())
+                        }
+                        continuation.resume(
+                            p0.children.mapNotNull {
+                                it.getValue(FeedDataModel::class.java)
+                            }
+//                            p0.children.mapNotNull { placeId ->
+//                                placeId.children
+//                                    .mapNotNull { feed ->
+//                                        feed.getValue(FeedDataModel::class.java)?.apply {
+//                                            countryId = countryCode
+//                                            cityId = placeId.key
+//                                        }
+//                                    }
+//                            }.flatten()
                         )
                     }
                 })

@@ -1,4 +1,4 @@
-package com.lyh.abroad.domain.interactor.chat
+package com.lyh.abroad.domain.interactor.chatroom
 
 import com.lyh.abroad.domain.interactor.BaseUsecase
 import com.lyh.abroad.domain.model.ResultModel

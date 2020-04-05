@@ -10,8 +10,11 @@ object ChatRoomRemoteSource : ChatRoomSource {
 
     private val db = FirebaseDatabase.getInstance().getReference("chatRooms")
 
-    override suspend fun getChatRoomList(): ResultModel<List<ChatRoomEntity>> {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    override suspend fun getChatRoomList(uid: String): ResultModel<List<ChatRoomEntity>> {
+//        suspendCancellableCoroutine<> { continuation ->
+//
+//        }
+        TODO()
     }
 
     override suspend fun setChatRoom(uid: String): ResultModel<String> =

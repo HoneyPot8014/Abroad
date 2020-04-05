@@ -10,15 +10,17 @@ data class FeedDataModel(
     /** 게시글 등록 서버 시간*/
     val createDate: Long? = null,
     /** 여행 마지막 날*/
-    val endDate: String? = null,
+    val endDate: Long? = null,
     /** 여행 시작 날*/
-    val startDate: String? = null,
+    val startDate: Long? = null,
     /** 게시글 제목*/
     val title: String? = null,
     /** 작성자 uid*/
     val uid: String? = null,
     /** 작성자 닉네임 */
-    val userName: String? = null
+    val userName: String? = null,
+    /** 작성자 UID */
+    val postId: String? = null
 ) {
     fun isEmpty(): Boolean =
         countryId == null ||
@@ -30,5 +32,6 @@ data class FeedDataModel(
                 startDate == null ||
                 title == null ||
                 uid == null ||
-                userName == null
+                userName == null ||
+                postId == null
 }

@@ -19,8 +19,9 @@ class ChatRoomRepositoryImpl(
             }
     }
 
-    override suspend fun getChatRoomList(): ResultModel<List<ChatRoomEntity>> =
-        chatRoomSource.getChatRoomList()
+    override suspend fun getChatRoomList(uid: String): ResultModel<List<ChatRoomEntity>> =
+//        chatRoomSource.getChatRoomList()
+        TODO()
 
     override suspend fun setChatRoom(uid: String): ResultModel<String> =
         chatRoomSource.setChatRoom(uid)
