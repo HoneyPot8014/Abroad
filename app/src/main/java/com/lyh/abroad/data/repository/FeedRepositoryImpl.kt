@@ -33,12 +33,11 @@ class FeedRepositoryImpl private constructor(
             ResultModel.onSuccess(it)
         }
 
-    override suspend fun setFeed(postEntity: PostEntity): ResultModel<Unit> {
-        return feedRemoteSource.setFeed(
+    override suspend fun setFeed(postEntity: PostEntity): ResultModel<Unit> =
+        feedRemoteSource.setFeed(
             postEntity.countryId,
             postEntity.cityId,
             PostDataMapper.toModel(postEntity)
         )
-    }
 
 }

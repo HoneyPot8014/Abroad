@@ -32,11 +32,50 @@ object FeedRemoteSource : FeedSource {
                 })
         }
 
-    override suspend fun setFeed(countryId: String, cityId: String, postDataModel: PostDataModel): ResultModel<Unit> {
-        return suspendCancellableCoroutine {continuation ->
+    override suspend fun setFeed(
+        countryId: String,
+        cityId: String,
+        postDataModel: PostDataModel
+    ): ResultModel<Unit> {
+        val key = db.child(countryId)
+            .child("allPosts")
+            .push()
+            .key
+        return if (key == null) {
+            ResultModel.onFailed()
+        } else {
+            setAllPosts(key, countryId, postDataModel)
+            setCountryPosts(key, countryId, cityId, postDataModel)
+        }
+    }
+
+    private suspend fun setAllPosts(
+        key: String,
+        countryId: String,
+        postDataModel: PostDataModel
+    ): ResultModel<Unit> = suspendCancellableCoroutine { continuation ->
+        db.child(countryId)
+            .child("allPosts")
+            .child(key)
+            .setValue(postDataModel)
+            .addOnSuccessListener {
+                continuation.resume(ResultModel.onSuccess(Unit))
+            }
+            .addOnFailureListener {
+                continuation.resume(ResultModel.onFailed())
+            }
+    }
+
+    private suspend fun setCountryPosts(
+        key: String,
+        countryId: String,
+        cityId: String,
+        postDataModel: PostDataModel
+    ): ResultModel<Unit> =
+        suspendCancellableCoroutine { continuation ->
             db.child(countryId)
                 .child(cityId)
-                .push()
+                .child(key)
                 .setValue(postDataModel)
                 .addOnSuccessListener {
                     continuation.resume(ResultModel.onSuccess(Unit))
@@ -45,5 +84,4 @@ object FeedRemoteSource : FeedSource {
                     continuation.resume(ResultModel.onFailed())
                 }
         }
-    }
 }

@@ -40,6 +40,7 @@ class CityRemoteSource private constructor(val context: Context) : CitySource {
                     .build()
             )
                 .addOnSuccessListener {
+
                     continuation.resume(
                         ResultModel.onSuccess(
                             it.autocompletePredictions

@@ -46,8 +46,8 @@ class PostViewModel(
                             country.countryCode,
                             city.cityId,
                             contentLiveData.value ?: "",
-                            period.first().dateString,
-                            period.last().dateString,
+                            period.first().date,
+                            period.last().date,
                             titleLiveData.value ?: ""
                         )
                     ).also {

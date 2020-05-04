@@ -21,8 +21,8 @@ class SetFeedUsecase(
         val countryId: String,
         val cityId: String,
         val contents: String,
-        val endDate: String,
-        val startDate: String,
+        val endDate: Long,
+        val startDate: Long,
         val title: String
     ) : Param()
 
