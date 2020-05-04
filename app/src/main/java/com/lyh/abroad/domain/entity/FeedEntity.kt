@@ -3,8 +3,6 @@ package com.lyh.abroad.domain.entity
 data class FeedEntity(
     val countryId: String,
     val cityId: String,
-    /** 채팅 방 이름*/
-    val chattingRoomId: String,
     /** 게시글 내용*/
     val contents: String,
     /** 게시글 등록 서버 시간*/
@@ -18,5 +16,7 @@ data class FeedEntity(
     /** 작성자 uid*/
     val uid: String,
     /** 작성자 닉네임 */
-    val userName: String
+    val userName: String,
+    /** 각 포스트 당 채팅 룸 id*/
+    val postId: String
 )

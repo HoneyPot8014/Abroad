@@ -112,7 +112,7 @@
             android:background="@color/colorPrimary"
             android:gravity="center"
             android:padding="16dp"
-            android:onClick="@{() -> setChatRoomViewModel.createChat(feed.chattingRoomId)}"
+            android:onClick="@{() -> setChatRoomViewModel.createChat(feed.postId)}"
             android:text="채팅 참여신청"
             android:textColor="@android:color/white"
             android:textSize="18dp"
