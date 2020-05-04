@@ -1,10 +1,12 @@
 package com.lyh.abroad.presenter.bottomnav
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.activity.viewModels
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.commit
 import androidx.lifecycle.observe
+import com.google.firebase.auth.FirebaseAuth
 import com.lyh.abroad.R
 import com.lyh.abroad.databinding.ActivityBottomNavBinding
 import com.lyh.abroad.presenter.base.BaseActivity
@@ -64,5 +66,11 @@ class BottomNavActivity : BaseActivity() {
                 )
             }
         }
+        if (FirebaseAuth.getInstance().currentUser != null) {
+            startActivity(
+                Intent(this, MyPageActivity::class.java)
+            )
+        }
+
     }
 }
