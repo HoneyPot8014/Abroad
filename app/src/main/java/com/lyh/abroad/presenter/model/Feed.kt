@@ -5,8 +5,6 @@ import kotlinx.android.parcel.Parcelize
 
 @Parcelize
 data class Feed(
-    /** 채팅 방 이름*/
-    val chattingRoomId: String,
     /** 게시글 내용*/
     val contents: String,
     /** 게시글 등록 서버 시간 yyyy-MM-dd Date*/
@@ -20,5 +18,7 @@ data class Feed(
     /** 작성자 Id*/
     val id: String,
     /** 작성자 닉네임*/
-    val userName: String
+    val userName: String,
+    /** 각 포스트 당 채팅 룸 id*/
+    val postId: String
 ) : Parcelable

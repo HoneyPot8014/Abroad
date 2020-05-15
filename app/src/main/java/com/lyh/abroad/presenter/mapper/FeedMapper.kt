@@ -13,7 +13,6 @@ object FeedMapper {
 
     fun toModel(feedEntity: FeedEntity): Feed {
         return Feed(
-            feedEntity.chattingRoomId,
             feedEntity.contents,
             SimpleDateFormat("yyyy.MM.dd EEE", Locale.getDefault())
                 .format(Date(feedEntity.createDate)),
@@ -21,7 +20,8 @@ object FeedMapper {
             feedEntity.startDate,
             feedEntity.title,
             feedEntity.uid,
-            feedEntity.userName
+            feedEntity.userName,
+            feedEntity.postId
         )
     }
 }

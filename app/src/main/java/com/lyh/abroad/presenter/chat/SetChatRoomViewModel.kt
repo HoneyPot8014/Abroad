@@ -9,10 +9,10 @@ class SetChatRoomViewModel(
     private val setChatRoomUsecase: SetChatRoomUsecase
 ) : BaseViewModel() {
 
-    fun createChat(chattingRoomId: String) {
+    fun createChat(postId: String) {
         viewModelScope.launch {
             setChatRoomUsecase.execute(
-                SetChatRoomUsecase.SetChatRoomParam(chattingRoomId)
+                SetChatRoomUsecase.SetChatRoomParam(postId)
             ).run {
                 if (status == ResultModel.Status.SUCCESS) {
                     _statusLiveData.value = Status.Success
@@ -20,5 +20,4 @@ class SetChatRoomViewModel(
             }
         }
     }
-
 }

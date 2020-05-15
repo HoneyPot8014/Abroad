@@ -22,9 +22,7 @@ class FeedListViewModel(
             getFeedUsecase.execute(GetFeedUsecase.FeedParam("KR")).run {
                 if (status == ResultModel.Status.SUCCESS) {
                     data?.map { FeedMapper.toModel(it) }
-                        .also {
-                            _feedListLiveData.value = it
-                        }
+                        .also { _feedListLiveData.value = it }
                 } else {
                     _statusLiveData.value = Status.Failed(FailReason.NetworkFailed)
                 }
