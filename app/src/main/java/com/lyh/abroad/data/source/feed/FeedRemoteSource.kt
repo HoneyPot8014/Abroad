@@ -2,17 +2,19 @@ package com.lyh.abroad.data.source.feed
 
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
-import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
 import com.lyh.abroad.data.model.FeedDataModel
 import com.lyh.abroad.data.model.PostDataModel
+import com.lyh.abroad.data.source.firebase.FirebaseDb
 import com.lyh.abroad.domain.model.ResultModel
 import kotlinx.coroutines.suspendCancellableCoroutine
 import kotlin.coroutines.resume
 
 object FeedRemoteSource : FeedSource {
 
-    private val db = FirebaseDatabase.getInstance().getReference("bulletinBoard")
+    /* private */ const val TABLE_BOARD = "bulletinBoard"
+
+    private val db = FirebaseDb.getDatabase(TABLE_BOARD)
 
     override suspend fun fetchFeedList(countryCode: String): List<FeedDataModel> =
         suspendCancellableCoroutine { continuation ->

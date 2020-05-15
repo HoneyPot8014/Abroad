@@ -8,7 +8,9 @@ import kotlin.coroutines.resume
 
 object ChatRoomRemoteSource : ChatRoomSource {
 
-    private val db = FirebaseDatabase.getInstance().getReference("chatRooms")
+    /* private */ const val TABLE_CHAT_ROOMS = "chatRooms"
+
+    private val db = FirebaseDatabase.getInstance().getReference(TABLE_CHAT_ROOMS)
 
     override suspend fun getChatRoomList(uid: String): ResultModel<List<ChatRoomEntity>> {
 //        suspendCancellableCoroutine<> { continuation ->

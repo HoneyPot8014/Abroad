@@ -20,14 +20,12 @@ import kotlinx.android.synthetic.main.activity_bottom_nav.*
 
 class BottomNavActivity : BaseActivity() {
 
-    private lateinit var bottomNavViewModel: BottomNavViewModel
+    private val bottomNavViewModel by viewModels<BottomNavViewModel>()
     private val userViewModel by viewModels<UserViewModel> { ViewModelFactory.get(application) }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        bottomNavViewModel = viewModels<BottomNavViewModel>().value
-        DataBindingUtil.setContentView<ActivityBottomNavBinding>(this, R.layout.activity_bottom_nav)
-            .apply {
+        DataBindingUtil.setContentView<ActivityBottomNavBinding>(this, R.layout.activity_bottom_nav).apply {
                 lifecycleOwner = this@BottomNavActivity
                 userViewModel = this@BottomNavActivity.userViewModel
                 bottomNavViewModel = this@BottomNavActivity.bottomNavViewModel

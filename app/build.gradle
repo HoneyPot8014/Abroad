@@ -5,6 +5,14 @@ apply plugin: 'kotlin-kapt'
 apply plugin: 'com.google.gms.google-services'
 
 android {
+    signingConfigs {
+        release {
+            storeFile file(store_file)
+            storePassword store_password
+            keyAlias = key_alias
+            keyPassword key_password
+        }
+    }
     compileSdkVersion 29
     buildToolsVersion "29.0.2"
     defaultConfig {
@@ -18,11 +26,17 @@ android {
     }
     buildTypes {
         debug {
+            debuggable true
+            minifyEnabled false
             resValue "string", "place_api_key", place_api_key
         }
         release {
-            minifyEnabled false
-            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            debuggable false
+            minifyEnabled true
+            shrinkResources true
+            resValue "string", "place_api_key", place_api_key
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            signingConfig signingConfigs.release
         }
     }
     dataBinding {

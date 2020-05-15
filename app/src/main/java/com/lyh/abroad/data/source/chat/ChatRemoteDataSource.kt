@@ -1,9 +1,10 @@
 package com.lyh.abroad.data.source.chat
 
-import com.google.firebase.database.FirebaseDatabase
+import com.lyh.abroad.data.source.chatroom.ChatRoomRemoteSource.TABLE_CHAT_ROOMS
+import com.lyh.abroad.data.source.firebase.FirebaseDb
 
 object ChatRemoteDataSource : ChatDataSource {
 
-    private val db = FirebaseDatabase.getInstance().getReference("chatRooms")
+    private val db = FirebaseDb.getDatabase(TABLE_CHAT_ROOMS)
 
 }
