@@ -1,6 +1,6 @@
 package com.lyh.abroad.data.source.chatroom
 
-import com.google.firebase.database.FirebaseDatabase
+import com.lyh.abroad.data.source.firebase.FirebaseDb
 import com.lyh.abroad.domain.entity.ChatRoomEntity
 import com.lyh.abroad.domain.model.ResultModel
 import kotlinx.coroutines.suspendCancellableCoroutine
@@ -10,7 +10,7 @@ object ChatRoomRemoteSource : ChatRoomSource {
 
     /* private */ const val TABLE_CHAT_ROOMS = "chatRooms"
 
-    private val db = FirebaseDatabase.getInstance().getReference(TABLE_CHAT_ROOMS)
+    private val db = FirebaseDb.getDatabase(TABLE_CHAT_ROOMS)
 
     override suspend fun getChatRoomList(uid: String): ResultModel<List<ChatRoomEntity>> {
 //        suspendCancellableCoroutine<> { continuation ->

@@ -8,9 +8,9 @@ data class FeedEntity(
     /** 게시글 등록 서버 시간*/
     val createDate: Long,
     /** 여행 마지막 날*/
-    val endDate: Long,
+    val endDate: String,
     /** 여행 시작 날*/
-    val startDate: Long,
+    val startDate: String,
     /** 게시글 제목*/
     val title: String,
     /** 작성자 uid*/

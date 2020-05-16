@@ -3,6 +3,7 @@ package com.lyh.abroad.presenter.bottomnav
 import android.os.Bundle
 import androidx.activity.viewModels
 import androidx.databinding.DataBindingUtil
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.commit
 import androidx.lifecycle.observe
 import com.lyh.abroad.R
@@ -25,7 +26,8 @@ class BottomNavActivity : BaseActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        DataBindingUtil.setContentView<ActivityBottomNavBinding>(this, R.layout.activity_bottom_nav).apply {
+        DataBindingUtil.setContentView<ActivityBottomNavBinding>(this, R.layout.activity_bottom_nav)
+            .apply {
                 lifecycleOwner = this@BottomNavActivity
                 userViewModel = this@BottomNavActivity.userViewModel
                 bottomNavViewModel = this@BottomNavActivity.bottomNavViewModel
@@ -45,22 +47,36 @@ class BottomNavActivity : BaseActivity() {
             }
         }
 
-        bottomNavViewModel.currentNav.observe(this) {
-            val fragment = when (it) {
+        bottomNavViewModel.currentNav.observe(this) { navItem ->
+            val fragment = when (navItem) {
                 FEED -> FeedContainerFragment()
                 CHATTING -> null
-                POST -> PostContainerFragment()
                 ALARM -> null
                 MY_PAGE -> null
+                POST -> {
+                    PostContainerFragment().also { showPostPage(it) }
+                    return@observe
+                }
                 else -> SignInContainerFragment()
             }
             supportFragmentManager.commit {
                 replace(
                     R.id.fragment_container,
                     fragment ?: return@observe,
-                    fragment.javaClass.name
+                    fragment::class.java.name
                 )
             }
+        }
+    }
+
+    private fun showPostPage(fragment: Fragment) {
+        supportFragmentManager.commit {
+            replace(
+                R.id.post_fragment_container,
+                fragment,
+                fragment::javaClass.name
+            )
+            addToBackStack(fragment::class.java.name)
         }
     }
 }

@@ -13,13 +13,14 @@ import kotlin.coroutines.resume
 object FeedRemoteSource : FeedSource {
 
     /* private */ const val TABLE_BOARD = "bulletinBoard"
+    private const val ALL_POSTS = "allPosts"
 
     private val db = FirebaseDb.getDatabase(TABLE_BOARD)
 
     override suspend fun fetchFeedList(countryCode: String): List<FeedDataModel> =
         suspendCancellableCoroutine { continuation ->
             db.child(countryCode)
-                .child("allPosts")
+                .child(ALL_POSTS)
                 .orderByChild("createDate")
                 .addListenerForSingleValueEvent(object : ValueEventListener {
                     override fun onCancelled(p0: DatabaseError) {
@@ -34,11 +35,51 @@ object FeedRemoteSource : FeedSource {
                 })
         }
 
-    override suspend fun setFeed(countryId: String, cityId: String, postDataModel: PostDataModel): ResultModel<Unit> {
-        return suspendCancellableCoroutine {continuation ->
+    override suspend fun setFeed(
+        countryId: String,
+        cityId: String,
+        postDataModel: PostDataModel
+    ): ResultModel<Unit> {
+        val key = db.child(countryId)
+            .child(ALL_POSTS)
+            .push()
+            .key
+        return if (key == null) {
+            ResultModel.onFailed()
+        } else {
+            val value = postDataModel.copy(postId = key)
+            setAllPosts(key, countryId, value)
+            setCountryPosts(key, countryId, cityId, value)
+        }
+    }
+
+    private suspend fun setAllPosts(
+        key: String,
+        countryId: String,
+        postDataModel: PostDataModel
+    ): ResultModel<Unit> = suspendCancellableCoroutine { continuation ->
+        db.child(countryId)
+            .child(ALL_POSTS)
+            .child(key)
+            .setValue(postDataModel)
+            .addOnSuccessListener {
+                continuation.resume(ResultModel.onSuccess(Unit))
+            }
+            .addOnFailureListener {
+                continuation.resume(ResultModel.onFailed())
+            }
+    }
+
+    private suspend fun setCountryPosts(
+        key: String,
+        countryId: String,
+        cityId: String,
+        postDataModel: PostDataModel
+    ): ResultModel<Unit> =
+        suspendCancellableCoroutine { continuation ->
             db.child(countryId)
                 .child(cityId)
-                .push()
+                .child(key)
                 .setValue(postDataModel)
                 .addOnSuccessListener {
                     continuation.resume(ResultModel.onSuccess(Unit))
@@ -47,5 +88,4 @@ object FeedRemoteSource : FeedSource {
                     continuation.resume(ResultModel.onFailed())
                 }
         }
-    }
 }

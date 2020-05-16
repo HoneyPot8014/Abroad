@@ -8,9 +8,9 @@ data class FeedDataModel(
     /** 게시글 등록 서버 시간*/
     val createDate: Long? = null,
     /** 여행 마지막 날*/
-    val endDate: Long? = null,
+    val endDate: String? = null,
     /** 여행 시작 날*/
-    val startDate: Long? = null,
+    val startDate: String? = null,
     /** 게시글 제목*/
     val title: String? = null,
     /** 작성자 uid*/

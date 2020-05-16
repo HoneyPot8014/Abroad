@@ -7,6 +7,8 @@ object PostDataMapper {
 
     fun toModel(postEntity: PostEntity): PostDataModel =
         PostDataModel(
+            postEntity.countryId,
+            postEntity.cityId,
             postEntity.contents,
             postEntity.endDate,
             postEntity.startDate,

@@ -4,6 +4,7 @@ package com.lyh.abroad.presenter.calendar
 import android.os.Bundle
 import android.view.View
 import androidx.activity.addCallback
+import androidx.fragment.app.FragmentManager.POP_BACK_STACK_INCLUSIVE
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.observe
@@ -16,6 +17,7 @@ import com.lyh.abroad.presenter.base.ViewModelFactory
 import com.lyh.abroad.presenter.bottomnav.BottomNavViewModel
 import com.lyh.abroad.presenter.custom.BottomNavigation
 import com.lyh.abroad.presenter.place.PlaceViewModel
+import com.lyh.abroad.presenter.post.PostContainerFragment
 import com.lyh.abroad.presenter.post.PostViewModel
 import kotlinx.android.synthetic.main.fragment_calendar_pager.*
 
@@ -63,7 +65,9 @@ class CalendarPagerFragment : BaseFragment(R.layout.fragment_calendar_pager) {
                 null -> return@observe
                 Success -> {
                     hidePg()
-                    parentFragmentManager.popBackStack()
+                    activity?.supportFragmentManager?.popBackStack(
+                        PostContainerFragment::class.java.name, POP_BACK_STACK_INCLUSIVE
+                    )
                     bottomNavViewModel.currentNav.value = BottomNavigation.BottomNavItem.FEED
                 }
                 Loading -> showPg()
