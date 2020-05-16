@@ -14,7 +14,6 @@ object PostDataMapper {
             postEntity.startDate,
             postEntity.title,
             postEntity.uid,
-            postEntity.userName,
-            postEntity.chattingRoomId
+            postEntity.userName
         )
 }

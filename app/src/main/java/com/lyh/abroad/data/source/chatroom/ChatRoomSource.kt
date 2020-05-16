@@ -7,7 +7,7 @@ interface ChatRoomSource {
 
     suspend fun getChatRoomList(uid: String): ResultModel<List<ChatRoomEntity>>
 
-    suspend fun setChatRoom(uid: String): ResultModel<String>
+    suspend fun setChatRoom(chatRoomEntity: ChatRoomEntity): ResultModel<Unit>
 
     suspend fun addChatRoomUser(uid: String, chattingRoomId: String): ResultModel<Unit>
 

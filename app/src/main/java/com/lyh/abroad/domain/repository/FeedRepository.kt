@@ -8,6 +8,6 @@ interface FeedRepository {
 
     suspend fun fetchFeedList(countryCode: String): ResultModel<List<FeedEntity>>
 
-    suspend fun setFeed(postEntity: PostEntity): ResultModel<Unit>
+    suspend fun setFeed(postEntity: PostEntity): ResultModel<String>
 
 }

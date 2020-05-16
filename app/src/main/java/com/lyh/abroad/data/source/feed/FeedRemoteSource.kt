@@ -39,7 +39,7 @@ object FeedRemoteSource : FeedSource {
         countryId: String,
         cityId: String,
         postDataModel: PostDataModel
-    ): ResultModel<Unit> {
+    ): ResultModel<String> {
         val key = db.child(countryId)
             .child(ALL_POSTS)
             .push()
@@ -48,8 +48,13 @@ object FeedRemoteSource : FeedSource {
             ResultModel.onFailed()
         } else {
             val value = postDataModel.copy(postId = key)
-            setAllPosts(key, countryId, value)
-            setCountryPosts(key, countryId, cityId, value)
+            val allPostResult = setAllPosts(key, countryId, value)
+            val countryPostResult = setCountryPosts(key, countryId, cityId, value)
+            if (allPostResult.isSuccess && countryPostResult.isSuccess) {
+                ResultModel.onSuccess(key)
+            } else {
+                ResultModel.onFailed()
+            }
         }
     }
 

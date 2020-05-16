@@ -1,5 +1,6 @@
 package com.lyh.abroad.domain.interactor.feed
 
+import com.lyh.abroad.domain.entity.ChatRoomEntity
 import com.lyh.abroad.domain.entity.PostEntity
 import com.lyh.abroad.domain.interactor.BaseUsecase
 import com.lyh.abroad.domain.model.ResultModel
@@ -31,11 +32,9 @@ class SetFeedUsecase(
             withContext(Dispatchers.Main) {
                 val uid = authRepository.fetchId().data
                     ?: return@withContext ResultModel.onFailed<Unit>()
-                val user = userRepository.fetchUser(uid).data
+                val userEntity = userRepository.fetchUser(uid).data
                     ?: return@withContext ResultModel.onFailed<Unit>()
-                val chattingRoomId = chatRoomRepository.setChatRoom(user.uid).data
-                    ?: return@withContext ResultModel.onFailed<Unit>()
-                feedRepository.setFeed(
+                val setFeedResult = feedRepository.setFeed(
                     PostEntity(
                         param.countryId,
                         param.cityId,
@@ -44,10 +43,23 @@ class SetFeedUsecase(
                         param.startDate,
                         param.title,
                         uid,
-                        user.userName,
-                        chattingRoomId
+                        userEntity.userName
                     )
                 )
+                return@withContext if (setFeedResult.isSuccess) {
+                    val chatRoomEntity = ChatRoomEntity(
+                        memberInfo = mapOf(uid to true),
+                        masterProfileImageUrl = userEntity.userImageUrl,
+                        title = param.title,
+                        pushToken = userEntity.pushToken,
+                        userName = userEntity.userName,
+                        uid = uid,
+                        postId = setFeedResult.data ?: ""
+                    )
+                    chatRoomRepository.setChatRoom(chatRoomEntity)
+                } else {
+                    ResultModel.onFailed(setFeedResult.error)
+                }
             }
         } ?: ResultModel.onFailed()
     }

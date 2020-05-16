@@ -23,6 +23,9 @@ open class ResultModel<T> private constructor(
             )
     }
 
+    val isSuccess
+        get() = status == Status.SUCCESS
+
     enum class Status {
         SUCCESS, FAILED
     }
